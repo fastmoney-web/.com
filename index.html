@@ -1008,12 +1008,12 @@
         // Sistema de gerenciamento de estado da aplicação
         const AppState = {
             currentUser: null,
-            users: JSON.parse(localStorage.getItem('investPlusUsers')) || [],
-            investments: JSON.parse(localStorage.getItem('investPlusInvestments')) || [],
-            transactions: JSON.parse(localStorage.getItem('investPlusTransactions')) || [],
-            tasks: JSON.parse(localStorage.getItem('investPlusTasks')) || [],
-            depositQueue: JSON.parse(localStorage.getItem('investPlusDepositQueue')) || [],
-            withdrawalQueue: JSON.parse(localStorage.getItem('investPlusWithdrawalQueue')) || [],
+            users: JSON.parse(localStorage.getItem('fastMoneyUsers')) || [],
+            investments: JSON.parse(localStorage.getItem('fastMoneyInvestments')) || [],
+            transactions: JSON.parse(localStorage.getItem('fastMoneyTransactions')) || [],
+            tasks: JSON.parse(localStorage.getItem('fastMoneyTasks')) || [],
+            depositQueue: JSON.parse(localStorage.getItem('fastMoneyDepositQueue')) || [],
+            withdrawalQueue: JSON.parse(localStorage.getItem('fastMoneyWithdrawalQueue')) || [],
             
             init() {
                 this.checkAuth();
@@ -1022,7 +1022,7 @@
             },
             
             checkAuth() {
-                const loggedInUser = JSON.parse(localStorage.getItem('investPlusCurrentUser'));
+                const loggedInUser = JSON.parse(localStorage.getItem('fastMoneyCurrentUser'));
                 if (loggedInUser) {
                     this.currentUser = loggedInUser;
                     this.loadUserData();
@@ -1175,7 +1175,7 @@
                 
                 if (user) {
                     this.currentUser = user;
-                    localStorage.setItem('investPlusCurrentUser', JSON.stringify(user));
+                    localStorage.setItem('fastMoneyCurrentUser', JSON.stringify(user));
                     this.loadUserData();
                     this.showApp();
                     this.showAlert('Login realizado com sucesso!', 'success');
@@ -1216,7 +1216,7 @@
                 };
                 
                 this.users.push(newUser);
-                localStorage.setItem('investPlusUsers', JSON.stringify(this.users));
+                localStorage.setItem('fastMoneyUsers', JSON.stringify(this.users));
                 
                 this.showAlert('Conta criada com sucesso! Faça login para continuar.', 'success');
                 this.switchAuthTab('login');
@@ -1227,7 +1227,7 @@
             
             logout() {
                 this.currentUser = null;
-                localStorage.removeItem('investPlusCurrentUser');
+                localStorage.removeItem('fastMoneyCurrentUser');
                 this.showAuth();
                 document.getElementById('loginFormElement').reset();
             },
@@ -1541,7 +1541,7 @@
                 
                 // Adicionar ao array de investimentos
                 this.investments.push(investment);
-                localStorage.setItem('investPlusInvestments', JSON.stringify(this.investments));
+                localStorage.setItem('fastMoneyInvestments', JSON.stringify(this.investments));
                 
                 // Criar tarefas para o investimento
                 const numTasks = Math.floor(config.duration / config.taskInterval);
@@ -1566,7 +1566,7 @@
                     this.tasks.push(task);
                 }
                 
-                localStorage.setItem('investPlusTasks', JSON.stringify(this.tasks));
+                localStorage.setItem('fastMoneyTasks', JSON.stringify(this.tasks));
                 
                 // Deduzir valor do saldo principal
                 this.currentUser.mainBalance -= amount;
@@ -1583,7 +1583,7 @@
                 };
                 
                 this.transactions.push(transaction);
-                localStorage.setItem('investPlusTransactions', JSON.stringify(this.transactions));
+                localStorage.setItem('fastMoneyTransactions', JSON.stringify(this.transactions));
                 
                 // Atualizar usuário
                 if (!this.currentUser.investments) this.currentUser.investments = [];
@@ -1660,8 +1660,8 @@
                         return userTask || t;
                     });
                     
-                    localStorage.setItem('investPlusInvestments', JSON.stringify(this.investments));
-                    localStorage.setItem('investPlusTasks', JSON.stringify(this.tasks));
+                    localStorage.setItem('fastMoneyInvestments', JSON.stringify(this.investments));
+                    localStorage.setItem('fastMoneyTasks', JSON.stringify(this.tasks));
                     this.updateCurrentUser();
                     
                     // Atualizar botões de tarefa se estiver na seção de tarefas
@@ -1707,13 +1707,13 @@
                         };
                         
                         this.transactions.push(transaction);
-                        localStorage.setItem('investPlusTransactions', JSON.stringify(this.transactions));
+                        localStorage.setItem('fastMoneyTransactions', JSON.stringify(this.transactions));
                         
                         // Atualizar arrays principais
                         this.investments = this.investments.map(inv => 
                             inv.id === investment.id ? investment : inv
                         );
-                        localStorage.setItem('investPlusInvestments', JSON.stringify(this.investments));
+                        localStorage.setItem('fastMoneyInvestments', JSON.stringify(this.investments));
                         
                         this.updateCurrentUser();
                         this.updateUI();
@@ -1755,11 +1755,11 @@
                 };
                 
                 this.transactions.push(transaction);
-                localStorage.setItem('investPlusTransactions', JSON.stringify(this.transactions));
+                localStorage.setItem('fastMoneyTransactions', JSON.stringify(this.transactions));
                 
                 // Atualizar arrays principais
                 this.tasks = this.tasks.map(t => t.id === taskId ? task : t);
-                localStorage.setItem('investPlusTasks', JSON.stringify(this.tasks));
+                localStorage.setItem('fastMoneyTasks', JSON.stringify(this.tasks));
                 
                 this.updateCurrentUser();
                 this.updateUI();
@@ -1791,7 +1791,7 @@
                 };
                 
                 this.transactions.push(transaction);
-                localStorage.setItem('investPlusTransactions', JSON.stringify(this.transactions));
+                localStorage.setItem('fastMoneyTransactions', JSON.stringify(this.transactions));
                 
                 this.updateCurrentUser();
                 this.updateUI();
@@ -1826,7 +1826,7 @@
                 };
                 
                 this.depositQueue.push(deposit);
-                localStorage.setItem('investPlusDepositQueue', JSON.stringify(this.depositQueue));
+                localStorage.setItem('fastMoneyDepositQueue', JSON.stringify(this.depositQueue));
                 
                 // Registrar transação
                 const transaction = {
@@ -1840,7 +1840,7 @@
                 };
                 
                 this.transactions.push(transaction);
-                localStorage.setItem('investPlusTransactions', JSON.stringify(this.transactions));
+                localStorage.setItem('fastMoneyTransactions', JSON.stringify(this.transactions));
                 
                 // Limpar formulário
                 document.getElementById('depositForm').reset();
@@ -1867,7 +1867,7 @@
                             
                             // Atualizar transação
                             const transaction = this.transactions.find(t => 
-                                t.description?.includes(deposit.transactionId)
+                                t.description && t.description.includes(deposit.transactionId)
                             );
                             if (transaction) {
                                 transaction.status = 'completed';
@@ -1878,14 +1878,20 @@
                                 this.currentUser.mainBalance = user.mainBalance;
                                 this.updateUI();
                             }
+                            
+                            // Atualizar usuário no localStorage
+                            const userIndex = this.users.findIndex(u => u.id === user.id);
+                            if (userIndex !== -1) {
+                                this.users[userIndex] = user;
+                            }
                         }
                     }
                 });
                 
                 if (updated) {
-                    localStorage.setItem('investPlusUsers', JSON.stringify(this.users));
-                    localStorage.setItem('investPlusDepositQueue', JSON.stringify(this.depositQueue));
-                    localStorage.setItem('investPlusTransactions', JSON.stringify(this.transactions));
+                    localStorage.setItem('fastMoneyUsers', JSON.stringify(this.users));
+                    localStorage.setItem('fastMoneyDepositQueue', JSON.stringify(this.depositQueue));
+                    localStorage.setItem('fastMoneyTransactions', JSON.stringify(this.transactions));
                     
                     // Notificar usuário atual se houver depósito processado
                     if (this.currentUser) {
@@ -1896,6 +1902,10 @@
                         if (userDeposit) {
                             this.showAlert(`Depósito de R$ ${userDeposit.amount.toFixed(2)} confirmado e creditado em sua conta!`, 'success');
                             this.updateUI();
+                            
+                            // Remover o depósito processado da fila
+                            this.depositQueue = this.depositQueue.filter(d => d.id !== userDeposit.id);
+                            localStorage.setItem('fastMoneyDepositQueue', JSON.stringify(this.depositQueue));
                         }
                     }
                 }
@@ -1934,7 +1944,7 @@
                 };
                 
                 this.withdrawalQueue.push(withdrawal);
-                localStorage.setItem('investPlusWithdrawalQueue', JSON.stringify(this.withdrawalQueue));
+                localStorage.setItem('fastMoneyWithdrawalQueue', JSON.stringify(this.withdrawalQueue));
                 
                 // Deduzir valor do saldo principal
                 this.currentUser.mainBalance -= amount;
@@ -1951,7 +1961,7 @@
                 };
                 
                 this.transactions.push(transaction);
-                localStorage.setItem('investPlusTransactions', JSON.stringify(this.transactions));
+                localStorage.setItem('fastMoneyTransactions', JSON.stringify(this.transactions));
                 
                 // Limpar formulário
                 document.getElementById('withdrawForm').reset();
@@ -1974,7 +1984,7 @@
                         
                         // Atualizar transação
                         const transaction = this.transactions.find(t => 
-                            t.description?.includes(withdrawal.accountNumber)
+                            t.description && t.description.includes(withdrawal.accountNumber)
                         );
                         if (transaction) {
                             transaction.status = 'completed';
@@ -1988,8 +1998,8 @@
                 });
                 
                 if (updated) {
-                    localStorage.setItem('investPlusWithdrawalQueue', JSON.stringify(this.withdrawalQueue));
-                    localStorage.setItem('investPlusTransactions', JSON.stringify(this.transactions));
+                    localStorage.setItem('fastMoneyWithdrawalQueue', JSON.stringify(this.withdrawalQueue));
+                    localStorage.setItem('fastMoneyTransactions', JSON.stringify(this.transactions));
                 }
             },
             
@@ -1998,11 +2008,11 @@
                 const userIndex = this.users.findIndex(u => u.id === this.currentUser.id);
                 if (userIndex !== -1) {
                     this.users[userIndex] = this.currentUser;
-                    localStorage.setItem('investPlusUsers', JSON.stringify(this.users));
+                    localStorage.setItem('fastMoneyUsers', JSON.stringify(this.users));
                 }
                 
                 // Atualizar usuário atual no localStorage
-                localStorage.setItem('investPlusCurrentUser', JSON.stringify(this.currentUser));
+                localStorage.setItem('fastMoneyCurrentUser', JSON.stringify(this.currentUser));
             },
             
             showAlert(message, type) {
