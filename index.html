@@ -910,7 +910,7 @@
                         <li>Informe o valor que deseja depositar</li>
                         <li>Após o pagamento, você receberá um ID de transação</li>
                         <li>Preencha o formulário acima com os dados do pagamento</li>
-                        <li>Seu saldo será creditado em até 2 minutos</li>
+                        <li>Seu saldo será creditado <strong>IMEDIATAMENTE</strong> após o envio</li>
                     </ol>
                 </div>
             </div>
@@ -969,7 +969,7 @@
                         <h3 class="card-title"><i class="fas fa-question-circle"></i> Perguntas Frequentes</h3>
                         <div style="margin-top: 15px;">
                             <p><strong>Q: Quanto tempo leva para meu depósito ser aprovado?</strong></p>
-                            <p>R: Os depósitos são aprovados em até 2 minutos após o envio dos comprovantes.</p>
+                            <p>R: Os depósitos são aprovados <strong>IMEDIATAMENTE</strong> após o envio dos dados.</p>
                             
                             <p><strong>Q: Posso ter mais de um investimento ativo?</strong></p>
                             <p>R: Sim, você pode ter um investimento ativo de cada plano simultaneamente.</p>
@@ -979,6 +979,9 @@
                             
                             <p><strong>Q: Quanto tempo leva para receber um levantamento?</strong></p>
                             <p>R: Os levantamentos são processados em até 1 hora após a solicitação.</p>
+                            
+                            <p><strong>Q: Qual a duração dos investimentos?</strong></p>
+                            <p>R: O Plano Básico dura 5 horas. Os outros planos têm durações maiores conforme o valor investido.</p>
                         </div>
                    </div>
                 </div>
@@ -1133,16 +1136,6 @@
             },
             
             startBackgroundProcesses() {
-                // Verificar depósitos pendentes a cada 10 segundos
-                setInterval(() => {
-                    this.processDepositQueue();
-                }, 10000);
-                
-                // Verificar levantamentos pendentes a cada 10 segundos
-                setInterval(() => {
-                    this.processWithdrawalQueue();
-                }, 10000);
-                
                 // Atualizar progresso das tarefas a cada segundo
                 setInterval(() => {
                     this.updateTaskProgress();
@@ -1152,6 +1145,11 @@
                 setInterval(() => {
                     this.checkCompletedInvestments();
                 }, 30000);
+                
+                // Verificar levantamentos pendentes a cada 10 segundos
+                setInterval(() => {
+                    this.processWithdrawalQueue();
+                }, 10000);
             },
             
             switchAuthTab(tab) {
@@ -1279,8 +1277,8 @@
                         totalReturn: 20,
                         taskReward: 1,
                         taskInterval: 1,
-                        duration: 10,
-                        description: 'Ideal para iniciantes'
+                        duration: 5, // 5 HORAS
+                        description: 'Ideal para iniciantes - Duração: 5 horas'
                     },
                     {
                         id: 2,
@@ -1518,7 +1516,7 @@
                 
                 // Definir configurações do plano
                 const planConfigs = {
-                    '1': { duration: 10, taskReward: 1, taskInterval: 1, name: 'Plano Básico' },
+                    '1': { duration: 5, taskReward: 1, taskInterval: 1, name: 'Plano Básico' }, // 5 HORAS
                     '2': { duration: 42, taskReward: 5, taskInterval: 6, name: 'Plano Prata' },
                     '3': { duration: 96, taskReward: 25, taskInterval: 12, name: 'Plano Ouro' },
                     '4': { duration: 192, taskReward: 50, taskInterval: 16, name: 'Plano Diamante' }
@@ -1813,7 +1811,24 @@
                     return;
                 }
                 
-                // Adicionar à fila de depósitos
+                // DEPÓSITO IMEDIATO - Adiciona o valor instantaneamente
+                this.currentUser.mainBalance += amount;
+                
+                // Registrar transação IMEDIATAMENTE
+                const transaction = {
+                    id: Date.now().toString(),
+                    userId: this.currentUser.id,
+                    type: 'deposit',
+                    amount: amount,
+                    date: new Date().toISOString(),
+                    status: 'completed',
+                    description: `Depósito via Paga Fácil - Transação: ${transactionId}`
+                };
+                
+                this.transactions.push(transaction);
+                localStorage.setItem('fastMoneyTransactions', JSON.stringify(this.transactions));
+                
+                // Registrar na fila para histórico (sem processamento)
                 const deposit = {
                     id: Date.now().toString(),
                     userId: this.currentUser.id,
@@ -1821,94 +1836,22 @@
                     amount: amount,
                     transactionId: transactionId,
                     timestamp: Date.now(),
-                    status: 'pending',
-                    processed: false
+                    status: 'completed',
+                    processed: true
                 };
                 
                 this.depositQueue.push(deposit);
                 localStorage.setItem('fastMoneyDepositQueue', JSON.stringify(this.depositQueue));
                 
-                // Registrar transação
-                const transaction = {
-                    id: Date.now().toString(),
-                    userId: this.currentUser.id,
-                    type: 'deposit',
-                    amount: amount,
-                    date: new Date().toISOString(),
-                    status: 'processing',
-                    description: `Depósito via Paga Fácil - Transação: ${transactionId}`
-                };
-                
-                this.transactions.push(transaction);
-                localStorage.setItem('fastMoneyTransactions', JSON.stringify(this.transactions));
+                // Atualizar usuário
+                this.updateCurrentUser();
                 
                 // Limpar formulário
                 document.getElementById('depositForm').reset();
                 
+                // Atualizar UI imediatamente
                 this.updateUI();
-                this.showAlert('Solicitação de depósito enviada com sucesso! O valor será creditado em até 2 minutos.', 'success');
-            },
-            
-            processDepositQueue() {
-                const now = Date.now();
-                let updated = false;
-                
-                this.depositQueue.forEach(deposit => {
-                    // Processar depósitos pendentes após 2 minutos (120000 ms)
-                    if (!deposit.processed && (now - deposit.timestamp) >= 120000) {
-                        deposit.processed = true;
-                        deposit.status = 'completed';
-                        updated = true;
-                        
-                        // Creditar valor na conta do usuário
-                        const user = this.users.find(u => u.id === deposit.userId);
-                        if (user) {
-                            user.mainBalance += deposit.amount;
-                            
-                            // Atualizar transação
-                            const transaction = this.transactions.find(t => 
-                                t.description && t.description.includes(deposit.transactionId)
-                            );
-                            if (transaction) {
-                                transaction.status = 'completed';
-                            }
-                            
-                            // Se for o usuário atual, atualizar saldo
-                            if (this.currentUser && this.currentUser.id === user.id) {
-                                this.currentUser.mainBalance = user.mainBalance;
-                                this.updateUI();
-                            }
-                            
-                            // Atualizar usuário no localStorage
-                            const userIndex = this.users.findIndex(u => u.id === user.id);
-                            if (userIndex !== -1) {
-                                this.users[userIndex] = user;
-                            }
-                        }
-                    }
-                });
-                
-                if (updated) {
-                    localStorage.setItem('fastMoneyUsers', JSON.stringify(this.users));
-                    localStorage.setItem('fastMoneyDepositQueue', JSON.stringify(this.depositQueue));
-                    localStorage.setItem('fastMoneyTransactions', JSON.stringify(this.transactions));
-                    
-                    // Notificar usuário atual se houver depósito processado
-                    if (this.currentUser) {
-                        const userDeposit = this.depositQueue.find(d => 
-                            d.userId === this.currentUser.id && d.processed && d.status === 'completed'
-                        );
-                        
-                        if (userDeposit) {
-                            this.showAlert(`Depósito de R$ ${userDeposit.amount.toFixed(2)} confirmado e creditado em sua conta!`, 'success');
-                            this.updateUI();
-                            
-                            // Remover o depósito processado da fila
-                            this.depositQueue = this.depositQueue.filter(d => d.id !== userDeposit.id);
-                            localStorage.setItem('fastMoneyDepositQueue', JSON.stringify(this.depositQueue));
-                        }
-                    }
-                }
+                this.showAlert(`Depósito de R$ ${amount.toFixed(2)} realizado com sucesso! O valor já está disponível na sua conta.`, 'success');
             },
             
             submitWithdrawal() {
