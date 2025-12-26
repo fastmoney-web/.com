@@ -974,14 +974,14 @@
                             <p><strong>Q: Posso ter mais de um investimento ativo?</strong></p>
                             <p>R: Sim, você pode ter um investimento ativo de cada plano simultaneamente.</p>
                             
-                            <p><strong>Q: Como funcionam as tarefas?</strong></p>
-                            <p>R: As tarefas geram rendimentos extras para seus investimentos. Cada plano tem seu próprio valor de tarefas.</p>
+                            <p><strong>Q: Como funcionam os investimentos?</strong></p>
+                            <p>R: Todos os investimentos têm duração de 24 horas e o retorno cai na carteira de tarefas.</p>
                             
                             <p><strong>Q: Quanto tempo leva para receber um levantamento?</strong></p>
                             <p>R: Os levantamentos são processados em até 1 hora após a solicitação.</p>
                             
                             <p><strong>Q: Qual a duração dos investimentos?</strong></p>
-                            <p>R: O Plano Básico dura 5 horas. Os outros planos têm durações maiores conforme o valor investido.</p>
+                            <p>R: Todos os investimentos têm duração de 24 horas com retorno de 100%.</p>
                         </div>
                    </div>
                 </div>
@@ -1136,9 +1136,9 @@
             },
             
             startBackgroundProcesses() {
-                // Atualizar progresso das tarefas a cada segundo
+                // Atualizar progresso dos investimentos a cada segundo
                 setInterval(() => {
-                    this.updateTaskProgress();
+                    this.updateInvestmentProgress();
                 }, 1000);
                 
                 // Verificar investimentos concluídos a cada 30 segundos
@@ -1242,10 +1242,6 @@
                     document.getElementById('availableWithdrawBalance').textContent = this.currentUser.mainBalance.toFixed(2);
                 }
                 
-                if (sectionId === 'tasks') {
-                    this.renderTasks();
-                }
-                
                 if (sectionId === 'invest') {
                     this.renderInvestmentPlans();
                 }
@@ -1267,71 +1263,67 @@
             
             renderInvestmentPlans() {
                 const container = document.getElementById('investmentPlansContainer');
-                const userCompletedInvestments = this.currentUser.completedInvestments || [];
                 
+                // NOVOS INVESTIMENTOS - Todos com 24 horas de duração
                 const plans = [
                     {
                         id: 1,
-                        name: 'Plano Básico',
-                        amount: 10,
-                        totalReturn: 20,
-                        taskReward: 1,
-                        taskInterval: 1,
-                        duration: 5, // 5 HORAS
-                        description: 'Ideal para iniciantes - Duração: 5 horas'
+                        name: 'Investimento Bronze',
+                        amount: 20,
+                        totalReturn: 40,
+                        duration: 24,
+                        description: 'Retorno de 100% em 24 horas'
                     },
                     {
                         id: 2,
-                        name: 'Plano Prata',
-                        amount: 35,
-                        totalReturn: 70,
-                        taskReward: 5,
-                        taskInterval: 6,
-                        duration: 42,
-                        description: 'Mais rentável'
+                        name: 'Investimento Prata',
+                        amount: 60,
+                        totalReturn: 120,
+                        duration: 24,
+                        description: 'Retorno de 100% em 24 horas'
                     },
                     {
                         id: 3,
-                        name: 'Plano Ouro',
-                        amount: 100,
-                        totalReturn: 200,
-                        taskReward: 25,
-                        taskInterval: 12,
-                        duration: 96,
-                        description: 'Alto retorno'
+                        name: 'Investimento Ouro',
+                        amount: 150,
+                        totalReturn: 300,
+                        duration: 24,
+                        description: 'Retorno de 100% em 24 horas'
                     },
                     {
                         id: 4,
-                        name: 'Plano Diamante',
+                        name: 'Investimento Platina',
                         amount: 300,
                         totalReturn: 600,
-                        taskReward: 50,
-                        taskInterval: 16,
-                        duration: 192,
-                        description: 'Investimento premium'
+                        duration: 24,
+                        description: 'Retorno de 100% em 24 horas'
+                    },
+                    {
+                        id: 5,
+                        name: 'Investimento Diamante',
+                        amount: 800,
+                        totalReturn: 1600,
+                        duration: 24,
+                        description: 'Retorno de 100% em 24 horas'
                     }
                 ];
                 
                 let html = '';
                 
                 plans.forEach(plan => {
-                    const isCompleted = userCompletedInvestments.includes(plan.id);
                     const hasActiveInvestment = this.currentUser.investments?.some(inv => inv.plan == plan.id && !inv.completed);
                     
                     html += `
-                    <div class="investment-card ${isCompleted ? 'completed' : ''}">
-                        ${plan.id === 2 ? '<div class="investment-badge">Recomendado</div>' : ''}
+                    <div class="investment-card">
                         <div class="investment-title">${plan.name}</div>
                         <div class="investment-amount">R$ ${plan.amount.toFixed(2)}</div>
                         <ul class="investment-details">
                             <li><i class="fas fa-check-circle"></i> Retorno total: R$ ${plan.totalReturn.toFixed(2)}</li>
-                            <li><i class="fas fa-check-circle"></i> Tarefas: R$ ${plan.taskReward.toFixed(2)} a cada ${plan.taskInterval} hora${plan.taskInterval > 1 ? 's' : ''}</li>
-                            <li><i class="fas fa-check-circle"></i> Prazo: ${plan.duration} horas</li>
+                            <li><i class="fas fa-check-circle"></i> Duração: ${plan.duration} horas</li>
+                            <li><i class="fas fa-check-circle"></i> Retorno cai na carteira de tarefas</li>
                             <li><i class="fas fa-check-circle"></i> Suporte 24/7</li>
                         </ul>
-                        ${isCompleted ? 
-                            `<button class="btn" disabled><i class="fas fa-check"></i> Plano Concluído</button>` :
-                            hasActiveInvestment ?
+                        ${hasActiveInvestment ?
                             `<button class="btn btn-secondary" disabled><i class="fas fa-spinner"></i> Investimento Ativo</button>` :
                             `<button class="btn invest-btn" data-plan="${plan.id}" data-amount="${plan.amount}">Investir Agora</button>`
                         }
@@ -1361,10 +1353,11 @@
                 }
                 
                 const planNames = {
-                    '1': 'Plano Básico',
-                    '2': 'Plano Prata',
-                    '3': 'Plano Ouro',
-                    '4': 'Plano Diamante'
+                    '1': 'Investimento Bronze',
+                    '2': 'Investimento Prata',
+                    '3': 'Investimento Ouro',
+                    '4': 'Investimento Platina',
+                    '5': 'Investimento Diamante'
                 };
                 
                 let html = '<div class="tasks-container">';
@@ -1373,19 +1366,21 @@
                     const timeRemaining = investment.endTime ? Math.max(0, investment.endTime - Date.now()) : 0;
                     const hours = Math.floor(timeRemaining / (1000 * 60 * 60));
                     const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
                     
                     html += `
                     <div class="task-card">
                         <div class="task-header">
-                            <div class="task-title">${planNames[investment.plan] || 'Plano Desconhecido'}</div>
+                            <div class="task-title">${planNames[investment.plan] || 'Investimento Desconhecido'}</div>
                             <div class="task-reward">R$ ${investment.amount.toFixed(2)}</div>
                         </div>
                         <p><strong>Retorno total:</strong> R$ ${(investment.amount * 2).toFixed(2)}</p>
-                        <p><strong>Tempo restante:</strong> ${hours}h ${minutes}m</p>
+                        <p><strong>Tempo restante:</strong> ${hours}h ${minutes}m ${seconds}s</p>
                         <p><strong>Progresso:</strong> ${investment.progress || 0}%</p>
                         <div class="task-progress">
                             <div class="task-progress-bar" style="width: ${investment.progress || 0}%;"></div>
                         </div>
+                        <p><em>O retorno cairá na carteira de tarefas</em></p>
                     </div>
                     `;
                 });
@@ -1441,55 +1436,6 @@
                 container.innerHTML = html;
             },
             
-            renderTasks() {
-                const container = document.getElementById('tasksContainer');
-                const userTasks = this.currentUser.tasks?.filter(task => !task.completed) || [];
-                
-                if (userTasks.length === 0) {
-                    container.innerHTML = '<p>Nenhuma tarefa disponível no momento. Faça um investimento para liberar tarefas.</p>';
-                    return;
-                }
-                
-                let html = '';
-                
-                userTasks.forEach(task => {
-                    const progress = task.progress || 0;
-                    const timeRemaining = task.endTime ? Math.max(0, task.endTime - Date.now()) : 0;
-                    const seconds = Math.floor((timeRemaining / 1000) % 60);
-                    const minutes = Math.floor((timeRemaining / (1000 * 60)) % 60);
-                    const hours = Math.floor((timeRemaining / (1000 * 60 * 60)) % 24);
-                    
-                    html += `
-                    <div class="task-card ${progress >= 100 ? 'completed' : ''}">
-                        <div class="task-header">
-                            <div class="task-title">${task.name}</div>
-                            <div class="task-reward">R$ ${task.reward.toFixed(2)}</div>
-                        </div>
-                        <p>${task.description}</p>
-                        <div class="task-timer" id="timer-${task.id}">
-                            ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}
-                        </div>
-                        <div class="task-progress">
-                            <div class="task-progress-bar" style="width: ${progress}%;"></div>
-                        </div>
-                        <button class="btn btn-secondary complete-task-btn" data-task-id="${task.id}" ${progress < 100 ? 'disabled' : ''}>
-                            ${progress < 100 ? 'Aguardando...' : 'Receber Recompensa'}
-                        </button>
-                    </div>
-                    `;
-                });
-                
-                container.innerHTML = html;
-                
-                // Adicionar listeners aos botões de tarefa
-                document.querySelectorAll('.complete-task-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        const taskId = e.target.getAttribute('data-task-id');
-                        this.completeTask(taskId);
-                    });
-                });
-            },
-            
             invest(plan, amount) {
                 if (!this.currentUser) {
                     this.showAlert('Faça login para investir.', 'error');
@@ -1508,18 +1454,13 @@
                     return;
                 }
                 
-                // Verificar se já completou este plano anteriormente
-                if (this.currentUser.completedInvestments?.includes(parseInt(plan))) {
-                    this.showAlert('Você já completou este plano anteriormente.', 'error');
-                    return;
-                }
-                
                 // Definir configurações do plano
                 const planConfigs = {
-                    '1': { duration: 5, taskReward: 1, taskInterval: 1, name: 'Plano Básico' }, // 5 HORAS
-                    '2': { duration: 42, taskReward: 5, taskInterval: 6, name: 'Plano Prata' },
-                    '3': { duration: 96, taskReward: 25, taskInterval: 12, name: 'Plano Ouro' },
-                    '4': { duration: 192, taskReward: 50, taskInterval: 16, name: 'Plano Diamante' }
+                    '1': { duration: 24, name: 'Investimento Bronze' },
+                    '2': { duration: 24, name: 'Investimento Prata' },
+                    '3': { duration: 24, name: 'Investimento Ouro' },
+                    '4': { duration: 24, name: 'Investimento Platina' },
+                    '5': { duration: 24, name: 'Investimento Diamante' }
                 };
                 
                 const config = planConfigs[plan];
@@ -1540,31 +1481,6 @@
                 // Adicionar ao array de investimentos
                 this.investments.push(investment);
                 localStorage.setItem('fastMoneyInvestments', JSON.stringify(this.investments));
-                
-                // Criar tarefas para o investimento
-                const numTasks = Math.floor(config.duration / config.taskInterval);
-                for (let i = 0; i < numTasks; i++) {
-                    const taskStartTime = Date.now() + (i * config.taskInterval * 60 * 60 * 1000);
-                    const taskEndTime = taskStartTime + (config.taskInterval * 60 * 60 * 1000);
-                    
-                    const task = {
-                        id: Date.now().toString() + i,
-                        userId: this.currentUser.id,
-                        investmentId: investment.id,
-                        name: `Tarefa ${i+1} - ${config.name}`,
-                        description: `Complete para receber R$ ${config.taskReward.toFixed(2)}`,
-                        reward: config.taskReward,
-                        startTime: taskStartTime,
-                        endTime: taskEndTime,
-                        progress: 0,
-                        completed: false,
-                        createdAt: new Date().toISOString()
-                    };
-                    
-                    this.tasks.push(task);
-                }
-                
-                localStorage.setItem('fastMoneyTasks', JSON.stringify(this.tasks));
                 
                 // Deduzir valor do saldo principal
                 this.currentUser.mainBalance -= amount;
@@ -1591,47 +1507,15 @@
                 // Atualizar UI
                 this.updateUI();
                 this.renderInvestmentPlans();
-                this.showAlert(`Investimento de R$ ${amount.toFixed(2)} no ${config.name} realizado com sucesso!`, 'success');
-                
-                // Mostrar seção de tarefas
-                this.showSection('tasks');
+                this.showAlert(`Investimento de R$ ${amount.toFixed(2)} no ${config.name} realizado com sucesso! O retorno cairá na carteira de tarefas após 24 horas.`, 'success');
             },
             
-            updateTaskProgress() {
-                if (!this.currentUser || !this.currentUser.tasks) return;
+            updateInvestmentProgress() {
+                if (!this.currentUser || !this.currentUser.investments) return;
                 
                 let needsUpdate = false;
                 
-                this.currentUser.tasks.forEach(task => {
-                    if (task.completed) return;
-                    
-                    const now = Date.now();
-                    
-                    if (now >= task.endTime) {
-                        task.progress = 100;
-                        needsUpdate = true;
-                    } else if (now >= task.startTime) {
-                        const elapsed = now - task.startTime;
-                        const total = task.endTime - task.startTime;
-                        task.progress = Math.min(99, Math.floor((elapsed / total) * 100));
-                        needsUpdate = true;
-                    }
-                    
-                    // Atualizar temporizador na UI se estiver visível
-                    const timerElement = document.getElementById(`timer-${task.id}`);
-                    if (timerElement) {
-                        const timeRemaining = Math.max(0, task.endTime - now);
-                        const seconds = Math.floor((timeRemaining / 1000) % 60);
-                        const minutes = Math.floor((timeRemaining / (1000 * 60)) % 60);
-                        const hours = Math.floor((timeRemaining / (1000 * 60 * 60)) % 24);
-                        
-                        timerElement.textContent = 
-                            `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                    }
-                });
-                
-                // Atualizar progresso dos investimentos
-                this.currentUser.investments?.forEach(investment => {
+                this.currentUser.investments.forEach(investment => {
                     if (investment.completed) return;
                     
                     const now = Date.now();
@@ -1653,26 +1537,8 @@
                         return userInv || inv;
                     });
                     
-                    this.tasks = this.tasks.map(t => {
-                        const userTask = this.currentUser.tasks?.find(task => task.id === t.id);
-                        return userTask || t;
-                    });
-                    
                     localStorage.setItem('fastMoneyInvestments', JSON.stringify(this.investments));
-                    localStorage.setItem('fastMoneyTasks', JSON.stringify(this.tasks));
                     this.updateCurrentUser();
-                    
-                    // Atualizar botões de tarefa se estiver na seção de tarefas
-                    document.querySelectorAll('.complete-task-btn').forEach(btn => {
-                        const taskId = btn.getAttribute('data-task-id');
-                        const task = this.currentUser.tasks?.find(t => t.id === taskId);
-                        
-                        if (task && task.progress >= 100) {
-                            btn.disabled = false;
-                            btn.textContent = 'Receber Recompensa';
-                            btn.closest('.task-card')?.classList.add('completed');
-                        }
-                    });
                 }
             },
             
@@ -1685,13 +1551,8 @@
                     if (investment.progress >= 100) {
                         investment.completed = true;
                         
-                        // Adicionar plano aos completados
-                        if (!this.currentUser.completedInvestments.includes(parseInt(investment.plan))) {
-                            this.currentUser.completedInvestments.push(parseInt(investment.plan));
-                        }
-                        
-                        // Pagar retorno total
-                        this.currentUser.mainBalance += investment.amount * 2;
+                        // Pagar retorno total na carteira de tarefas (conforme solicitado)
+                        this.currentUser.taskBalance += investment.amount * 2;
                         
                         // Registrar transação
                         const transaction = {
@@ -1701,7 +1562,7 @@
                             amount: investment.amount * 2,
                             date: new Date().toISOString(),
                             status: 'completed',
-                            description: `Retorno do investimento (Plano ${investment.plan})`
+                            description: `Retorno do investimento (Plano ${investment.plan}) - Creditado na carteira de tarefas`
                         };
                         
                         this.transactions.push(transaction);
@@ -1717,52 +1578,9 @@
                         this.updateUI();
                         this.renderInvestmentPlans();
                         
-                        this.showAlert(`Investimento concluído! R$ ${(investment.amount * 2).toFixed(2)} creditados na sua conta.`, 'success');
+                        this.showAlert(`Investimento concluído! R$ ${(investment.amount * 2).toFixed(2)} creditados na sua carteira de tarefas.`, 'success');
                     }
                 });
-            },
-            
-            completeTask(taskId) {
-                const task = this.currentUser.tasks?.find(t => t.id === taskId);
-                
-                if (!task || task.completed) {
-                    this.showAlert('Tarefa não encontrada ou já concluída.', 'error');
-                    return;
-                }
-                
-                if (task.progress < 100) {
-                    this.showAlert('A tarefa ainda não está pronta para conclusão.', 'error');
-                    return;
-                }
-                
-                // Marcar tarefa como concluída
-                task.completed = true;
-                
-                // Adicionar recompensa à carteira de tarefas
-                this.currentUser.taskBalance += task.reward;
-                
-                // Registrar transação
-                const transaction = {
-                    id: Date.now().toString(),
-                    userId: this.currentUser.id,
-                    type: 'task',
-                    amount: task.reward,
-                    date: new Date().toISOString(),
-                    status: 'completed',
-                    description: `Recompensa da tarefa: ${task.name}`
-                };
-                
-                this.transactions.push(transaction);
-                localStorage.setItem('fastMoneyTransactions', JSON.stringify(this.transactions));
-                
-                // Atualizar arrays principais
-                this.tasks = this.tasks.map(t => t.id === taskId ? task : t);
-                localStorage.setItem('fastMoneyTasks', JSON.stringify(this.tasks));
-                
-                this.updateCurrentUser();
-                this.updateUI();
-                this.renderTasks();
-                this.showAlert(`Recompensa de R$ ${task.reward.toFixed(2)} recebida com sucesso!`, 'success');
             },
             
             transferToMain() {
