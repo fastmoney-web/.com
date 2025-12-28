@@ -1,29 +1,11 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FastMoney | Plataforma de Investimentos</title>
+    <title>FastMoney - Plataforma de Investimentos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #2ecc71;
-            --primary-dark: #27ae60;
-            --secondary: #3498db;
-            --secondary-dark: #2980b9;
-            --accent: #9b59b6;
-            --danger: #e74c3c;
-            --warning: #f39c12;
-            --dark: #2c3e50;
-            --light: #ecf0f1;
-            --gray: #95a5a6;
-            --dark-gray: #7f8c8d;
-            --light-bg: #f9f9f9;
-            --border-radius: 8px;
-            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -32,167 +14,63 @@
         }
 
         body {
-            background-color: #f5f7fa;
-            color: #333;
-            line-height: 1.6;
+            background: linear-gradient(135deg, #1a2a6c, #2a3c7f);
+            color: #fff;
             min-height: 100vh;
+            position: relative;
         }
 
         .container {
-            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 15px;
+            padding: 20px;
         }
 
-        /* Header e Navegação */
-        header {
-            background-color: var(--dark);
-            color: white;
-            padding: 15px 0;
-            box-shadow: var(--box-shadow);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .logo i {
-            color: var(--primary);
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 25px;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-            padding: 5px 10px;
-            border-radius: 4px;
-        }
-
-        nav ul li a:hover, nav ul li a.active {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .user-info span {
-            font-weight: 500;
-        }
-
-        .logout-btn {
-            background-color: var(--danger);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .logout-btn:hover {
-            background-color: #c0392b;
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* Seções da Aplicação */
-        .section {
-            display: none;
-            padding: 30px 0;
-            animation: fadeIn 0.5s ease;
-            min-height: calc(100vh - 180px);
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Cards e Painéis */
-        .card {
-            background-color: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            padding: 25px;
-            margin-bottom: 25px;
-        }
-
-        .card-title {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            color: var(--dark);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .card-title i {
-            color: var(--primary);
-        }
-
-        /* Página de Login/Registro */
+        /* Login/Registro */
         .auth-container {
-            max-width: 400px;
-            margin: 50px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .auth-box {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .auth-box h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+            color: #4fc3f7;
         }
 
         .auth-tabs {
             display: flex;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .auth-tab {
             flex: 1;
+            padding: 12px;
             text-align: center;
-            padding: 15px;
-            background-color: var(--light);
-            border: none;
-            font-size: 1rem;
-            font-weight: 600;
             cursor: pointer;
-            transition: var(--transition);
+            font-weight: 600;
+            transition: all 0.3s;
             border-bottom: 3px solid transparent;
         }
 
         .auth-tab.active {
-            background-color: white;
-            border-bottom: 3px solid var(--primary);
+            border-bottom: 3px solid #4fc3f7;
+            color: #4fc3f7;
         }
 
         .auth-form {
@@ -213,1592 +91,2193 @@
             font-weight: 500;
         }
 
-        .form-control {
+        .form-group input, .form-group select {
             width: 100%;
             padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: var(--border-radius);
-            font-size: 1rem;
-            transition: var(--transition);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 16px;
+            transition: border 0.3s;
         }
 
-        .form-control:focus {
+        .form-group input:focus, .form-group select:focus {
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
+            border-color: #4fc3f7;
+        }
+
+        .form-group input::placeholder, .form-group select::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-group select option {
+            background-color: #1a2a6c;
+            color: #fff;
         }
 
         .btn {
-            display: inline-block;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: var(--transition);
             width: 100%;
-            text-align: center;
+            padding: 14px;
+            background-color: #4fc3f7;
+            color: #0d1b2a;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .btn:hover {
-            background-color: var(--primary-dark);
+            background-color: #29b6f6;
         }
 
-        .btn-secondary {
-            background-color: var(--secondary);
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--secondary-dark);
-        }
-
-        .btn-warning {
-            background-color: var(--warning);
-        }
-
-        .btn-warning:hover {
-            background-color: #e67e22;
-        }
-
-        .btn-danger {
-            background-color: var(--danger);
-        }
-
-        .btn-danger:hover {
-            background-color: #c0392b;
+        .btn i {
+            margin-right: 8px;
         }
 
         /* Dashboard */
-        .welcome-banner {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 30px;
-            border-radius: var(--border-radius);
+        .dashboard {
+            display: none;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             margin-bottom: 30px;
         }
 
-        .balance-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #4fc3f7;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-info span {
+            font-weight: 500;
+        }
+
+        .logout-btn {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .logout-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
         }
 
         .balance-card {
-            background-color: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
+            background: linear-gradient(135deg, #2196f3, #1976d2);
+            border-radius: 15px;
             padding: 25px;
-            position: relative;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
-        .balance-card h3 {
-            font-size: 1.1rem;
-            color: var(--dark-gray);
+        .balance-card h2 {
+            font-size: 18px;
             margin-bottom: 10px;
+            opacity: 0.9;
         }
 
         .balance-amount {
-            font-size: 2.2rem;
+            font-size: 36px;
             font-weight: 700;
-            color: var(--dark);
             margin-bottom: 15px;
         }
 
-        .balance-card.primary {
-            border-top: 5px solid var(--primary);
-        }
-
-        .balance-card.task {
-            border-top: 5px solid var(--accent);
-        }
-
-        .transfer-btn {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition);
+        .balance-actions {
             display: flex;
-            align-items: center;
-            gap: 8px;
+            gap: 15px;
         }
 
-        .transfer-btn:hover {
-            background-color: var(--primary-dark);
-        }
-
-        .transfer-btn:disabled {
-            background-color: var(--gray);
-            cursor: not-allowed;
-        }
-
-        /* Investimentos */
-        .investment-plans {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .investment-card {
-            background-color: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            padding: 25px;
-            border: 2px solid #eee;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .investment-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .investment-card.recommended {
-            border-color: var(--primary);
-        }
-
-        .investment-card.completed {
-            border-color: var(--primary);
-            background-color: rgba(46, 204, 113, 0.05);
-        }
-
-        .investment-badge {
-            position: absolute;
-            top: 15px;
-            right: -30px;
-            background-color: var(--primary);
-            color: white;
-            padding: 5px 30px;
-            font-size: 0.8rem;
+        .balance-actions button {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
             font-weight: 600;
-            transform: rotate(45deg);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .investment-title {
-            font-size: 1.5rem;
-            color: var(--dark);
-            margin-bottom: 10px;
+        .deposit-btn {
+            background-color: #4caf50;
+            color: white;
         }
 
-        .investment-amount {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 15px;
+        .withdraw-btn {
+            background-color: #ff9800;
+            color: white;
         }
 
-        .investment-details {
+        .deposit-btn:hover {
+            background-color: #388e3c;
+        }
+
+        .withdraw-btn:hover {
+            background-color: #f57c00;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .investments-section, .tasks-section, .history-section, .active-investments-section {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+        }
+
+        .section-title {
+            font-size: 22px;
             margin-bottom: 20px;
-        }
-
-        .investment-details li {
-            margin-bottom: 8px;
+            color: #4fc3f7;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .investment-details li i {
-            color: var(--primary);
-            width: 20px;
-        }
-
-        /* Tarefas */
-        .tasks-container {
+        .investments-grid, .active-investments-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
         }
 
-        .task-card {
-            background-color: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
+        .investment-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
             padding: 20px;
-            border-left: 5px solid var(--warning);
+            transition: transform 0.3s, background-color 0.3s;
         }
 
-        .task-card.completed {
-            border-left-color: var(--primary);
-            background-color: rgba(46, 204, 113, 0.05);
+        .investment-card:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
-        .task-header {
+        .investment-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #4fc3f7;
+        }
+
+        .investment-details {
+            margin-bottom: 15px;
+        }
+
+        .investment-details div {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
         }
 
-        .task-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .task-reward {
-            background-color: var(--primary);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .task-timer {
-            font-size: 1.8rem;
-            font-weight: 700;
-            text-align: center;
+        .investment-progress {
             margin: 15px 0;
-            color: var(--dark);
         }
 
-        .task-progress {
-            height: 10px;
-            background-color: #eee;
-            border-radius: 5px;
+        .progress-bar {
+            height: 8px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
             overflow: hidden;
-            margin-bottom: 15px;
+            margin-bottom: 5px;
         }
 
-        .task-progress-bar {
+        .progress-fill {
             height: 100%;
-            background-color: var(--primary);
-            width: 0%;
+            background: linear-gradient(90deg, #4fc3f7, #29b6f6);
+            border-radius: 4px;
             transition: width 0.5s ease;
         }
 
-        /* Depósito e Levantamento */
-        .payment-methods {
+        .progress-info {
             display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            font-size: 14px;
+            opacity: 0.8;
         }
 
-        .payment-method {
-            flex: 1;
-            min-width: 150px;
-            background-color: white;
-            border: 2px solid #eee;
-            border-radius: var(--border-radius);
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .payment-method:hover, .payment-method.active {
-            border-color: var(--primary);
-        }
-
-        .payment-method i {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 10px;
-        }
-
-        .deposit-instructions {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: var(--border-radius);
-            margin-top: 20px;
-            border-left: 4px solid var(--primary);
-        }
-
-        .deposit-instructions ol {
-            margin-left: 20px;
-            margin-top: 10px;
-        }
-
-        .deposit-instructions li {
-            margin-bottom: 10px;
-        }
-
-        /* Atendimento */
-        .support-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 40px 20px;
-        }
-
-        .support-icon {
-            font-size: 4rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-
-        .whatsapp-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background-color: #25D366;
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            text-decoration: none;
-            margin-top: 20px;
-            transition: var(--transition);
-        }
-
-        .whatsapp-btn:hover {
-            background-color: #128C7E;
-            transform: scale(1.05);
-        }
-
-        /* Mensagens de Alerta */
-        .alert {
-            padding: 15px;
-            border-radius: var(--border-radius);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-            border-left: 4px solid var(--primary);
-        }
-
-        .alert-error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border-left: 4px solid var(--danger);
-        }
-
-        .alert-warning {
-            background-color: #fff3cd;
-            color: #856404;
-            border-left: 4px solid var(--warning);
-        }
-
-        .alert-info {
-            background-color: #d1ecf1;
-            color: #0c5460;
-            border-left: 4px solid var(--secondary);
-        }
-
-        .alert i {
-            font-size: 1.2rem;
-        }
-
-        /* Status e Badges */
-        .status-badge {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .status-pending {
-            background-color: #fff3cd;
-            color: #856404;
-        }
-
-        .status-completed {
-            background-color: #d4edda;
-            color: #155724;
-        }
-
-        .status-processing {
-            background-color: #cce5ff;
-            color: #004085;
-        }
-
-        /* Tabelas */
-        .transactions-table {
+        .investment-btn {
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-
-        .transactions-table th {
-            text-align: left;
-            padding: 12px 15px;
-            background-color: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
             font-weight: 600;
-            color: var(--dark);
-            border-bottom: 2px solid #eee;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
 
-        .transactions-table td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #eee;
+        .invest-btn {
+            background-color: #4fc3f7;
+            color: #0d1b2a;
         }
 
-        .transactions-table tr:hover {
-            background-color: #f8f9fa;
+        .invest-btn:hover {
+            background-color: #29b6f6;
         }
 
-        /* Responsividade */
-        @media (max-width: 768px) {
-            nav ul {
-                display: none;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background-color: var(--dark);
-                flex-direction: column;
-                padding: 20px;
-                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-            }
-
-            nav ul.active {
-                display: flex;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .balance-cards, .investment-plans, .tasks-container {
-                grid-template-columns: 1fr;
-            }
-
-            .payment-methods {
-                flex-direction: column;
-            }
-
-            .user-info span {
-                display: none;
-            }
-        }
-
-        /* Rodapé */
-        footer {
-            background-color: var(--dark);
+        .invested-btn {
+            background-color: #4caf50;
             color: white;
-            padding: 30px 0;
-            margin-top: 50px;
+            cursor: default;
         }
 
-        .footer-content {
+        .completing-btn {
+            background-color: #ff9800;
+            color: white;
+            cursor: default;
+        }
+
+        .tasks-list {
+            margin-bottom: 25px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .task-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+        }
+
+        .task-item.unlocked {
+            border-left: 4px solid #4caf50;
+        }
+
+        .task-item.locked {
+            border-left: 4px solid #ff9800;
+            opacity: 0.7;
+        }
+
+        .task-item.completed {
+            border-left: 4px solid #9c27b0;
+            opacity: 0.8;
+        }
+
+        .task-info h4 {
+            margin-bottom: 5px;
+            color: #4fc3f7;
+        }
+
+        .task-info p {
+            opacity: 0.8;
+            font-size: 14px;
+        }
+
+        .task-requirements {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 5px;
+            font-size: 12px;
+            color: #4fc3f7;
+        }
+
+        .task-actions button {
+            background-color: #4fc3f7;
+            color: #0d1b2a;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .task-actions button:disabled {
+            background-color: #666;
+            cursor: not-allowed;
+        }
+
+        .task-actions button:hover:not(:disabled) {
+            background-color: #29b6f6;
+        }
+
+        .transfer-btn {
+            width: 100%;
+            padding: 14px;
+            background-color: #9c27b0;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .transfer-btn:hover {
+            background-color: #7b1fa2;
+        }
+
+        .history-list, .active-investments-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .history-item, .active-investment-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #4fc3f7;
+        }
+
+        .history-item.deposit, .active-investment-item.active {
+            border-left-color: #4caf50;
+        }
+
+        .history-item.withdrawal {
+            border-left-color: #ff9800;
+        }
+
+        .history-item.investment {
+            border-left-color: #9c27b0;
+        }
+
+        .history-item.investment_return {
+            border-left-color: #4caf50;
+        }
+
+        .history-item.task {
+            border-left-color: #00bcd4;
+        }
+
+        .history-item.bonus {
+            border-left-color: #ffeb3b;
+        }
+
+        .history-header, .active-investment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .history-type, .active-investment-type {
+            font-weight: 600;
+            color: #4fc3f7;
+        }
+
+        .history-date, .active-investment-date {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .history-details, .active-investment-details {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .history-amount, .active-investment-amount {
+            font-weight: 700;
+            text-align: right;
+        }
+
+        .history-amount.positive {
+            color: #4caf50;
+        }
+
+        .history-amount.negative {
+            color: #ff5252;
+        }
+
+        .active-investment-amount {
+            color: #4fc3f7;
+        }
+
+        .countdown-timer {
+            font-size: 18px;
+            font-weight: 700;
+            text-align: center;
+            padding: 10px;
+            background-color: rgba(79, 195, 247, 0.1);
+            border-radius: 8px;
+            margin: 10px 0;
+            color: #4fc3f7;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background-color: #1a2a6c;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            color: #4fc3f7;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: #4fc3f7;
+        }
+
+        .payment-info {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+
+        .payment-info p {
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .payment-info strong {
+            color: #4fc3f7;
+        }
+
+        /* Sidebar Button */
+        .sidebar-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4fc3f7;
+            color: #0d1b2a;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, background-color 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .sidebar-btn:hover {
+            transform: scale(1.1);
+            background-color: #29b6f6;
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 28px;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Responsividade */
+        @media (max-width: 992px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .auth-box {
+                padding: 30px 20px;
+            }
+            
+            .balance-actions {
+                flex-direction: column;
+            }
+            
+            .investments-grid, .active-investments-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .sidebar-btn, .whatsapp-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+
+        /* Tab Navigation */
+        .tab-navigation {
+            display: flex;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 25px;
             flex-wrap: wrap;
         }
 
-        .footer-links {
-            display: flex;
-            gap: 20px;
+        .tab-btn {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
         }
 
-        .footer-links a {
+        .tab-btn.active {
+            color: #4fc3f7;
+            border-bottom: 3px solid #4fc3f7;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .investment-status {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .status-active {
+            background-color: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
+        }
+
+        .status-completed {
+            background-color: rgba(255, 152, 0, 0.2);
+            color: #ff9800;
+        }
+
+        .status-pending {
+            background-color: rgba(33, 150, 243, 0.2);
+            color: #2196f3;
+        }
+
+        .profit-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #4caf50, #2e7d32);
             color: white;
-            text-decoration: none;
-            transition: var(--transition);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 8px;
         }
 
-        .footer-links a:hover {
-            color: var(--primary);
+        .task-category {
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background-color: rgba(79, 195, 247, 0.2);
+            color: #4fc3f7;
+            margin-right: 8px;
         }
 
-        @media (max-width: 576px) {
-            .footer-content {
-                flex-direction: column;
-                gap: 20px;
-                text-align: center;
-            }
+        .task-category.basic {
+            background-color: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
+        }
+
+        .task-category.intermediate {
+            background-color: rgba(255, 152, 0, 0.2);
+            color: #ff9800;
+        }
+
+        .task-category.advanced {
+            background-color: rgba(156, 39, 176, 0.2);
+            color: #9c27b0;
+        }
+
+        .locked-icon {
+            color: #ff9800;
+            margin-right: 5px;
+        }
+
+        .unlocked-icon {
+            color: #4caf50;
+            margin-right: 5px;
         }
     </style>
 </head>
 <body>
-    <!-- Header e Navegação -->
-    <header>
-        <div class="container header-container">
-            <div class="logo">
-                <i class="fas fa-chart-line"></i>
-                <span>FastMoney</span>
+    <!-- Tela de Login/Registro -->
+    <div class="auth-container" id="auth-container">
+        <div class="auth-box">
+            <h1><i class="fas fa-chart-line"></i> FastMoney</h1>
+            
+            <div class="auth-tabs">
+                <div class="auth-tab active" data-tab="login">Login</div>
+                <div class="auth-tab" data-tab="register">Registro</div>
             </div>
             
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
+            <form id="login-form" class="auth-form active">
+                <div class="form-group">
+                    <label for="login-phone">Número de Telefone</label>
+                    <input type="tel" id="login-phone" placeholder="" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Senha</label>
+                    <input type="password" id="login-password" placeholder="Digite sua senha" required>
+                </div>
+                <button type="submit" class="btn"><i class="fas fa-sign-in-alt"></i> Entrar</button>
+            </form>
+            
+            <form id="register-form" class="auth-form">
+                <div class="form-group">
+                    <label for="register-name">Nome Completo</label>
+                    <input type="text" id="register-name" placeholder="Digite seu nome completo" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-phone">Número de Telefone</label>
+                    <input type="tel" id="register-phone" placeholder="" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Senha</label>
+                    <input type="password" id="register-password" placeholder="Crie uma senha" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm-password">Confirmar Senha</label>
+                    <input type="password" id="register-confirm-password" placeholder="Confirme sua senha" required>
+                </div>
+                <button type="submit" class="btn"><i class="fas fa-user-plus"></i> Criar Conta</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Dashboard -->
+    <div class="dashboard container" id="dashboard">
+        <div class="header">
+            <div class="logo">FastMoney</div>
+            <div class="user-info">
+                <span id="user-name">Usuário</span>
+                <button class="logout-btn" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Sair</button>
+            </div>
+        </div>
+        
+        <div class="balance-card">
+            <h2>Saldo Disponível</h2>
+            <div class="balance-amount" id="balance">R$ 0,00</div>
+            <div class="balance-actions">
+                <button class="deposit-btn" id="deposit-btn"><i class="fas fa-arrow-down"></i> Depósito</button>
+                <button class="withdraw-btn" id="withdraw-btn"><i class="fas fa-arrow-up"></i> Levantamento</button>
+            </div>
+        </div>
+        
+        <div class="tab-navigation">
+            <button class="tab-btn active" data-tab="investments">Investir</button>
+            <button class="tab-btn" data-tab="active">Investimentos Ativos</button>
+            <button class="tab-btn" data-tab="tasks">Tarefas</button>
+            <button class="tab-btn" data-tab="history">Histórico</button>
+        </div>
+        
+        <div class="tab-content active" id="investments-tab">
+            <div class="investments-section">
+                <h2 class="section-title"><i class="fas fa-coins"></i> Investimentos Disponíveis</h2>
+                <p style="margin-bottom: 20px; opacity: 0.8;">Cada investimento desbloqueia tarefas específicas. Invista para desbloquear mais oportunidades de ganho!</p>
+                <div class="investments-grid" id="investments-grid">
+                    <!-- Os investimentos serão inseridos via JavaScript -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="active-tab">
+            <div class="active-investments-section">
+                <h2 class="section-title"><i class="fas fa-chart-line"></i> Investimentos Ativos</h2>
+                <div class="active-investments-list" id="active-investments-list">
+                    <!-- Os investimentos ativos serão inseridos via JavaScript -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="tasks-tab">
+            <div class="tasks-section">
+                <h2 class="section-title"><i class="fas fa-tasks"></i> Carteira de Tarefas</h2>
+                <div class="tasks-list" id="tasks-list">
+                    <!-- As tarefas serão inseridas via JavaScript -->
+                </div>
+                <div class="task-wallet-info">
+                    <p style="margin-bottom: 15px; text-align: center; font-weight: 600;">
+                        Saldo na Carteira de Tarefas: <span id="task-wallet-balance" style="color: #4fc3f7;">R$ 0,00</span>
+                    </p>
+                </div>
+                <button class="transfer-btn" id="transfer-btn"><i class="fas fa-exchange-alt"></i> Transferir para Conta Principal</button>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="history-tab">
+            <div class="history-section">
+                <h2 class="section-title"><i class="fas fa-history"></i> Histórico de Transações</h2>
+                <div class="history-list" id="history-list">
+                    <!-- O histórico será inserido via JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Botão Lateral para Depósito -->
+    <button class="sidebar-btn" id="sidebar-deposit-btn">
+        <i class="fas fa-money-bill-wave"></i>
+    </button>
+    
+    <!-- Botão WhatsApp -->
+    <button class="whatsapp-btn" id="whatsapp-btn">
+        <i class="fab fa-whatsapp"></i>
+    </button>
+    
+    <!-- Modal de Depósito -->
+    <div class="modal" id="deposit-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-arrow-down"></i> Realizar Depósito</h2>
+                <button class="close-modal" id="close-deposit-modal">&times;</button>
+            </div>
+            <form id="deposit-form">
+                <div class="form-group">
+                    <label for="deposit-method">Método de Pagamento</label>
+                    <select id="deposit-method" required>
+                        <option value="">Selecione o método</option>
+                        <option value="Vodacom">Mpesa</option>
+                        <option value="Banco">Millennium bim</option>
+                        <option value="Banco">BCI</option>
+                        <option value="Movitel">eMola</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="deposit-amount">Valor (R$)</label>
+                    <input type="number" id="deposit-amount" placeholder="Digite o valor" min="10" required>
+                </div>
+                <div class="form-group">
+                    <label for="payment-number">Número de Pagamento</label>
+                    <input type="text" id="payment-number" placeholder="Digite o número de pagamento" required>
+                </div>
+                <div class="form-group">
+                    <label for="commercial-code">Código de autorização</label>
+                    <input type="text" id="commercial-code" placeholder="Digite o código de autorização" required>
+                </div>
+                <div class="form-group">
+                    <label for="transaction-id">ID da Transação</label>
+                    <input type="text" id="transaction-id" placeholder="Digite o ID da transação" required>
+                </div>
+                <div class="form-group">
+                    <label for="transaction-message">Mensagem da Transação</label>
+                    <input type="text" id="transaction-message" placeholder="Digite a mensagem da transação" required>
+                </div>
+                
+                <div class="payment-info" id="payment-instructions">
+                    <p><strong>Instruções:</strong></p>
+                    <p>1. Preencha todos os campos obrigatórios</p>
+                    <p>2. O código comercial será fornecido pelo seu consultor</p>
+                    <p>3. O ID da transação deve ser obtido no comprovante</p>
+                </div>
+                
+                <button type="submit" class="btn"><i class="fas fa-check"></i> Confirmar Depósito</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Modal de Levantamento -->
+    <div class="modal" id="withdraw-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-arrow-up"></i> Realizar Levantamento</h2>
+                <button class="close-modal" id="close-withdraw-modal">&times;</button>
+            </div>
+            <form id="withdraw-form">
+                <div class="form-group">
+                    <label for="withdraw-amount">Valor (R$)</label>
+                    <input type="number" id="withdraw-amount" placeholder="Digite o valor" min="10" required>
+                </div>
+                <div class="form-group">
+                    <label for="withdraw-method">Método de Recebimento</label>
+                    <select id="withdraw-method" required>
+                        <option value="">Selecione o método</option>
+                        <option value="mbway">Mpesa</option>
+                        <option value="iban">NIB/Transferência</option>
+                        <option value="paypal">PayPal</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="withdraw-phone">Número de Telefone ou NIB</label>
+                    <input type="text" id="withdraw-phone" placeholder="Digite o número ou NIB para recebimento" required>
+                </div>
+                <div class="form-group">
+                    <label for="withdraw-name">Nome do Titular</label>
+                    <input type="text" id="withdraw-name" placeholder="Digite o nome do titular" required>
+                </div>
+                <button type="submit" class="btn"><i class="fas fa-check"></i> Confirmar Levantamento</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Modal de Atendimento WhatsApp -->
+    <div class="modal" id="whatsapp-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fab fa-whatsapp"></i> Atendimento ao Cliente</h2>
+                <button class="close-modal" id="close-whatsapp-modal">&times;</button>
+            </div>
+            <p>Entre em contato com nosso suporte via WhatsApp para qualquer dúvida ou problema.</p>
+            <p><strong>Horário de atendimento:</strong> Segunda a Sexta, 9h às 18h</p>
+            <p><strong>Número de suporte:</strong> +258878332095</p>
+            <br>
+            <div class="form-group">
+                <label for="whatsapp-message">Sua mensagem (opcional)</label>
+                <textarea id="whatsapp-message" placeholder="Descreva sua dúvida ou problema" rows="3" style="width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.2); background-color: rgba(255, 255, 255, 0.1); color: #fff; font-size: 16px; resize: vertical;"></textarea>
+            </div>
+            <button class="btn" id="open-whatsapp-btn">
+                <i class="fab fa-whatsapp"></i> Abrir WhatsApp
             </button>
-            
-            <nav>
-                <ul id="mainNav">
-                    <li><a href="#dashboard" class="nav-link active" data-section="dashboard"><i class="fas fa-home"></i> Dashboard</a></li>
-                    <li><a href="#invest" class="nav-link" data-section="invest"><i class="fas fa-coins"></i> Investir</a></li>
-                    <li><a href="#tasks" class="nav-link" data-section="tasks"><i class="fas fa-tasks"></i> Tarefas</a></li>
-                    <li><a href="#deposit" class="nav-link" data-section="deposit"><i class="fas fa-money-bill-wave"></i> Depositar</a></li>
-                    <li><a href="#withdraw" class="nav-link" data-section="withdraw"><i class="fas fa-wallet"></i> Levantar</a></li>
-                    <li><a href="#support" class="nav-link" data-section="support"><i class="fas fa-headset"></i> Suporte</a></li>
-                </ul>
-            </nav>
-            
-            <div class="user-info" id="userInfo">
-                <span id="userName">Usuário</span>
-                <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Sair</button>
-            </div>
         </div>
-    </header>
-
-    <!-- Conteúdo Principal -->
-    <main class="container">
-        <!-- Seção de Login/Registro -->
-        <section class="section active" id="authSection">
-            <div class="auth-container">
-                <div class="auth-tabs">
-                    <button class="auth-tab active" id="loginTab">Login</button>
-                    <button class="auth-tab" id="registerTab">Registro</button>
-                </div>
-                
-                <div class="auth-form active" id="loginForm">
-                    <h2 class="card-title">Entrar na sua conta</h2>
-                    <form id="loginFormElement">
-                        <div class="form-group">
-                            <label for="loginEmail">E-mail</label>
-                            <input type="email" id="loginEmail" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="loginPassword">Senha</label>
-                            <input type="password" id="loginPassword" class="form-control" required>
-                        </div>
-                        <button type="submit" class="btn">Entrar</button>
-                    </form>
-                    <div class="alert" id="authMessage" style="display: none;"></div>
-                </div>
-                
-                <div class="auth-form" id="registerForm">
-                    <h2 class="card-title">Criar nova conta</h2>
-                    <form id="registerFormElement">
-                        <div class="form-group">
-                            <label for="registerName">Nome Completo</label>
-                            <input type="text" id="registerName" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="registerEmail">E-mail</label>
-                            <input type="email" id="registerEmail" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="registerPhone">Telefone</label>
-                            <input type="tel" id="registerPhone" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="registerPassword">Senha</label>
-                            <input type="password" id="registerPassword" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="registerConfirmPassword">Confirmar Senha</label>
-                            <input type="password" id="registerConfirmPassword" class="form-control" required>
-                        </div>
-                        <button type="submit" class="btn btn-secondary">Criar Conta</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Dashboard -->
-        <section class="section" id="dashboardSection">
-            <div class="welcome-banner">
-                <h1>Bem-vindo, <span id="dashboardUserName">Usuário</span>!</h1>
-                <p>Gerencie seus investimentos e acompanhe seus rendimentos</p>
-            </div>
-            
-            <div class="balance-cards">
-                <div class="balance-card primary">
-                    <h3>Carteira Principal</h3>
-                    <div class="balance-amount">R$ <span id="mainBalance">0.00</span></div>
-                    <p>Saldo disponível para saque e novos investimentos</p>
-                </div>
-                
-                <div class="balance-card task">
-                    <h3>Carteira de Tarefas</h3>
-                    <div class="balance-amount">R$ <span id="taskBalance">0.00</span></div>
-                    <p>Saldo das tarefas concluídas. Transfira para a carteira principal</p>
-                    <button class="transfer-btn" id="transferToMainBtn">
-                        <i class="fas fa-exchange-alt"></i> Transferir para Principal
-                    </button>
-                </div>
-            </div>
-            
-            <div class="card">
-                <h2 class="card-title"><i class="fas fa-chart-bar"></i> Investimentos Ativos</h2>
-                <div id="activeInvestments">
-                    <p>Você não possui investimentos ativos no momento.</p>
-                </div>
-            </div>
-            
-            <div class="card">
-                <h2 class="card-title"><i class="fas fa-history"></i> Histórico de Transações</h2>
-                <div id="transactionHistory">
-                    <p>Nenhuma transação realizada ainda.</p>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Investimentos -->
-        <section class="section" id="investSection">
-            <div class="card">
-                <h2 class="card-title"><i class="fas fa-coins"></i> Planos de Investimento</h2>
-                <p>Escolha um dos planos abaixo para começar a investir</p>
-                
-                <div class="investment-plans" id="investmentPlansContainer">
-                    <!-- Os planos serão gerados dinamicamente -->
-                </div>
-            </div>
-        </section>
-        
-        <!-- Tarefas -->
-        <section class="section" id="tasksSection">
-            <div class="card">
-                <h2 class="card-title"><i class="fas fa-tasks"></i> Tarefas Disponíveis</h2>
-                <p>Complete as tarefas para ganhar rendimentos extras dos seus investimentos</p>
-                
-                <div class="tasks-container" id="tasksContainer">
-                    <!-- As tarefas serão geradas dinamicamente aqui -->
-                </div>
-            </div>
-        </section>
-        
-        <!-- Depósito -->
-        <section class="section" id="depositSection">
-            <div class="card">
-                <h2 class="card-title"><i class="fas fa-money-bill-wave"></i> Depositar Fundos</h2>
-                
-                <div class="payment-methods">
-                    <div class="payment-method active" data-method="paga-facil">
-                        <i class="fas fa-mobile-alt"></i>
-                        <h3>Paga Fácil</h3>
-                        <p>Código Comercial: 1202460</p>
-                    </div>
-                </div>
-                
-                <form id="depositForm">
-                    <div class="form-group">
-                        <label for="depositNumber">Número que efetuou o pagamento</label>
-                        <input type="text" id="depositNumber" class="form-control" placeholder="" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="depositAmount">Valor do depósito (R$)</label>
-                        <input type="number" id="depositAmount" class="form-control" min="10" step="0.01" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="depositTransactionId">ID da Transação</label>
-                        <input type="text" id="depositTransactionId" class="form-control" placeholder="ID da transação da mensagem do pagamento" required>
-                    </div>
-                    
-                    <button type="submit" class="btn">Solicitar Depósito</button>
-                </form>
-                
-                <div class="deposit-instructions">
-                    <h3><i class="fas fa-info-circle"></i> Instruções para Depósito</h3>
-                    <ol>
-                        <li>Vá até um agente Paga Fácil mais próximo</li>
-                        <li>Forneça o código comercial: <strong>1202460</strong></li>
-                        <li>Informe o valor que deseja depositar</li>
-                        <li>Após o pagamento, você receberá um ID de transação</li>
-                        <li>Preencha o formulário acima com os dados do pagamento</li>
-                        <li>Seu saldo será creditado <strong>IMEDIATAMENTE</strong> após o envio</li>
-                    </ol>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Levantamento -->
-        <section class="section" id="withdrawSection">
-            <div class="card">
-                <h2 class="card-title"><i class="fas fa-wallet"></i> Levantar Fundos</h2>
-                
-                <form id="withdrawForm">
-                    <div class="form-group">
-                        <label for="withdrawAccountName">Nome da Conta</label>
-                        <input type="text" id="withdrawAccountName" class="form-control" placeholder="Nome completo como consta na conta" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="withdrawAccountNumber">Número da Conta</label>
-                        <input type="text" id="withdrawAccountNumber" class="form-control" placeholder="Número da conta bancária" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="withdrawAmount">Valor do levantamento (R$)</label>
-                        <input type="number" id="withdrawAmount" class="form-control" min="10" step="0.01" required>
-                        <small>Saldo disponível: R$ <span id="availableWithdrawBalance">0.00</span></small>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-warning">Solicitar Levantamento</button>
-                </form>
-                
-                <div class="alert alert-warning" style="margin-top: 20px;">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <div>
-                        <strong>Atenção:</strong> Os levantamentos são processados em até 1 hora. Certifique-se de que os dados bancários estão corretos.
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Suporte -->
-        <section class="section" id="supportSection">
-            <div class="card">
-                <div class="support-container">
-                    <div class="support-icon">
-                        <i class="fab fa-whatsapp"></i>
-                    </div>
-                    <h2>Atendimento via WhatsApp</h2>
-                    <p>Entre em contato com nossa equipe de suporte para tirar dúvidas, reportar problemas ou obter assistência.</p>
-                    <p>Estamos disponíveis 24 horas por dia, 7 dias por semana.</p>
-                    
-                    <a href="https://wa.me/+258878332095?text=Olá! Preciso de ajuda com a plataforma FastMoney" class="whatsapp-btn" target="_blank">
-                        <i class="fab fa-whatsapp"></i> Falar com Suporte
-                    </a>
-                    
-                    <div style="margin-top: 30px; text-align: left; width: 100%;">
-                        <h3 class="card-title"><i class="fas fa-question-circle"></i> Perguntas Frequentes</h3>
-                        <div style="margin-top: 15px;">
-                            <p><strong>Q: Quanto tempo leva para meu depósito ser aprovado?</strong></p>
-                            <p>R: Os depósitos são aprovados <strong>IMEDIATAMENTE</strong> após o envio dos dados.</p>
-                            
-                            <p><strong>Q: Posso ter mais de um investimento ativo?</strong></p>
-                            <p>R: Sim, você pode ter um investimento ativo de cada plano simultaneamente.</p>
-                            
-                            <p><strong>Q: Como funcionam os investimentos?</strong></p>
-                            <p>R: Todos os investimentos têm duração de 24 horas e o retorno cai na carteira de tarefas.</p>
-                            
-                            <p><strong>Q: Quanto tempo leva para receber um levantamento?</strong></p>
-                            <p>R: Os levantamentos são processados em até 1 hora após a solicitação.</p>
-                            
-                            <p><strong>Q: Qual a duração dos investimentos?</strong></p>
-                            <p>R: Todos os investimentos têm duração de 24 horas com retorno de 100%.</p>
-                        </div>
-                   </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Rodapé -->
-    <footer>
-        <div class="container footer-content">
-            <div class="logo">
-                <i class="fas fa-chart-line"></i>
-                <span>FastMoney</span>
-            </div>
-            
-            <div class="footer-links">
-                <a href="#terms">Termos de Uso</a>
-                <a href="#privacy">Política de Privacidade</a>
-                <a href="#support">Suporte</a>
-            </div>
-            
-            <p>&copy; 2024 FastMoney. Todos os direitos reservados.</p>
-        </div>
-    </footer>
+    </div>
 
     <script>
-        // Sistema de gerenciamento de estado da aplicação
-        const AppState = {
-            currentUser: null,
-            users: JSON.parse(localStorage.getItem('fastMoneyUsers')) || [],
-            investments: JSON.parse(localStorage.getItem('fastMoneyInvestments')) || [],
-            transactions: JSON.parse(localStorage.getItem('fastMoneyTransactions')) || [],
-            tasks: JSON.parse(localStorage.getItem('fastMoneyTasks')) || [],
-            depositQueue: JSON.parse(localStorage.getItem('fastMoneyDepositQueue')) || [],
-            withdrawalQueue: JSON.parse(localStorage.getItem('fastMoneyWithdrawalQueue')) || [],
-            
-            init() {
-                this.checkAuth();
-                this.setupEventListeners();
-                this.startBackgroundProcesses();
+        // Dados de investimentos atualizados conforme solicitado
+        const investments = [
+            {
+                id: 1,
+                name: "Investimento Básico",
+                amount: 20,
+                return: 40,
+                hourlyProfit: 2,
+                durationHours: 20,
+                description: "Retorno de 100% em 20 horas",
+                tasksUnlocked: 2, // Número de tarefas desbloqueadas
+                profitPercentage: 100,
+                category: "basic"
             },
-            
-            checkAuth() {
-                const loggedInUser = JSON.parse(localStorage.getItem('fastMoneyCurrentUser'));
-                if (loggedInUser) {
-                    this.currentUser = loggedInUser;
-                    this.loadUserData();
-                    this.showApp();
-                } else {
-                    this.showAuth();
+            {
+                id: 2,
+                name: "Investimento Intermediário",
+                amount: 70,
+                return: 140,
+                hourlyProfit: 5,
+                durationHours: 28,
+                description: "Retorno de 100% em 28 horas",
+                tasksUnlocked: 2, // Número de tarefas desbloqueadas
+                profitPercentage: 100,
+                category: "intermediate"
+            },
+            {
+                id: 3,
+                name: "Investimento Avançado",
+                amount: 160,
+                return: 320,
+                hourlyProfit: 13.34,
+                durationHours: 24,
+                description: "Retorno de 100% em 24 horas",
+                tasksUnlocked: 2, // Número de tarefas desbloqueadas
+                profitPercentage: 100,
+                category: "advanced"
+            }
+        ];
+
+        // Tarefas organizadas por categoria de investimento
+        const tasksByCategory = {
+            "basic": [
+                {
+                    id: 1,
+                    name: "Tutorial Inicial",
+                    reward: 2,
+                    requiredInvestment: 20,
+                    description: "Complete o tutorial de boas-vindas da plataforma",
+                    category: "basic",
+                    duration: "5 minutos"
+                },
+                {
+                    id: 2,
+                    name: "Primeiro Depósito",
+                    reward: 3,
+                    requiredInvestment: 20,
+                    description: "Realize seu primeiro depósito na plataforma",
+                    category: "basic",
+                    duration: "2 minutos"
+                },
+                {
+                    id: 3,
+                    name: "Verificação de Perfil",
+                    reward: 5,
+                    requiredInvestment: 20,
+                    description: "Complete a verificação do seu perfil",
+                    category: "basic",
+                    duration: "10 minutos"
                 }
-            },
-            
-            showApp() {
-                document.getElementById('authSection').classList.remove('active');
-                document.getElementById('dashboardSection').classList.add('active');
-                document.getElementById('userName').textContent = this.currentUser.name;
-                document.getElementById('dashboardUserName').textContent = this.currentUser.name;
-                document.getElementById('userInfo').style.display = 'flex';
-                this.updateUI();
-            },
-            
-            showAuth() {
-                document.getElementById('authSection').classList.add('active');
-                document.getElementById('dashboardSection').classList.remove('active');
-                document.getElementById('userInfo').style.display = 'none';
-            },
-            
-            loadUserData() {
-                if (!this.currentUser) return;
-                
-                // Carregar investimentos do usuário
-                this.currentUser.investments = this.investments.filter(inv => inv.userId === this.currentUser.id);
-                
-                // Carregar transações do usuário
-                this.currentUser.transactions = this.transactions.filter(trans => trans.userId === this.currentUser.id);
-                
-                // Carregar tarefas do usuário
-                this.currentUser.tasks = this.tasks.filter(task => task.userId === this.currentUser.id);
-                
-                // Inicializar saldos se não existirem
-                if (!this.currentUser.mainBalance) this.currentUser.mainBalance = 0;
-                if (!this.currentUser.taskBalance) this.currentUser.taskBalance = 0;
-                
-                // Inicializar investimentos completados se não existirem
-                if (!this.currentUser.completedInvestments) this.currentUser.completedInvestments = [];
-            },
-            
-            setupEventListeners() {
-                // Navegação
-                document.querySelectorAll('.nav-link').forEach(link => {
-                    link.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        const sectionId = link.getAttribute('data-section');
-                        this.showSection(sectionId);
-                        
-                        // Atualizar navegação ativa
-                        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                        link.classList.add('active');
-                        
-                        // Fechar menu mobile se aberto
-                        document.getElementById('mainNav').classList.remove('active');
-                    });
-                });
-                
-                // Menu mobile
-                document.getElementById('mobileMenuBtn').addEventListener('click', () => {
-                    document.getElementById('mainNav').classList.toggle('active');
-                });
-                
-                // Tabs de autenticação
-                document.getElementById('loginTab').addEventListener('click', () => {
-                    this.switchAuthTab('login');
-                });
-                
-                document.getElementById('registerTab').addEventListener('click', () => {
-                    this.switchAuthTab('register');
-                });
-                
-                // Formulários de autenticação
-                document.getElementById('loginFormElement').addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.login();
-                });
-                
-                document.getElementById('registerFormElement').addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.register();
-                });
-                
-                // Logout
-                document.getElementById('logoutBtn').addEventListener('click', () => {
-                    this.logout();
-                });
-                
-                // Transferir para carteira principal
-                document.getElementById('transferToMainBtn').addEventListener('click', () => {
-                    this.transferToMain();
-                });
-                
-                // Formulário de depósito
-                document.getElementById('depositForm').addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.submitDeposit();
-                });
-                
-                // Formulário de levantamento
-                document.getElementById('withdrawForm').addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.submitWithdrawal();
-                });
-            },
-            
-            startBackgroundProcesses() {
-                // Atualizar progresso dos investimentos a cada segundo
-                setInterval(() => {
-                    this.updateInvestmentProgress();
-                }, 1000);
-                
-                // Verificar investimentos concluídos a cada 30 segundos
-                setInterval(() => {
-                    this.checkCompletedInvestments();
-                }, 30000);
-                
-                // Verificar levantamentos pendentes a cada 10 segundos
-                setInterval(() => {
-                    this.processWithdrawalQueue();
-                }, 10000);
-            },
-            
-            switchAuthTab(tab) {
-                document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
-                
-                if (tab === 'login') {
-                    document.getElementById('loginTab').classList.add('active');
-                    document.getElementById('loginForm').classList.add('active');
-                } else {
-                    document.getElementById('registerTab').classList.add('active');
-                    document.getElementById('registerForm').classList.add('active');
+            ],
+            "intermediate": [
+                {
+                    id: 4,
+                    name: "Compartilhar no Facebook",
+                    reward: 4,
+                    requiredInvestment: 70,
+                    description: "Compartilhe nosso link no seu Facebook",
+                    category: "intermediate",
+                    duration: "5 minutos"
+                },
+                {
+                    id: 5,
+                    name: "Indicar um Amigo",
+                    reward: 10,
+                    requiredInvestment: 70,
+                    description: "Indique um amigo que faça o cadastro",
+                    category: "intermediate",
+                    duration: "15 minutos"
+                },
+                {
+                    id: 6,
+                    name: "Avaliar no Google",
+                    reward: 8,
+                    requiredInvestment: 70,
+                    description: "Deixe uma avaliação 5 estrelas no Google",
+                    category: "intermediate",
+                    duration: "10 minutos"
                 }
-            },
-            
-            login() {
-                const email = document.getElementById('loginEmail').value;
-                const password = document.getElementById('loginPassword').value;
-                
-                const user = this.users.find(u => u.email === email && u.password === password);
-                
-                if (user) {
-                    this.currentUser = user;
-                    localStorage.setItem('fastMoneyCurrentUser', JSON.stringify(user));
-                    this.loadUserData();
-                    this.showApp();
-                    this.showAlert('Login realizado com sucesso!', 'success');
-                } else {
-                    this.showAlert('E-mail ou senha incorretos.', 'error');
+            ],
+            "advanced": [
+                {
+                    id: 7,
+                    name: "Participar de Webinar",
+                    reward: 15,
+                    requiredInvestment: 160,
+                    description: "Participe de um webinar ao vivo sobre investimentos",
+                    category: "advanced",
+                    duration: "30 minutos"
+                },
+                {
+                    id: 8,
+                    name: "Escrever Depoimento",
+                    reward: 12,
+                    requiredInvestment: 160,
+                    description: "Escreva um depoimento sobre sua experiência",
+                    category: "advanced",
+                    duration: "15 minutos"
+                },
+                {
+                    id: 9,
+                    name: "Convidar 3 Amigos",
+                    reward: 25,
+                    requiredInvestment: 160,
+                    description: "Convide 3 amigos que façam investimento mínimo",
+                    category: "advanced",
+                    duration: "30 minutos"
                 }
-            },
-            
-            register() {
-                const name = document.getElementById('registerName').value;
-                const email = document.getElementById('registerEmail').value;
-                const phone = document.getElementById('registerPhone').value;
-                const password = document.getElementById('registerPassword').value;
-                const confirmPassword = document.getElementById('registerConfirmPassword').value;
-                
-                // Validações
-                if (password !== confirmPassword) {
-                    this.showAlert('As senhas não coincidem.', 'error');
-                    return;
+            ],
+            "general": [
+                {
+                    id: 10,
+                    name: "Acesso Diário",
+                    reward: 1,
+                    requiredInvestment: 0,
+                    description: "Acesse a plataforma diariamente",
+                    category: "general",
+                    duration: "1 minuto",
+                    daily: true
+                },
+                {
+                    id: 11,
+                    name: "Verificar Notificações",
+                    reward: 1,
+                    requiredInvestment: 0,
+                    description: "Verifique as notificações da plataforma",
+                    category: "general",
+                    duration: "2 minutos"
                 }
+            ]
+        };
+
+        // Estado da aplicação
+        let currentUser = null;
+        let userInvestments = [];
+        let userActiveInvestments = [];
+        let userTasks = [];
+        let userHistory = [];
+        let userBalance = 0;
+        let taskWallet = 0;
+        let investmentTimers = {};
+
+        // Elementos do DOM
+        const authContainer = document.getElementById('auth-container');
+        const dashboard = document.getElementById('dashboard');
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const authTabs = document.querySelectorAll('.auth-tab');
+        const logoutBtn = document.getElementById('logout-btn');
+        const userNameElement = document.getElementById('user-name');
+        const balanceElement = document.getElementById('balance');
+        const investmentsGrid = document.getElementById('investments-grid');
+        const activeInvestmentsList = document.getElementById('active-investments-list');
+        const tasksList = document.getElementById('tasks-list');
+        const transferBtn = document.getElementById('transfer-btn');
+        const depositBtn = document.getElementById('deposit-btn');
+        const withdrawBtn = document.getElementById('withdraw-btn');
+        const sidebarDepositBtn = document.getElementById('sidebar-deposit-btn');
+        const whatsappBtn = document.getElementById('whatsapp-btn');
+        const taskWalletBalance = document.getElementById('task-wallet-balance');
+        const historyList = document.getElementById('history-list');
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        // Modais
+        const depositModal = document.getElementById('deposit-modal');
+        const withdrawModal = document.getElementById('withdraw-modal');
+        const whatsappModal = document.getElementById('whatsapp-modal');
+        
+        // Botões de fechar modal
+        document.getElementById('close-deposit-modal').addEventListener('click', () => {
+            depositModal.style.display = 'none';
+        });
+        
+        document.getElementById('close-withdraw-modal').addEventListener('click', () => {
+            withdrawModal.style.display = 'none';
+        });
+        
+        document.getElementById('close-whatsapp-modal').addEventListener('click', () => {
+            whatsappModal.style.display = 'none';
+        });
+
+        // Navegação entre abas
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.getAttribute('data-tab');
                 
-                if (this.users.find(u => u.email === email)) {
-                    this.showAlert('Este e-mail já está registrado.', 'error');
-                    return;
-                }
+                // Ativar aba clicada
+                tabBtns.forEach(t => t.classList.remove('active'));
+                btn.classList.add('active');
                 
-                // Criar novo usuário
-                const newUser = {
-                    id: Date.now().toString(),
-                    name,
-                    email,
-                    phone,
-                    password,
-                    mainBalance: 0,
-                    taskBalance: 0,
-                    completedInvestments: [],
-                    joinedDate: new Date().toISOString()
-                };
-                
-                this.users.push(newUser);
-                localStorage.setItem('fastMoneyUsers', JSON.stringify(this.users));
-                
-                this.showAlert('Conta criada com sucesso! Faça login para continuar.', 'success');
-                this.switchAuthTab('login');
-                
-                // Limpar formulário
-                document.getElementById('registerFormElement').reset();
-            },
-            
-            logout() {
-                this.currentUser = null;
-                localStorage.removeItem('fastMoneyCurrentUser');
-                this.showAuth();
-                document.getElementById('loginFormElement').reset();
-            },
-            
-            showSection(sectionId) {
-                document.querySelectorAll('.section').forEach(section => {
-                    section.classList.remove('active');
+                // Mostrar conteúdo correspondente
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
                 });
+                document.getElementById(`${tabId}-tab`).classList.add('active');
                 
-                document.getElementById(sectionId + 'Section').classList.add('active');
-                
-                // Atualizar informações específicas da seção
-                if (sectionId === 'withdraw') {
-                    document.getElementById('availableWithdrawBalance').textContent = this.currentUser.mainBalance.toFixed(2);
+                // Se for a aba de investimentos ativos, atualizar a lista
+                if (tabId === 'active') {
+                    renderActiveInvestments();
                 }
+            });
+        });
+
+        // Alternar entre abas de login e registro
+        authTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabName = tab.getAttribute('data-tab');
                 
-                if (sectionId === 'invest') {
-                    this.renderInvestmentPlans();
-                }
-            },
-            
-            updateUI() {
-                if (!this.currentUser) return;
+                // Ativar aba clicada
+                authTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
                 
-                // Atualizar saldos
-                document.getElementById('mainBalance').textContent = this.currentUser.mainBalance.toFixed(2);
-                document.getElementById('taskBalance').textContent = this.currentUser.taskBalance.toFixed(2);
-                
-                // Atualizar investimentos ativos
-                this.renderActiveInvestments();
-                
-                // Atualizar histórico de transações
-                this.renderTransactionHistory();
-            },
-            
-            renderInvestmentPlans() {
-                const container = document.getElementById('investmentPlansContainer');
-                
-                // NOVOS INVESTIMENTOS - Todos com 24 horas de duração
-                const plans = [
-                    {
-                        id: 1,
-                        name: 'Investimento Bronze',
-                        amount: 20,
-                        totalReturn: 40,
-                        duration: 24,
-                        description: 'Retorno de 100% em 24 horas'
-                    },
-                    {
-                        id: 2,
-                        name: 'Investimento Prata',
-                        amount: 60,
-                        totalReturn: 120,
-                        duration: 24,
-                        description: 'Retorno de 100% em 24 horas'
-                    },
-                    {
-                        id: 3,
-                        name: 'Investimento Ouro',
-                        amount: 150,
-                        totalReturn: 300,
-                        duration: 24,
-                        description: 'Retorno de 100% em 24 horas'
-                    },
-                    {
-                        id: 4,
-                        name: 'Investimento Platina',
-                        amount: 300,
-                        totalReturn: 600,
-                        duration: 24,
-                        description: 'Retorno de 100% em 24 horas'
-                    },
-                    {
-                        id: 5,
-                        name: 'Investimento Diamante',
-                        amount: 800,
-                        totalReturn: 1600,
-                        duration: 24,
-                        description: 'Retorno de 100% em 24 horas'
-                    }
-                ];
-                
-                let html = '';
-                
-                plans.forEach(plan => {
-                    const hasActiveInvestment = this.currentUser.investments?.some(inv => inv.plan == plan.id && !inv.completed);
-                    
-                    html += `
-                    <div class="investment-card">
-                        <div class="investment-title">${plan.name}</div>
-                        <div class="investment-amount">R$ ${plan.amount.toFixed(2)}</div>
-                        <ul class="investment-details">
-                            <li><i class="fas fa-check-circle"></i> Retorno total: R$ ${plan.totalReturn.toFixed(2)}</li>
-                            <li><i class="fas fa-check-circle"></i> Duração: ${plan.duration} horas</li>
-                            <li><i class="fas fa-check-circle"></i> Retorno cai na carteira de tarefas</li>
-                            <li><i class="fas fa-check-circle"></i> Suporte 24/7</li>
-                        </ul>
-                        ${hasActiveInvestment ?
-                            `<button class="btn btn-secondary" disabled><i class="fas fa-spinner"></i> Investimento Ativo</button>` :
-                            `<button class="btn invest-btn" data-plan="${plan.id}" data-amount="${plan.amount}">Investir Agora</button>`
-                        }
-                    </div>
-                    `;
+                // Mostrar formulário correspondente
+                document.querySelectorAll('.auth-form').forEach(form => {
+                    form.classList.remove('active');
                 });
-                
-                container.innerHTML = html;
-                
-                // Adicionar listeners aos botões de investimento
-                document.querySelectorAll('.invest-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        const plan = e.target.getAttribute('data-plan');
-                        const amount = parseFloat(e.target.getAttribute('data-amount'));
-                        this.invest(plan, amount);
-                    });
-                });
-            },
+                document.getElementById(`${tabName}-form`).classList.add('active');
+            });
+        });
+
+        // Sistema de Login/Registro
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
             
-            renderActiveInvestments() {
-                const container = document.getElementById('activeInvestments');
-                const userInvestments = this.currentUser.investments?.filter(inv => !inv.completed) || [];
-                
-                if (userInvestments.length === 0) {
-                    container.innerHTML = '<p>Você não possui investimentos ativos no momento.</p>';
-                    return;
-                }
-                
-                const planNames = {
-                    '1': 'Investimento Bronze',
-                    '2': 'Investimento Prata',
-                    '3': 'Investimento Ouro',
-                    '4': 'Investimento Platina',
-                    '5': 'Investimento Diamante'
-                };
-                
-                let html = '<div class="tasks-container">';
-                
-                userInvestments.forEach(investment => {
-                    const timeRemaining = investment.endTime ? Math.max(0, investment.endTime - Date.now()) : 0;
-                    const hours = Math.floor(timeRemaining / (1000 * 60 * 60));
-                    const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-                    
-                    html += `
-                    <div class="task-card">
-                        <div class="task-header">
-                            <div class="task-title">${planNames[investment.plan] || 'Investimento Desconhecido'}</div>
-                            <div class="task-reward">R$ ${investment.amount.toFixed(2)}</div>
-                        </div>
-                        <p><strong>Retorno total:</strong> R$ ${(investment.amount * 2).toFixed(2)}</p>
-                        <p><strong>Tempo restante:</strong> ${hours}h ${minutes}m ${seconds}s</p>
-                        <p><strong>Progresso:</strong> ${investment.progress || 0}%</p>
-                        <div class="task-progress">
-                            <div class="task-progress-bar" style="width: ${investment.progress || 0}%;"></div>
-                        </div>
-                        <p><em>O retorno cairá na carteira de tarefas</em></p>
-                    </div>
-                    `;
-                });
-                
-                html += '</div>';
-                container.innerHTML = html;
-            },
+            const phone = document.getElementById('login-phone').value;
+            const password = document.getElementById('login-password').value;
             
-            renderTransactionHistory() {
-                const container = document.getElementById('transactionHistory');
-                const userTransactions = this.currentUser.transactions || [];
-                
-                if (userTransactions.length === 0) {
-                    container.innerHTML = '<p>Nenhuma transação realizada ainda.</p>';
-                    return;
-                }
-                
-                let html = '<table class="transactions-table">';
-                html += '<thead><tr><th>Data</th><th>Tipo</th><th>Valor</th><th>Status</th><th>Descrição</th></tr></thead>';
-                html += '<tbody>';
-                
-                userTransactions.slice(-10).reverse().forEach(transaction => {
-                    const date = new Date(transaction.date).toLocaleDateString('pt-BR');
-                    const typeLabels = {
-                        'deposit': 'Depósito',
-                        'withdrawal': 'Levantamento',
-                        'investment': 'Investimento',
-                        'task': 'Tarefa',
-                        'transfer': 'Transferência'
-                    };
-                    
-                    const statusLabels = {
-                        'pending': '<span class="status-badge status-pending">Pendente</span>',
-                        'completed': '<span class="status-badge status-completed">Concluído</span>',
-                        'processing': '<span class="status-badge status-processing">Processando</span>'
-                    };
-                    
-                    const amountColor = transaction.amount >= 0 ? 'color: #27ae60;' : 'color: #e74c3c;';
-                    const amountSign = transaction.amount >= 0 ? '+' : '';
-                    
-                    html += `
-                    <tr>
-                        <td>${date}</td>
-                        <td>${typeLabels[transaction.type] || transaction.type}</td>
-                        <td style="${amountColor} font-weight: 600;">${amountSign}R$ ${Math.abs(transaction.amount).toFixed(2)}</td>
-                        <td>${statusLabels[transaction.status] || transaction.status}</td>
-                        <td>${transaction.description || ''}</td>
-                    </tr>
-                    `;
-                });
-                
-                html += '</tbody></table>';
-                container.innerHTML = html;
-            },
+            // Verificar se o usuário existe no localStorage
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const user = users.find(u => u.phone === phone && u.password === password);
             
-            invest(plan, amount) {
-                if (!this.currentUser) {
-                    this.showAlert('Faça login para investir.', 'error');
-                    return;
-                }
-                
-                if (this.currentUser.mainBalance < amount) {
-                    this.showAlert('Saldo insuficiente. Faça um depósito primeiro.', 'error');
-                    return;
-                }
-                
-                // Verificar se já tem um investimento ativo neste plano
-                const hasActiveInvestment = this.currentUser.investments?.some(inv => inv.plan == plan && !inv.completed);
-                if (hasActiveInvestment) {
-                    this.showAlert('Você já tem um investimento ativo neste plano.', 'error');
-                    return;
-                }
-                
-                // Definir configurações do plano
-                const planConfigs = {
-                    '1': { duration: 24, name: 'Investimento Bronze' },
-                    '2': { duration: 24, name: 'Investimento Prata' },
-                    '3': { duration: 24, name: 'Investimento Ouro' },
-                    '4': { duration: 24, name: 'Investimento Platina' },
-                    '5': { duration: 24, name: 'Investimento Diamante' }
-                };
-                
-                const config = planConfigs[plan];
-                
-                // Criar investimento
-                const investment = {
-                    id: Date.now().toString(),
-                    userId: this.currentUser.id,
-                    plan,
-                    amount,
-                    startTime: Date.now(),
-                    endTime: Date.now() + (config.duration * 60 * 60 * 1000),
-                    progress: 0,
+            if (user) {
+                currentUser = user;
+                loadUserData();
+                showDashboard();
+                startInvestmentTimers();
+                updateDailyTasks();
+                alert('Login realizado com sucesso!');
+            } else {
+                alert('Telefone ou senha incorretos. Tente novamente.');
+            }
+        });
+
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('register-name').value;
+            const phone = document.getElementById('register-phone').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm-password').value;
+            
+            // Validações
+            if (!name || !phone || !password || !confirmPassword) {
+                alert('Por favor, preencha todos os campos.');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                alert('As senhas não coincidem.');
+                return;
+            }
+            
+            if (phone.length < 9) {
+                alert('Por favor, insira um número de telefone válido.');
+                return;
+            }
+            
+            // Verificar se o usuário já existe
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const userExists = users.find(u => u.phone === phone);
+            
+            if (userExists) {
+                alert('Este número de telefone já está registrado. Faça login.');
+                return;
+            }
+            
+            // Criar novo usuário com tarefas gerais iniciais
+            const initialTasks = [...tasksByCategory.general];
+            
+            const newUser = {
+                id: Date.now(),
+                name,
+                phone,
+                password,
+                balance: 50, // Bônus de boas-vindas
+                investments: [],
+                activeInvestments: [],
+                taskWallet: 0,
+                tasks: initialTasks.map(task => ({
+                    ...task,
                     completed: false,
-                    createdAt: new Date().toISOString()
-                };
-                
-                // Adicionar ao array de investimentos
-                this.investments.push(investment);
-                localStorage.setItem('fastMoneyInvestments', JSON.stringify(this.investments));
-                
-                // Deduzir valor do saldo principal
-                this.currentUser.mainBalance -= amount;
-                
-                // Registrar transação
-                const transaction = {
-                    id: Date.now().toString(),
-                    userId: this.currentUser.id,
-                    type: 'investment',
-                    amount: -amount,
-                    date: new Date().toISOString(),
-                    status: 'completed',
-                    description: `Investimento no ${config.name}`
-                };
-                
-                this.transactions.push(transaction);
-                localStorage.setItem('fastMoneyTransactions', JSON.stringify(this.transactions));
-                
-                // Atualizar usuário
-                if (!this.currentUser.investments) this.currentUser.investments = [];
-                this.currentUser.investments.push(investment);
-                this.updateCurrentUser();
-                
-                // Atualizar UI
-                this.updateUI();
-                this.renderInvestmentPlans();
-                this.showAlert(`Investimento de R$ ${amount.toFixed(2)} no ${config.name} realizado com sucesso! O retorno cairá na carteira de tarefas após 24 horas.`, 'success');
-            },
-            
-            updateInvestmentProgress() {
-                if (!this.currentUser || !this.currentUser.investments) return;
-                
-                let needsUpdate = false;
-                
-                this.currentUser.investments.forEach(investment => {
-                    if (investment.completed) return;
-                    
-                    const now = Date.now();
-                    if (now >= investment.endTime) {
-                        investment.progress = 100;
-                        needsUpdate = true;
-                    } else {
-                        const elapsed = now - investment.startTime;
-                        const total = investment.endTime - investment.startTime;
-                        investment.progress = Math.min(99, Math.floor((elapsed / total) * 100));
-                        needsUpdate = true;
+                    lastCompleted: null
+                })),
+                history: [
+                    {
+                        id: generateTransactionId(),
+                        type: 'bonus',
+                        amount: 50,
+                        description: 'Bônus de boas-vindas',
+                        date: new Date().toISOString(),
+                        status: 'completed'
                     }
-                });
-                
-                if (needsUpdate) {
-                    // Atualizar arrays principais
-                    this.investments = this.investments.map(inv => {
-                        const userInv = this.currentUser.investments?.find(i => i.id === inv.id);
-                        return userInv || inv;
-                    });
-                    
-                    localStorage.setItem('fastMoneyInvestments', JSON.stringify(this.investments));
-                    this.updateCurrentUser();
-                }
-            },
+                ],
+                lastLogin: new Date().toISOString()
+            };
             
-            checkCompletedInvestments() {
-                if (!this.currentUser || !this.currentUser.investments) return;
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            // Fazer login automaticamente
+            currentUser = newUser;
+            loadUserData();
+            showDashboard();
+            
+            alert('Conta criada com sucesso! Você recebeu R$ 50,00 de bônus para começar a investir.');
+            
+            // Atualizar interface
+            updateBalance();
+            renderHistory();
+        });
+
+        // Logout
+        logoutBtn.addEventListener('click', () => {
+            // Parar todos os timers
+            stopAllInvestmentTimers();
+            
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            showLogin();
+        });
+
+        // Mostrar dashboard
+        function showDashboard() {
+            authContainer.style.display = 'none';
+            dashboard.style.display = 'block';
+            
+            // Atualizar informações do usuário
+            userNameElement.textContent = currentUser.name;
+            updateBalance();
+            updateTaskWalletBalance();
+            renderInvestments();
+            renderActiveInvestments();
+            renderTasks();
+            renderHistory();
+        }
+
+        // Mostrar login
+        function showLogin() {
+            authContainer.style.display = 'flex';
+            dashboard.style.display = 'none';
+            
+            // Limpar formulários
+            loginForm.reset();
+            registerForm.reset();
+            
+            // Mostrar aba de login
+            authTabs.forEach(tab => tab.classList.remove('active'));
+            document.querySelector('[data-tab="login"]').classList.add('active');
+            
+            document.querySelectorAll('.auth-form').forEach(form => {
+                form.classList.remove('active');
+            });
+            loginForm.classList.add('active');
+        }
+
+        // Carregar dados do usuário
+        function loadUserData() {
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const savedUser = users.find(u => u.id === currentUser.id);
+            
+            if (savedUser) {
+                currentUser = savedUser;
+                userBalance = currentUser.balance || 0;
+                userInvestments = currentUser.investments || [];
+                userActiveInvestments = currentUser.activeInvestments || [];
+                taskWallet = currentUser.taskWallet || 0;
+                userTasks = currentUser.tasks || [...tasksByCategory.general];
+                userHistory = currentUser.history || [];
                 
-                this.currentUser.investments.forEach(investment => {
-                    if (investment.completed) return;
-                    
-                    if (investment.progress >= 100) {
-                        investment.completed = true;
-                        
-                        // Pagar retorno total na carteira de tarefas (conforme solicitado)
-                        this.currentUser.taskBalance += investment.amount * 2;
-                        
-                        // Registrar transação
-                        const transaction = {
-                            id: Date.now().toString(),
-                            userId: this.currentUser.id,
-                            type: 'investment',
-                            amount: investment.amount * 2,
-                            date: new Date().toISOString(),
-                            status: 'completed',
-                            description: `Retorno do investimento (Plano ${investment.plan}) - Creditado na carteira de tarefas`
+                // Salvar usuário atual no localStorage para persistência
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            }
+        }
+
+        // Atualizar dados do usuário no localStorage
+        function updateUserData() {
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            
+            if (userIndex !== -1) {
+                // Atualizar dados do usuário
+                currentUser.balance = userBalance;
+                currentUser.investments = userInvestments;
+                currentUser.activeInvestments = userActiveInvestments;
+                currentUser.taskWallet = taskWallet;
+                currentUser.tasks = userTasks;
+                currentUser.history = userHistory;
+                currentUser.lastLogin = new Date().toISOString();
+                
+                users[userIndex] = currentUser;
+                localStorage.setItem('users', JSON.stringify(users));
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            }
+        }
+
+        // Atualizar tarefas diárias
+        function updateDailyTasks() {
+            const today = new Date().toDateString();
+            const lastLogin = currentUser.lastLogin ? new Date(currentUser.lastLogin).toDateString() : null;
+            
+            // Se for um novo dia, resetar tarefas diárias
+            if (lastLogin !== today) {
+                userTasks = userTasks.map(task => {
+                    if (task.daily) {
+                        return {
+                            ...task,
+                            completed: false
                         };
-                        
-                        this.transactions.push(transaction);
-                        localStorage.setItem('fastMoneyTransactions', JSON.stringify(this.transactions));
-                        
-                        // Atualizar arrays principais
-                        this.investments = this.investments.map(inv => 
-                            inv.id === investment.id ? investment : inv
-                        );
-                        localStorage.setItem('fastMoneyInvestments', JSON.stringify(this.investments));
-                        
-                        this.updateCurrentUser();
-                        this.updateUI();
-                        this.renderInvestmentPlans();
-                        
-                        this.showAlert(`Investimento concluído! R$ ${(investment.amount * 2).toFixed(2)} creditados na sua carteira de tarefas.`, 'success');
                     }
+                    return task;
                 });
-            },
+                updateUserData();
+            }
+        }
+
+        // Atualizar saldo na interface
+        function updateBalance() {
+            balanceElement.textContent = `R$ ${userBalance.toFixed(2)}`;
+        }
+
+        // Atualizar saldo da carteira de tarefas
+        function updateTaskWalletBalance() {
+            taskWalletBalance.textContent = `R$ ${taskWallet.toFixed(2)}`;
+        }
+
+        // Gerar ID de transação
+        function generateTransactionId() {
+            return 'TX' + Date.now() + Math.floor(Math.random() * 1000);
+        }
+
+        // Adicionar entrada ao histórico
+        function addHistoryEntry(type, amount, description, status = 'completed', details = {}) {
+            const historyEntry = {
+                id: generateTransactionId(),
+                type,
+                amount,
+                description,
+                date: new Date().toISOString(),
+                status,
+                details
+            };
             
-            transferToMain() {
-                if (this.currentUser.taskBalance <= 0) {
-                    this.showAlert('Você não tem saldo na carteira de tarefas para transferir.', 'error');
-                    return;
-                }
-                
-                const amount = this.currentUser.taskBalance;
-                
-                // Transferir para carteira principal
-                this.currentUser.mainBalance += amount;
-                this.currentUser.taskBalance = 0;
-                
-                // Registrar transação
-                const transaction = {
-                    id: Date.now().toString(),
-                    userId: this.currentUser.id,
-                    type: 'transfer',
-                    amount: amount,
-                    date: new Date().toISOString(),
-                    status: 'completed',
-                    description: 'Transferência da carteira de tarefas para carteira principal'
-                };
-                
-                this.transactions.push(transaction);
-                localStorage.setItem('fastMoneyTransactions', JSON.stringify(this.transactions));
-                
-                this.updateCurrentUser();
-                this.updateUI();
-                this.showAlert(`Transferência de R$ ${amount.toFixed(2)} realizada com sucesso!`, 'success');
-            },
+            userHistory.unshift(historyEntry); // Adicionar no início
+            updateUserData();
+            renderHistory();
+        }
+
+        // Renderizar histórico
+        function renderHistory() {
+            historyList.innerHTML = '';
             
-            submitDeposit() {
-                const number = document.getElementById('depositNumber').value;
-                const amount = parseFloat(document.getElementById('depositAmount').value);
-                const transactionId = document.getElementById('depositTransactionId').value;
-                
-                if (amount < 10) {
-                    this.showAlert('O valor mínimo para depósito é R$ 10,00.', 'error');
-                    return;
-                }
-                
-                if (!number || !transactionId) {
-                    this.showAlert('Por favor, preencha todos os campos obrigatórios.', 'error');
-                    return;
-                }
-                
-                // DEPÓSITO IMEDIATO - Adiciona o valor instantaneamente
-                this.currentUser.mainBalance += amount;
-                
-                // Registrar transação IMEDIATAMENTE
-                const transaction = {
-                    id: Date.now().toString(),
-                    userId: this.currentUser.id,
-                    type: 'deposit',
-                    amount: amount,
-                    date: new Date().toISOString(),
-                    status: 'completed',
-                    description: `Depósito via Paga Fácil - Transação: ${transactionId}`
-                };
-                
-                this.transactions.push(transaction);
-                localStorage.setItem('fastMoneyTransactions', JSON.stringify(this.transactions));
-                
-                // Registrar na fila para histórico (sem processamento)
-                const deposit = {
-                    id: Date.now().toString(),
-                    userId: this.currentUser.id,
-                    number: number,
-                    amount: amount,
-                    transactionId: transactionId,
-                    timestamp: Date.now(),
-                    status: 'completed',
-                    processed: true
-                };
-                
-                this.depositQueue.push(deposit);
-                localStorage.setItem('fastMoneyDepositQueue', JSON.stringify(this.depositQueue));
-                
-                // Atualizar usuário
-                this.updateCurrentUser();
-                
-                // Limpar formulário
-                document.getElementById('depositForm').reset();
-                
-                // Atualizar UI imediatamente
-                this.updateUI();
-                this.showAlert(`Depósito de R$ ${amount.toFixed(2)} realizado com sucesso! O valor já está disponível na sua conta.`, 'success');
-            },
+            if (userHistory.length === 0) {
+                historyList.innerHTML = '<p style="text-align: center; opacity: 0.7;">Nenhuma transação realizada ainda.</p>';
+                return;
+            }
             
-            submitWithdrawal() {
-                const accountName = document.getElementById('withdrawAccountName').value;
-                const accountNumber = document.getElementById('withdrawAccountNumber').value;
-                const amount = parseFloat(document.getElementById('withdrawAmount').value);
+            userHistory.forEach(entry => {
+                const historyItem = document.createElement('div');
+                historyItem.className = `history-item ${entry.type}`;
                 
-                if (amount < 10) {
-                    this.showAlert('O valor mínimo para levantamento é R$ 10,00.', 'error');
-                    return;
-                }
+                // Formatar data
+                const date = new Date(entry.date);
+                const formattedDate = date.toLocaleDateString('pt-PT') + ' ' + date.toLocaleTimeString('pt-PT', {hour: '2-digit', minute: '2-digit'});
                 
-                if (amount > this.currentUser.mainBalance) {
-                    this.showAlert('Saldo insuficiente para realizar o levantamento.', 'error');
-                    return;
-                }
+                // Determinar sinal do valor
+                const isPositive = ['deposit', 'bonus', 'task', 'investment_return'].includes(entry.type);
+                const amountClass = isPositive ? 'positive' : 'negative';
+                const amountSign = isPositive ? '+' : '-';
                 
-                if (!accountName || !accountNumber) {
-                    this.showAlert('Por favor, preencha todos os campos obrigatórios.', 'error');
-                    return;
-                }
-                
-                // Adicionar à fila de levantamentos
-                const withdrawal = {
-                    id: Date.now().toString(),
-                    userId: this.currentUser.id,
-                    accountName: accountName,
-                    accountNumber: accountNumber,
-                    amount: amount,
-                    timestamp: Date.now(),
-                    status: 'pending',
-                    processed: false
-                };
-                
-                this.withdrawalQueue.push(withdrawal);
-                localStorage.setItem('fastMoneyWithdrawalQueue', JSON.stringify(this.withdrawalQueue));
-                
-                // Deduzir valor do saldo principal
-                this.currentUser.mainBalance -= amount;
-                
-                // Registrar transação
-                const transaction = {
-                    id: Date.now().toString(),
-                    userId: this.currentUser.id,
-                    type: 'withdrawal',
-                    amount: -amount,
-                    date: new Date().toISOString(),
-                    status: 'processing',
-                    description: `Levantamento para conta: ${accountName} (${accountNumber})`
-                };
-                
-                this.transactions.push(transaction);
-                localStorage.setItem('fastMoneyTransactions', JSON.stringify(this.transactions));
-                
-                // Limpar formulário
-                document.getElementById('withdrawForm').reset();
-                
-                this.updateCurrentUser();
-                this.updateUI();
-                this.showAlert('Solicitação de levantamento enviada com sucesso! O valor será processado em até 1 hora.', 'success');
-            },
-            
-            processWithdrawalQueue() {
-                const now = Date.now();
-                let updated = false;
-                
-                this.withdrawalQueue.forEach(withdrawal => {
-                    // Processar levantamentos pendentes após 1 hora (3600000 ms)
-                    if (!withdrawal.processed && (now - withdrawal.timestamp) >= 3600000) {
-                        withdrawal.processed = true;
-                        withdrawal.status = 'completed';
-                        updated = true;
-                        
-                        // Atualizar transação
-                        const transaction = this.transactions.find(t => 
-                            t.description && t.description.includes(withdrawal.accountNumber)
-                        );
-                        if (transaction) {
-                            transaction.status = 'completed';
-                        }
-                        
-                        // Notificar usuário
-                        if (this.currentUser && this.currentUser.id === withdrawal.userId) {
-                            this.showAlert(`Levantamento de R$ ${withdrawal.amount.toFixed(2)} processado com sucesso!`, 'success');
-                        }
-                    }
-                });
-                
-                if (updated) {
-                    localStorage.setItem('fastMoneyWithdrawalQueue', JSON.stringify(this.withdrawalQueue));
-                    localStorage.setItem('fastMoneyTransactions', JSON.stringify(this.transactions));
-                }
-            },
-            
-            updateCurrentUser() {
-                // Atualizar usuário no array de usuários
-                const userIndex = this.users.findIndex(u => u.id === this.currentUser.id);
-                if (userIndex !== -1) {
-                    this.users[userIndex] = this.currentUser;
-                    localStorage.setItem('fastMoneyUsers', JSON.stringify(this.users));
-                }
-                
-                // Atualizar usuário atual no localStorage
-                localStorage.setItem('fastMoneyCurrentUser', JSON.stringify(this.currentUser));
-            },
-            
-            showAlert(message, type) {
-                // Criar alerta temporário
-                const alertDiv = document.createElement('div');
-                alertDiv.className = `alert alert-${type}`;
-                alertDiv.innerHTML = `
-                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
-                    <div>${message}</div>
+                historyItem.innerHTML = `
+                    <div class="history-header">
+                        <span class="history-type">${getHistoryTypeName(entry.type)}</span>
+                        <span class="history-date">${formattedDate}</span>
+                    </div>
+                    <div class="history-details">${entry.description}</div>
+                    ${entry.details.transactionId ? `<div class="history-details">ID: ${entry.details.transactionId}</div>` : ''}
+                    <div class="history-amount ${amountClass}">${amountSign} R$ ${Math.abs(entry.amount).toFixed(2)}</div>
                 `;
                 
-                // Adicionar ao início do main
-                const main = document.querySelector('main');
-                main.insertBefore(alertDiv, main.firstChild);
+                historyList.appendChild(historyItem);
+            });
+        }
+
+        // Obter nome do tipo de histórico
+        function getHistoryTypeName(type) {
+            const typeNames = {
+                'deposit': 'Depósito',
+                'withdrawal': 'Levantamento',
+                'investment': 'Investimento',
+                'investment_return': 'Retorno de Investimento',
+                'task': 'Tarefa',
+                'transfer': 'Transferência',
+                'bonus': 'Bônus'
+            };
+            
+            return typeNames[type] || type;
+        }
+
+        // Obter nome da categoria
+        function getCategoryName(category) {
+            const categoryNames = {
+                'basic': 'Básico',
+                'intermediate': 'Intermediário',
+                'advanced': 'Avançado',
+                'general': 'Geral'
+            };
+            
+            return categoryNames[category] || category;
+        }
+
+        // Renderizar investimentos disponíveis
+        function renderInvestments() {
+            investmentsGrid.innerHTML = '';
+            
+            investments.forEach(investment => {
+                const investmentCard = document.createElement('div');
+                investmentCard.className = 'investment-card';
                 
-                // Ocultar automaticamente após 5 segundos
-                setTimeout(() => {
-                    alertDiv.remove();
-                }, 5000);
+                // Verificar se o usuário já investiu neste plano (apenas uma vez)
+                const userInvestment = userInvestments.find(inv => inv.id === investment.id);
+                const invested = !!userInvestment;
+                
+                // Verificar se já tem um investimento ativo deste tipo
+                const activeInvestment = userActiveInvestments.find(inv => inv.id === investment.id);
+                const hasActive = !!activeInvestment;
+                
+                // Calcular tarefas desbloqueadas
+                const tasksForInvestment = tasksByCategory[investment.category] || [];
+                const unlockedTasksCount = tasksForInvestment.length;
+                
+                investmentCard.innerHTML = `
+                    <h3>${investment.name} <span class="profit-badge">+${investment.profitPercentage}%</span></h3>
+                    <div class="investment-details">
+                        <div>
+                            <span>Valor do Investimento:</span>
+                            <span>R$ ${investment.amount.toFixed(2)}</span>
+                        </div>
+                        <div>
+                            <span>Retorno Total:</span>
+                            <span>R$ ${investment.return.toFixed(2)}</span>
+                        </div>
+                        <div>
+                            <span>Duração:</span>
+                            <span>${investment.durationHours} horas</span>
+                        </div>
+                        <div>
+                            <span>Ganho por hora:</span>
+                            <span>R$ ${investment.hourlyProfit.toFixed(2)}</span>
+                        </div>
+                        <div>
+                            <span>Tarefas desbloqueadas:</span>
+                            <span>${unlockedTasksCount} tarefas</span>
+                        </div>
+                        <div>
+                            <span>Status:</span>
+                            <span>${invested ? (hasActive ? 'Ativo' : 'Concluído') : 'Disponível'}</span>
+                        </div>
+                    </div>
+                    <button class="investment-btn ${invested ? (hasActive ? 'completing-btn' : 'invested-btn') : 'invest-btn'}" 
+                            data-id="${investment.id}" ${invested ? 'disabled' : ''}>
+                        ${invested ? (hasActive ? '<i class="fas fa-clock"></i> Em Andamento' : '<i class="fas fa-check"></i> Concluído') : '<i class="fas fa-coins"></i> Investir'}
+                    </button>
+                `;
+                
+                investmentsGrid.appendChild(investmentCard);
+                
+                // Adicionar evento de clique no botão de investir
+                if (!invested) {
+                    const investBtn = investmentCard.querySelector('.investment-btn');
+                    investBtn.addEventListener('click', () => {
+                        makeInvestment(investment);
+                    });
+                }
+            });
+        }
+
+        // Renderizar investimentos ativos
+        function renderActiveInvestments() {
+            activeInvestmentsList.innerHTML = '';
+            
+            if (userActiveInvestments.length === 0) {
+                activeInvestmentsList.innerHTML = '<p style="text-align: center; opacity: 0.7;">Nenhum investimento ativo no momento.</p>';
+                return;
             }
-        };
-        
-        // Inicializar a aplicação
+            
+            userActiveInvestments.forEach(investment => {
+                const activeItem = document.createElement('div');
+                activeItem.className = 'active-investment-item active';
+                
+                // Calcular tempo restante
+                const investedAt = new Date(investment.investedAt);
+                const endTime = new Date(investedAt.getTime() + (investment.durationHours * 60 * 60 * 1000));
+                const now = new Date();
+                const timeRemaining = endTime - now;
+                
+                // Calcular progresso
+                const totalDuration = investment.durationHours * 60 * 60 * 1000;
+                const elapsed = totalDuration - timeRemaining;
+                const progressPercent = Math.min(100, Math.max(0, (elapsed / totalDuration) * 100));
+                
+                // Formatar tempo restante
+                const hoursRemaining = Math.floor(timeRemaining / (1000 * 60 * 60));
+                const minutesRemaining = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+                const secondsRemaining = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+                
+                // Calcular retorno acumulado até o momento
+                const hoursElapsed = Math.min(investment.durationHours, elapsed / (1000 * 60 * 60));
+                const accumulatedReturn = hoursElapsed * investment.hourlyProfit;
+                const totalProfit = investment.return - investment.amount;
+                
+                // Tarefas desbloqueadas por este investimento
+                const tasksForInvestment = tasksByCategory[investment.category] || [];
+                
+                activeItem.innerHTML = `
+                    <div class="active-investment-header">
+                        <span class="active-investment-type">${investment.name} <span class="profit-badge">+${investment.profitPercentage}%</span></span>
+                        <span class="active-investment-date">Iniciado: ${investedAt.toLocaleDateString('pt-PT')}</span>
+                    </div>
+                    <div class="active-investment-details">
+                        <div style="margin-bottom: 10px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <span>Investido:</span>
+                                <span>R$ ${investment.amount.toFixed(2)}</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <span>Retorno total:</span>
+                                <span>R$ ${investment.return.toFixed(2)}</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <span>Lucro total:</span>
+                                <span style="color: #4caf50;">+ R$ ${totalProfit.toFixed(2)}</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <span>Retorno acumulado:</span>
+                                <span style="color: #4fc3f7;">R$ ${accumulatedReturn.toFixed(2)}</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>Tarefas desbloqueadas:</span>
+                                <span style="color: #9c27b0;">${tasksForInvestment.length} tarefas</span>
+                            </div>
+                        </div>
+                        
+                        <div class="investment-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${progressPercent}%"></div>
+                            </div>
+                            <div class="progress-info">
+                                <span>${progressPercent.toFixed(1)}% concluído</span>
+                                <span>Tempo restante: ${hoursRemaining}h ${minutesRemaining}m ${secondsRemaining}s</span>
+                            </div>
+                        </div>
+                        
+                        <div class="countdown-timer">
+                            <i class="fas fa-clock"></i> ${hoursRemaining.toString().padStart(2, '0')}:${minutesRemaining.toString().padStart(2, '0')}:${secondsRemaining.toString().padStart(2, '0')}
+                        </div>
+                    </div>
+                    <div class="active-investment-amount">
+                        Ganho por hora: R$ ${investment.hourlyProfit.toFixed(2)}
+                    </div>
+                `;
+                
+                activeInvestmentsList.appendChild(activeItem);
+            });
+        }
+
+        // Iniciar timers para investimentos ativos
+        function startInvestmentTimers() {
+            // Parar timers antigos
+            stopAllInvestmentTimers();
+            
+            userActiveInvestments.forEach(investment => {
+                startInvestmentTimer(investment);
+            });
+        }
+
+        // Iniciar timer para um investimento específico
+        function startInvestmentTimer(investment) {
+            const investedAt = new Date(investment.investedAt);
+            const endTime = new Date(investedAt.getTime() + (investment.durationHours * 60 * 60 * 1000));
+            const now = new Date();
+            const timeRemaining = endTime - now;
+            
+            // Se o investimento já expirou, completá-lo
+            if (timeRemaining <= 0) {
+                completeInvestment(investment);
+                return;
+            }
+            
+            // Configurar timer para completar o investimento quando o tempo acabar
+            investmentTimers[investment.id] = setTimeout(() => {
+                completeInvestment(investment);
+            }, timeRemaining);
+            
+            // Atualizar a interface a cada segundo
+            investmentTimers[investment.id + '_update'] = setInterval(() => {
+                if (document.getElementById('active-tab').classList.contains('active')) {
+                    renderActiveInvestments();
+                }
+            }, 1000);
+        }
+
+        // Parar todos os timers
+        function stopAllInvestmentTimers() {
+            Object.values(investmentTimers).forEach(timer => {
+                clearTimeout(timer);
+                clearInterval(timer);
+            });
+            investmentTimers = {};
+        }
+
+        // Completar investimento (quando o tempo acaba)
+        function completeInvestment(investment) {
+            // Remover investimento da lista de ativos
+            const investmentIndex = userActiveInvestments.findIndex(inv => inv.id === investment.id);
+            if (investmentIndex !== -1) {
+                userActiveInvestments.splice(investmentIndex, 1);
+            }
+            
+            // Adicionar retorno ao saldo
+            userBalance += investment.return;
+            
+            // Adicionar ao histórico
+            addHistoryEntry('investment_return', investment.return, `Retorno do investimento: ${investment.name}`, 'completed', {
+                investmentId: investment.id
+            });
+            
+            // Atualizar interface e dados
+            updateUserData();
+            updateBalance();
+            renderInvestments();
+            
+            // Parar timers deste investimento
+            if (investmentTimers[investment.id]) {
+                clearTimeout(investmentTimers[investment.id]);
+                delete investmentTimers[investment.id];
+            }
+            if (investmentTimers[investment.id + '_update']) {
+                clearInterval(investmentTimers[investment.id + '_update']);
+                delete investmentTimers[investment.id + '_update'];
+            }
+            
+            // Notificar usuário
+            if (document.visibilityState === 'visible') {
+                alert(` Parabéns! Seu investimento "${investment.name}" foi concluído! Você recebeu R$ ${investment.return.toFixed(2)} de retorno.`);
+            }
+            
+            // Se estiver na aba de investimentos ativos, atualizar a lista
+            if (document.getElementById('active-tab').classList.contains('active')) {
+                renderActiveInvestments();
+            }
+        }
+
+        // Adicionar tarefas desbloqueadas por um investimento
+        function addUnlockedTasks(investment) {
+            const tasksForInvestment = tasksByCategory[investment.category] || [];
+            let newTasksCount = 0;
+            
+            tasksForInvestment.forEach(task => {
+                // Verificar se a tarefa já existe
+                const taskExists = userTasks.some(userTask => userTask.id === task.id);
+                
+                if (!taskExists) {
+                    // Adicionar nova tarefa
+                    userTasks.push({
+                        ...task,
+                        completed: false,
+                        lastCompleted: null
+                    });
+                    newTasksCount++;
+                }
+            });
+            
+            return newTasksCount;
+        }
+
+        // Verificar se o usuário tem o investimento necessário para uma tarefa
+        function hasRequiredInvestmentForTask(task) {
+            if (task.requiredInvestment === 0) return true;
+            
+            // Verificar se o usuário tem algum investimento com valor igual ou superior
+            return userInvestments.some(inv => inv.amount >= task.requiredInvestment);
+        }
+
+        // Realizar investimento
+        function makeInvestment(investment) {
+            if (userBalance < investment.amount) {
+                alert(`Saldo insuficiente. Você precisa de R$ ${investment.amount.toFixed(2)} para este investimento.`);
+                return;
+            }
+            
+            if (confirm(`Deseja investir R$ ${investment.amount.toFixed(2)} no plano ${investment.name} por ${investment.durationHours} horas?\n\nEste investimento desbloqueará ${investment.tasksUnlocked} novas tarefas!`)) {
+                // Deduzir valor do saldo
+                userBalance -= investment.amount;
+                
+                // Adicionar investimento à lista de investimentos do usuário
+                const userInvestment = {
+                    ...investment,
+                    investedAt: new Date().toISOString(),
+                    completed: false,
+                    returnReceived: false
+                };
+                
+                userInvestments.push(userInvestment);
+                
+                // Adicionar à lista de investimentos ativos
+                const activeInvestment = {...userInvestment};
+                userActiveInvestments.push(activeInvestment);
+                
+                // Adicionar ao histórico
+                addHistoryEntry('investment', -investment.amount, `Investimento: ${investment.name} (${investment.durationHours} horas)`, 'completed', {
+                    investmentId: investment.id
+                });
+                
+                // Adicionar tarefas desbloqueadas por este investimento
+                const newTasksCount = addUnlockedTasks(investment);
+                
+                if (newTasksCount > 0) {
+                    alert(` Parabéns! Você desbloqueou ${newTasksCount} nova(s) tarefa(s) com o investimento ${investment.name}. Acesse a aba "Tarefas" para visualizá-las.`);
+                }
+                
+                // Iniciar timer para este investimento
+                startInvestmentTimer(activeInvestment);
+                
+                // Atualizar interface e dados
+                updateUserData();
+                updateBalance();
+                renderInvestments();
+                renderActiveInvestments();
+                renderTasks();
+                
+                alert(`Investimento realizado com sucesso! Seu retorno de R$ ${investment.return.toFixed(2)} será creditado em ${investment.durationHours} horas.`);
+            }
+        }
+
+        // Renderizar tarefas
+        function renderTasks() {
+            tasksList.innerHTML = '';
+            
+            if (userTasks.length === 0) {
+                tasksList.innerHTML = '<p style="text-align: center; opacity: 0.7;">Nenhuma tarefa disponível no momento. Faça um investimento para desbloquear tarefas!</p>';
+                return;
+            }
+            
+            // Organizar tarefas por categoria
+            const categorizedTasks = {
+                general: [],
+                basic: [],
+                intermediate: [],
+                advanced: []
+            };
+            
+            userTasks.forEach(task => {
+                if (!categorizedTasks[task.category]) {
+                    categorizedTasks[task.category] = [];
+                }
+                categorizedTasks[task.category].push(task);
+            });
+            
+            // Renderizar tarefas por categoria
+            Object.keys(categorizedTasks).forEach(category => {
+                const tasksInCategory = categorizedTasks[category];
+                
+                if (tasksInCategory.length > 0) {
+                    // Adicionar título da categoria
+                    const categoryTitle = document.createElement('div');
+                    categoryTitle.style.margin = '15px 0 10px 0';
+                    categoryTitle.style.fontWeight = '600';
+                    categoryTitle.style.color = '#4fc3f7';
+                    categoryTitle.style.fontSize = '16px';
+                    categoryTitle.innerHTML = `<i class="fas fa-folder"></i> ${getCategoryName(category)} (${tasksInCategory.length})`;
+                    tasksList.appendChild(categoryTitle);
+                    
+                    // Adicionar tarefas da categoria
+                    tasksInCategory.forEach(task => {
+                        const taskItem = document.createElement('div');
+                        
+                        // Determinar classe CSS baseada no status
+                        let taskClass = 'task-item';
+                        let statusIcon = '';
+                        let statusText = '';
+                        
+                        if (task.completed) {
+                            taskClass += ' completed';
+                            statusIcon = '<i class="fas fa-check-circle completed-icon"></i>';
+                            statusText = 'Concluída';
+                        } else if (hasRequiredInvestmentForTask(task)) {
+                            taskClass += ' unlocked';
+                            statusIcon = '<i class="fas fa-lock-open unlocked-icon"></i>';
+                            statusText = 'Disponível';
+                        } else {
+                            taskClass += ' locked';
+                            statusIcon = '<i class="fas fa-lock locked-icon"></i>';
+                            statusText = 'Bloqueada';
+                        }
+                        
+                        taskItem.className = taskClass;
+                        
+                        taskItem.innerHTML = `
+                            <div class="task-info">
+                                <h4>
+                                    <span class="task-category ${task.category}">${getCategoryName(task.category)}</span>
+                                    ${task.name}
+                                </h4>
+                                <p>${task.description}</p>
+                                <div style="display: flex; justify-content: space-between; margin-top: 5px;">
+                                    <div class="task-requirements">
+                                        ${statusIcon}
+                                        <span>${statusText}</span>
+                                        <span style="margin-left: 10px;">
+                                            <i class="fas fa-coins" style="color: #ffeb3b;"></i> R$ ${task.reward.toFixed(2)}
+                                        </span>
+                                        ${task.duration ? `<span style="margin-left: 10px;"><i class="fas fa-clock"></i> ${task.duration}</span>` : ''}
+                                    </div>
+                                    ${task.requiredInvestment > 0 ? `
+                                        <div class="task-requirements">
+                                            <i class="fas fa-coins" style="color: #4caf50;"></i>
+                                            <span>Investimento mínimo: R$ ${task.requiredInvestment.toFixed(2)}</span>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            </div>
+                            <div class="task-actions">
+                                <button class="complete-task-btn" data-id="${task.id}" 
+                                        ${task.completed ? 'disabled' : !hasRequiredInvestmentForTask(task) ? 'disabled' : ''}>
+                                    ${task.completed ? '<i class="fas fa-check"></i> Concluída' : 
+                                      !hasRequiredInvestmentForTask(task) ? '<i class="fas fa-lock"></i> Bloqueada' : 
+                                      '<i class="fas fa-play"></i> Realizar'}
+                                </button>
+                            </div>
+                        `;
+                        
+                        tasksList.appendChild(taskItem);
+                        
+                        // Adicionar evento de clique no botão de concluir tarefa
+                        if (!task.completed && hasRequiredInvestmentForTask(task)) {
+                            const completeBtn = taskItem.querySelector('.complete-task-btn');
+                            completeBtn.addEventListener('click', () => {
+                                completeTask(task.id);
+                            });
+                        }
+                    });
+                }
+            });
+        }
+
+        // Completar tarefa
+        function completeTask(taskId) {
+            const taskIndex = userTasks.findIndex(task => task.id === taskId);
+            
+            if (taskIndex !== -1 && !userTasks[taskIndex].completed) {
+                // Marcar tarefa como concluída
+                userTasks[taskIndex].completed = true;
+                userTasks[taskIndex].lastCompleted = new Date().toISOString();
+                
+                // Adicionar recompensa à carteira de tarefas
+                taskWallet += userTasks[taskIndex].reward;
+                
+                // Adicionar ao histórico
+                addHistoryEntry('task', userTasks[taskIndex].reward, `Tarefa: ${userTasks[taskIndex].name}`, 'completed', {
+                    taskId: userTasks[taskIndex].id,
+                    category: userTasks[taskIndex].category
+                });
+                
+                // Atualizar interface e dados
+                updateUserData();
+                updateTaskWalletBalance();
+                renderTasks();
+                
+                alert(`✅ Tarefa "${userTasks[taskIndex].name}" concluída! Você ganhou R$ ${userTasks[taskIndex].reward.toFixed(2)} na carteira de tarefas.`);
+                
+                // Se for tarefa diária, programar reset para o próximo dia
+                if (userTasks[taskIndex].daily) {
+                    setTimeout(() => {
+                        if (currentUser) {
+                            const today = new Date().toDateString();
+                            const taskDate = userTasks[taskIndex].lastCompleted ? new Date(userTasks[taskIndex].lastCompleted).toDateString() : null;
+                            
+                            if (taskDate !== today) {
+                                userTasks[taskIndex].completed = false;
+                                updateUserData();
+                                renderTasks();
+                            }
+                        }
+                    }, 24 * 60 * 60 * 1000); // 24 horas
+                }
+            }
+        }
+
+        // Transferir da carteira de tarefas para a conta principal
+        transferBtn.addEventListener('click', () => {
+            if (taskWallet <= 0) {
+                alert('Você não tem saldo na carteira de tarefas para transferir.');
+                return;
+            }
+            
+            if (confirm(`Deseja transferir R$ ${taskWallet.toFixed(2)} da carteira de tarefas para a conta principal?`)) {
+                // Transferir saldo
+                userBalance += taskWallet;
+                const transferredAmount = taskWallet;
+                
+                // Adicionar ao histórico
+                addHistoryEntry('transfer', transferredAmount, 'Transferência da carteira de tarefas', 'completed', {
+                    from: 'task_wallet',
+                    to: 'main_balance'
+                });
+                
+                taskWallet = 0;
+                
+                // Atualizar interface e dados
+                updateUserData();
+                updateBalance();
+                updateTaskWalletBalance();
+                renderTasks();
+                
+                alert(`✅ Transferência de R$ ${transferredAmount.toFixed(2)} realizada com sucesso!`);
+            }
+        });
+
+        // Abrir modal de depósito
+        depositBtn.addEventListener('click', () => {
+            depositModal.style.display = 'flex';
+        });
+
+        // Abrir modal de depósito pelo botão lateral
+        sidebarDepositBtn.addEventListener('click', () => {
+            depositModal.style.display = 'flex';
+        });
+
+        // Abrir modal de levantamento
+        withdrawBtn.addEventListener('click', () => {
+            withdrawModal.style.display = 'flex';
+            // Preencher automaticamente o nome
+            document.getElementById('withdraw-name').value = currentUser.name;
+        });
+
+        // Abrir modal de WhatsApp
+        whatsappBtn.addEventListener('click', () => {
+            whatsappModal.style.display = 'flex';
+        });
+
+        // Formulário de depósito
+        document.getElementById('deposit-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const amount = parseFloat(document.getElementById('deposit-amount').value);
+            const method = document.getElementById('deposit-method').value;
+            const paymentNumber = document.getElementById('payment-number').value;
+            const commercialCode = document.getElementById('commercial-code').value;
+            const transactionId = document.getElementById('transaction-id').value;
+            const transactionMessage = document.getElementById('transaction-message').value;
+            
+            if (!amount || amount < 10) {
+                alert('O valor mínimo para depósito é R$ 10,00.');
+                return;
+            }
+            
+            if (!method) {
+                alert('Por favor, selecione o método de pagamento.');
+                return;
+            }
+            
+            if (!paymentNumber) {
+                alert('Por favor, insira o número de pagamento.');
+                return;
+            }
+            
+            if (!commercialCode) {
+                alert('Por favor, insira o código comercial.');
+                return;
+            }
+            
+            if (!transactionId) {
+                alert('Por favor, insira o ID da transação.');
+                return;
+            }
+            
+            if (!transactionMessage) {
+                alert('Por favor, insira a mensagem da transação.');
+                return;
+            }
+            
+            // Simular depósito
+            userBalance += amount;
+            
+            // Adicionar ao histórico
+            addHistoryEntry('deposit', amount, `Depósito via ${method}`, 'pending', {
+                method,
+                paymentNumber,
+                commercialCode,
+                transactionId,
+                transactionMessage
+            });
+            
+            updateUserData();
+            updateBalance();
+            depositModal.style.display = 'none';
+            document.getElementById('deposit-form').reset();
+            
+            alert(`✅ Depósito de R$ ${amount.toFixed(2)} solicitado com sucesso! O valor será creditado após confirmação.`);
+            
+            // Simular confirmação após 30 segundos (para demonstração)
+            setTimeout(() => {
+                if (currentUser) {
+                    // Atualizar status no histórico
+                    const depositEntry = userHistory.find(entry => 
+                        entry.type === 'deposit' && 
+                        entry.details.transactionId === transactionId
+                    );
+                    
+                    if (depositEntry) {
+                        depositEntry.status = 'completed';
+                        depositEntry.description = `Depósito confirmado via ${method}`;
+                        updateUserData();
+                        renderHistory();
+                        alert(`✅ Depósito de R$ ${amount.toFixed(2)} confirmado e creditado na sua conta!`);
+                    }
+                }
+            }, 30000);
+        });
+
+        // Formulário de levantamento
+        document.getElementById('withdraw-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const amount = parseFloat(document.getElementById('withdraw-amount').value);
+            const method = document.getElementById('withdraw-method').value;
+            const phone = document.getElementById('withdraw-phone').value;
+            const name = document.getElementById('withdraw-name').value;
+            
+            if (!amount || amount < 10) {
+                alert('O valor mínimo para levantamento é R$ 10,00.');
+                return;
+            }
+            
+            if (amount > userBalance) {
+                alert('Saldo insuficiente para este levantamento.');
+                return;
+            }
+            
+            if (!method) {
+                alert('Por favor, selecione o método de recebimento.');
+                return;
+            }
+            
+            if (!phone) {
+                alert('Por favor, insira o número/IBAN para recebimento.');
+                return;
+            }
+            
+            if (!name) {
+                alert('Por favor, insira o nome do titular.');
+                return;
+            }
+            
+            // Simular levantamento
+            userBalance -= amount;
+            
+            // Adicionar ao histórico
+            addHistoryEntry('withdrawal', -amount, `Levantamento via ${method}`, 'pending', {
+                method,
+                phone,
+                name
+            });
+            
+            updateUserData();
+            updateBalance();
+            withdrawModal.style.display = 'none';
+            document.getElementById('withdraw-form').reset();
+            
+            alert(`✅ Levantamento de R$ ${amount.toFixed(2)} solicitado com sucesso! O valor será transferido em até 24 horas.`);
+            
+            // Simular conclusão após 30 segundos (para demonstração)
+            setTimeout(() => {
+                if (currentUser) {
+                    // Atualizar status no histórico
+                    const withdrawalEntry = userHistory.find(entry => 
+                        entry.type === 'withdrawal' && 
+                        entry.amount === -amount &&
+                        entry.status === 'pending'
+                    );
+                    
+                    if (withdrawalEntry) {
+                        withdrawalEntry.status = 'completed';
+                        withdrawalEntry.description = `Levantamento concluído via ${method}`;
+                        updateUserData();
+                        renderHistory();
+                        alert(`✅ Levantamento de R$ ${amount.toFixed(2)} concluído e enviado para ${phone}!`);
+                    }
+                }
+            }, 30000);
+        });
+
+        // Abrir WhatsApp
+        document.getElementById('open-whatsapp-btn').addEventListener('click', () => {
+            const phoneNumber = "+258878332095";
+            const userMessage = document.getElementById('whatsapp-message').value || "Olá, preciso de ajuda com a plataforma InvestSmart.";
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(userMessage)}`;
+            window.open(whatsappURL, '_blank');
+            whatsappModal.style.display = 'none';
+        });
+
+        // Fechar modais ao clicar fora
+        window.addEventListener('click', (e) => {
+            if (e.target === depositModal) {
+                depositModal.style.display = 'none';
+            }
+            if (e.target === withdrawModal) {
+                withdrawModal.style.display = 'none';
+            }
+            if (e.target === whatsappModal) {
+                whatsappModal.style.display = 'none';
+            }
+        });
+
+        // Verificar se há usuário logado ao carregar a página
         document.addEventListener('DOMContentLoaded', () => {
-            AppState.init();
+            // Verificar se há um usuário salvo no localStorage
+            const savedUser = JSON.parse(localStorage.getItem('currentUser'));
+            
+            if (savedUser) {
+                currentUser = savedUser;
+                loadUserData();
+                showDashboard();
+                startInvestmentTimers();
+                updateDailyTasks();
+            } else {
+                showLogin();
+            }
+            
+            // Inicializar dados se não existirem
+            if (!localStorage.getItem('users')) {
+                localStorage.setItem('users', JSON.stringify([]));
+            }
         });
     </script>
 </body>
