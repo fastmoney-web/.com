@@ -246,7 +246,7 @@
             gap: 30px;
         }
 
-        .investments-section, .tasks-section, .history-section, .active-investments-section {
+        .investments-section, .history-section, .active-investments-section {
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 25px;
@@ -353,94 +353,6 @@
             cursor: default;
         }
 
-        .tasks-list {
-            margin-bottom: 25px;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .task-item {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .task-item.unlocked {
-            border-left: 4px solid #4caf50;
-        }
-
-        .task-item.locked {
-            border-left: 4px solid #ff9800;
-            opacity: 0.7;
-        }
-
-        .task-item.completed {
-            border-left: 4px solid #9c27b0;
-            opacity: 0.8;
-        }
-
-        .task-info h4 {
-            margin-bottom: 5px;
-            color: #4fc3f7;
-        }
-
-        .task-info p {
-            opacity: 0.8;
-            font-size: 14px;
-        }
-
-        .task-requirements {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            margin-top: 5px;
-            font-size: 12px;
-            color: #4fc3f7;
-        }
-
-        .task-actions button {
-            background-color: #4fc3f7;
-            color: #0d1b2a;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .task-actions button:disabled {
-            background-color: #666;
-            cursor: not-allowed;
-        }
-
-        .task-actions button:hover:not(:disabled) {
-            background-color: #29b6f6;
-        }
-
-        .transfer-btn {
-            width: 100%;
-            padding: 14px;
-            background-color: #9c27b0;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .transfer-btn:hover {
-            background-color: #7b1fa2;
-        }
-
         .history-list, .active-investments-list {
             max-height: 400px;
             overflow-y: auto;
@@ -468,14 +380,6 @@
 
         .history-item.investment_return {
             border-left-color: #4caf50;
-        }
-
-        .history-item.task {
-            border-left-color: #00bcd4;
-        }
-
-        .history-item.bonus {
-            border-left-color: #ffeb3b;
         }
 
         .history-header, .active-investment-header {
@@ -746,40 +650,6 @@
             font-weight: 600;
             margin-left: 8px;
         }
-
-        .task-category {
-            font-size: 12px;
-            padding: 2px 8px;
-            border-radius: 10px;
-            background-color: rgba(79, 195, 247, 0.2);
-            color: #4fc3f7;
-            margin-right: 8px;
-        }
-
-        .task-category.basic {
-            background-color: rgba(76, 175, 80, 0.2);
-            color: #4caf50;
-        }
-
-        .task-category.intermediate {
-            background-color: rgba(255, 152, 0, 0.2);
-            color: #ff9800;
-        }
-
-        .task-category.advanced {
-            background-color: rgba(156, 39, 176, 0.2);
-            color: #9c27b0;
-        }
-
-        .locked-icon {
-            color: #ff9800;
-            margin-right: 5px;
-        }
-
-        .unlocked-icon {
-            color: #4caf50;
-            margin-right: 5px;
-        }
     </style>
 </head>
 <body>
@@ -849,14 +719,13 @@
         <div class="tab-navigation">
             <button class="tab-btn active" data-tab="investments">Investir</button>
             <button class="tab-btn" data-tab="active">Investimentos Ativos</button>
-            <button class="tab-btn" data-tab="tasks">Tarefas</button>
             <button class="tab-btn" data-tab="history">Histórico</button>
         </div>
         
         <div class="tab-content active" id="investments-tab">
             <div class="investments-section">
                 <h2 class="section-title"><i class="fas fa-coins"></i> Investimentos Disponíveis</h2>
-                <p style="margin-bottom: 20px; opacity: 0.8;">Cada investimento desbloqueia tarefas específicas. Invista para desbloquear mais oportunidades de ganho!</p>
+                <p style="margin-bottom: 20px; opacity: 0.8;">Escolha um plano de investimento para começar a ganhar retornos.</p>
                 <div class="investments-grid" id="investments-grid">
                     <!-- Os investimentos serão inseridos via JavaScript -->
                 </div>
@@ -869,21 +738,6 @@
                 <div class="active-investments-list" id="active-investments-list">
                     <!-- Os investimentos ativos serão inseridos via JavaScript -->
                 </div>
-            </div>
-        </div>
-        
-        <div class="tab-content" id="tasks-tab">
-            <div class="tasks-section">
-                <h2 class="section-title"><i class="fas fa-tasks"></i> Carteira de Tarefas</h2>
-                <div class="tasks-list" id="tasks-list">
-                    <!-- As tarefas serão inseridas via JavaScript -->
-                </div>
-                <div class="task-wallet-info">
-                    <p style="margin-bottom: 15px; text-align: center; font-weight: 600;">
-                        Saldo na Carteira de Tarefas: <span id="task-wallet-balance" style="color: #4fc3f7;">R$ 0,00</span>
-                    </p>
-                </div>
-                <button class="transfer-btn" id="transfer-btn"><i class="fas fa-exchange-alt"></i> Transferir para Conta Principal</button>
             </div>
         </div>
         
@@ -1014,7 +868,7 @@
     </div>
 
     <script>
-        // Dados de investimentos atualizados conforme solicitado
+        // Dados de investimentos (SOMENTE INVESTIMENTOS)
         const investments = [
             {
                 id: 1,
@@ -1024,7 +878,6 @@
                 hourlyProfit: 2,
                 durationHours: 20,
                 description: "Retorno de 100% em 20 horas",
-                tasksUnlocked: 2, // Número de tarefas desbloqueadas
                 profitPercentage: 100,
                 category: "basic"
             },
@@ -1036,7 +889,6 @@
                 hourlyProfit: 5,
                 durationHours: 28,
                 description: "Retorno de 100% em 28 horas",
-                tasksUnlocked: 2, // Número de tarefas desbloqueadas
                 profitPercentage: 100,
                 category: "intermediate"
             },
@@ -1048,132 +900,17 @@
                 hourlyProfit: 13.34,
                 durationHours: 24,
                 description: "Retorno de 100% em 24 horas",
-                tasksUnlocked: 2, // Número de tarefas desbloqueadas
                 profitPercentage: 100,
                 category: "advanced"
             }
         ];
 
-        // Tarefas organizadas por categoria de investimento
-        const tasksByCategory = {
-            "basic": [
-                {
-                    id: 1,
-                    name: "Tutorial Inicial",
-                    reward: 2,
-                    requiredInvestment: 20,
-                    description: "Complete o tutorial de boas-vindas da plataforma",
-                    category: "basic",
-                    duration: "5 minutos"
-                },
-                {
-                    id: 2,
-                    name: "Primeiro Depósito",
-                    reward: 3,
-                    requiredInvestment: 20,
-                    description: "Realize seu primeiro depósito na plataforma",
-                    category: "basic",
-                    duration: "2 minutos"
-                },
-                {
-                    id: 3,
-                    name: "Verificação de Perfil",
-                    reward: 5,
-                    requiredInvestment: 20,
-                    description: "Complete a verificação do seu perfil",
-                    category: "basic",
-                    duration: "10 minutos"
-                }
-            ],
-            "intermediate": [
-                {
-                    id: 4,
-                    name: "Compartilhar no Facebook",
-                    reward: 4,
-                    requiredInvestment: 70,
-                    description: "Compartilhe nosso link no seu Facebook",
-                    category: "intermediate",
-                    duration: "5 minutos"
-                },
-                {
-                    id: 5,
-                    name: "Indicar um Amigo",
-                    reward: 10,
-                    requiredInvestment: 70,
-                    description: "Indique um amigo que faça o cadastro",
-                    category: "intermediate",
-                    duration: "15 minutos"
-                },
-                {
-                    id: 6,
-                    name: "Avaliar no Google",
-                    reward: 8,
-                    requiredInvestment: 70,
-                    description: "Deixe uma avaliação 5 estrelas no Google",
-                    category: "intermediate",
-                    duration: "10 minutos"
-                }
-            ],
-            "advanced": [
-                {
-                    id: 7,
-                    name: "Participar de Webinar",
-                    reward: 15,
-                    requiredInvestment: 160,
-                    description: "Participe de um webinar ao vivo sobre investimentos",
-                    category: "advanced",
-                    duration: "30 minutos"
-                },
-                {
-                    id: 8,
-                    name: "Escrever Depoimento",
-                    reward: 12,
-                    requiredInvestment: 160,
-                    description: "Escreva um depoimento sobre sua experiência",
-                    category: "advanced",
-                    duration: "15 minutos"
-                },
-                {
-                    id: 9,
-                    name: "Convidar 3 Amigos",
-                    reward: 25,
-                    requiredInvestment: 160,
-                    description: "Convide 3 amigos que façam investimento mínimo",
-                    category: "advanced",
-                    duration: "30 minutos"
-                }
-            ],
-            "general": [
-                {
-                    id: 10,
-                    name: "Acesso Diário",
-                    reward: 1,
-                    requiredInvestment: 0,
-                    description: "Acesse a plataforma diariamente",
-                    category: "general",
-                    duration: "1 minuto",
-                    daily: true
-                },
-                {
-                    id: 11,
-                    name: "Verificar Notificações",
-                    reward: 1,
-                    requiredInvestment: 0,
-                    description: "Verifique as notificações da plataforma",
-                    category: "general",
-                    duration: "2 minutos"
-                }
-            ]
-        };
-
         // Estado da aplicação
         let currentUser = null;
         let userInvestments = [];
         let userActiveInvestments = [];
-        let userTasks = [];
         let userHistory = [];
         let userBalance = 0;
-        let taskWallet = 0;
         let investmentTimers = {};
 
         // Elementos do DOM
@@ -1187,13 +924,10 @@
         const balanceElement = document.getElementById('balance');
         const investmentsGrid = document.getElementById('investments-grid');
         const activeInvestmentsList = document.getElementById('active-investments-list');
-        const tasksList = document.getElementById('tasks-list');
-        const transferBtn = document.getElementById('transfer-btn');
         const depositBtn = document.getElementById('deposit-btn');
         const withdrawBtn = document.getElementById('withdraw-btn');
         const sidebarDepositBtn = document.getElementById('sidebar-deposit-btn');
         const whatsappBtn = document.getElementById('whatsapp-btn');
-        const taskWalletBalance = document.getElementById('task-wallet-balance');
         const historyList = document.getElementById('history-list');
         const tabBtns = document.querySelectorAll('.tab-btn');
         const tabContents = document.querySelectorAll('.tab-content');
@@ -1271,7 +1005,6 @@
                 loadUserData();
                 showDashboard();
                 startInvestmentTimers();
-                updateDailyTasks();
                 alert('Login realizado com sucesso!');
             } else {
                 alert('Telefone ou senha incorretos. Tente novamente.');
@@ -1311,33 +1044,16 @@
                 return;
             }
             
-            // Criar novo usuário com tarefas gerais iniciais
-            const initialTasks = [...tasksByCategory.general];
-            
+            // Criar novo usuário SEM bônus e SEM tarefas
             const newUser = {
                 id: Date.now(),
                 name,
                 phone,
                 password,
-                balance: 50, // Bônus de boas-vindas
+                balance: 0, // Começa com saldo zero
                 investments: [],
                 activeInvestments: [],
-                taskWallet: 0,
-                tasks: initialTasks.map(task => ({
-                    ...task,
-                    completed: false,
-                    lastCompleted: null
-                })),
-                history: [
-                    {
-                        id: generateTransactionId(),
-                        type: 'bonus',
-                        amount: 50,
-                        description: 'Bônus de boas-vindas',
-                        date: new Date().toISOString(),
-                        status: 'completed'
-                    }
-                ],
+                history: [],
                 lastLogin: new Date().toISOString()
             };
             
@@ -1349,7 +1065,7 @@
             loadUserData();
             showDashboard();
             
-            alert('Conta criada com sucesso! Você recebeu R$ 50,00 de bônus para começar a investir.');
+            alert('Conta criada com sucesso! Faça um depósito para começar a investir.');
             
             // Atualizar interface
             updateBalance();
@@ -1374,10 +1090,8 @@
             // Atualizar informações do usuário
             userNameElement.textContent = currentUser.name;
             updateBalance();
-            updateTaskWalletBalance();
             renderInvestments();
             renderActiveInvestments();
-            renderTasks();
             renderHistory();
         }
 
@@ -1410,8 +1124,6 @@
                 userBalance = currentUser.balance || 0;
                 userInvestments = currentUser.investments || [];
                 userActiveInvestments = currentUser.activeInvestments || [];
-                taskWallet = currentUser.taskWallet || 0;
-                userTasks = currentUser.tasks || [...tasksByCategory.general];
                 userHistory = currentUser.history || [];
                 
                 // Salvar usuário atual no localStorage para persistência
@@ -1429,8 +1141,6 @@
                 currentUser.balance = userBalance;
                 currentUser.investments = userInvestments;
                 currentUser.activeInvestments = userActiveInvestments;
-                currentUser.taskWallet = taskWallet;
-                currentUser.tasks = userTasks;
                 currentUser.history = userHistory;
                 currentUser.lastLogin = new Date().toISOString();
                 
@@ -1440,34 +1150,9 @@
             }
         }
 
-        // Atualizar tarefas diárias
-        function updateDailyTasks() {
-            const today = new Date().toDateString();
-            const lastLogin = currentUser.lastLogin ? new Date(currentUser.lastLogin).toDateString() : null;
-            
-            // Se for um novo dia, resetar tarefas diárias
-            if (lastLogin !== today) {
-                userTasks = userTasks.map(task => {
-                    if (task.daily) {
-                        return {
-                            ...task,
-                            completed: false
-                        };
-                    }
-                    return task;
-                });
-                updateUserData();
-            }
-        }
-
         // Atualizar saldo na interface
         function updateBalance() {
             balanceElement.textContent = `R$ ${userBalance.toFixed(2)}`;
-        }
-
-        // Atualizar saldo da carteira de tarefas
-        function updateTaskWalletBalance() {
-            taskWalletBalance.textContent = `R$ ${taskWallet.toFixed(2)}`;
         }
 
         // Gerar ID de transação
@@ -1510,7 +1195,7 @@
                 const formattedDate = date.toLocaleDateString('pt-PT') + ' ' + date.toLocaleTimeString('pt-PT', {hour: '2-digit', minute: '2-digit'});
                 
                 // Determinar sinal do valor
-                const isPositive = ['deposit', 'bonus', 'task', 'investment_return'].includes(entry.type);
+                const isPositive = ['deposit', 'investment_return'].includes(entry.type);
                 const amountClass = isPositive ? 'positive' : 'negative';
                 const amountSign = isPositive ? '+' : '-';
                 
@@ -1534,25 +1219,10 @@
                 'deposit': 'Depósito',
                 'withdrawal': 'Levantamento',
                 'investment': 'Investimento',
-                'investment_return': 'Retorno de Investimento',
-                'task': 'Tarefa',
-                'transfer': 'Transferência',
-                'bonus': 'Bônus'
+                'investment_return': 'Retorno de Investimento'
             };
             
             return typeNames[type] || type;
-        }
-
-        // Obter nome da categoria
-        function getCategoryName(category) {
-            const categoryNames = {
-                'basic': 'Básico',
-                'intermediate': 'Intermediário',
-                'advanced': 'Avançado',
-                'general': 'Geral'
-            };
-            
-            return categoryNames[category] || category;
         }
 
         // Renderizar investimentos disponíveis
@@ -1570,10 +1240,6 @@
                 // Verificar se já tem um investimento ativo deste tipo
                 const activeInvestment = userActiveInvestments.find(inv => inv.id === investment.id);
                 const hasActive = !!activeInvestment;
-                
-                // Calcular tarefas desbloqueadas
-                const tasksForInvestment = tasksByCategory[investment.category] || [];
-                const unlockedTasksCount = tasksForInvestment.length;
                 
                 investmentCard.innerHTML = `
                     <h3>${investment.name} <span class="profit-badge">+${investment.profitPercentage}%</span></h3>
@@ -1593,10 +1259,6 @@
                         <div>
                             <span>Ganho por hora:</span>
                             <span>R$ ${investment.hourlyProfit.toFixed(2)}</span>
-                        </div>
-                        <div>
-                            <span>Tarefas desbloqueadas:</span>
-                            <span>${unlockedTasksCount} tarefas</span>
                         </div>
                         <div>
                             <span>Status:</span>
@@ -1655,9 +1317,6 @@
                 const accumulatedReturn = hoursElapsed * investment.hourlyProfit;
                 const totalProfit = investment.return - investment.amount;
                 
-                // Tarefas desbloqueadas por este investimento
-                const tasksForInvestment = tasksByCategory[investment.category] || [];
-                
                 activeItem.innerHTML = `
                     <div class="active-investment-header">
                         <span class="active-investment-type">${investment.name} <span class="profit-badge">+${investment.profitPercentage}%</span></span>
@@ -1680,10 +1339,6 @@
                             <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
                                 <span>Retorno acumulado:</span>
                                 <span style="color: #4fc3f7;">R$ ${accumulatedReturn.toFixed(2)}</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between;">
-                                <span>Tarefas desbloqueadas:</span>
-                                <span style="color: #9c27b0;">${tasksForInvestment.length} tarefas</span>
                             </div>
                         </div>
                         
@@ -1797,37 +1452,6 @@
             }
         }
 
-        // Adicionar tarefas desbloqueadas por um investimento
-        function addUnlockedTasks(investment) {
-            const tasksForInvestment = tasksByCategory[investment.category] || [];
-            let newTasksCount = 0;
-            
-            tasksForInvestment.forEach(task => {
-                // Verificar se a tarefa já existe
-                const taskExists = userTasks.some(userTask => userTask.id === task.id);
-                
-                if (!taskExists) {
-                    // Adicionar nova tarefa
-                    userTasks.push({
-                        ...task,
-                        completed: false,
-                        lastCompleted: null
-                    });
-                    newTasksCount++;
-                }
-            });
-            
-            return newTasksCount;
-        }
-
-        // Verificar se o usuário tem o investimento necessário para uma tarefa
-        function hasRequiredInvestmentForTask(task) {
-            if (task.requiredInvestment === 0) return true;
-            
-            // Verificar se o usuário tem algum investimento com valor igual ou superior
-            return userInvestments.some(inv => inv.amount >= task.requiredInvestment);
-        }
-
         // Realizar investimento
         function makeInvestment(investment) {
             if (userBalance < investment.amount) {
@@ -1835,7 +1459,7 @@
                 return;
             }
             
-            if (confirm(`Deseja investir R$ ${investment.amount.toFixed(2)} no plano ${investment.name} por ${investment.durationHours} horas?\n\nEste investimento desbloqueará ${investment.tasksUnlocked} novas tarefas!`)) {
+            if (confirm(`Deseja investir R$ ${investment.amount.toFixed(2)} no plano ${investment.name} por ${investment.durationHours} horas?`)) {
                 // Deduzir valor do saldo
                 userBalance -= investment.amount;
                 
@@ -1858,13 +1482,6 @@
                     investmentId: investment.id
                 });
                 
-                // Adicionar tarefas desbloqueadas por este investimento
-                const newTasksCount = addUnlockedTasks(investment);
-                
-                if (newTasksCount > 0) {
-                    alert(` Parabéns! Você desbloqueou ${newTasksCount} nova(s) tarefa(s) com o investimento ${investment.name}. Acesse a aba "Tarefas" para visualizá-las.`);
-                }
-                
                 // Iniciar timer para este investimento
                 startInvestmentTimer(activeInvestment);
                 
@@ -1873,195 +1490,10 @@
                 updateBalance();
                 renderInvestments();
                 renderActiveInvestments();
-                renderTasks();
                 
                 alert(`Investimento realizado com sucesso! Seu retorno de R$ ${investment.return.toFixed(2)} será creditado em ${investment.durationHours} horas.`);
             }
         }
-
-        // Renderizar tarefas
-        function renderTasks() {
-            tasksList.innerHTML = '';
-            
-            if (userTasks.length === 0) {
-                tasksList.innerHTML = '<p style="text-align: center; opacity: 0.7;">Nenhuma tarefa disponível no momento. Faça um investimento para desbloquear tarefas!</p>';
-                return;
-            }
-            
-            // Organizar tarefas por categoria
-            const categorizedTasks = {
-                general: [],
-                basic: [],
-                intermediate: [],
-                advanced: []
-            };
-            
-            userTasks.forEach(task => {
-                if (!categorizedTasks[task.category]) {
-                    categorizedTasks[task.category] = [];
-                }
-                categorizedTasks[task.category].push(task);
-            });
-            
-            // Renderizar tarefas por categoria
-            Object.keys(categorizedTasks).forEach(category => {
-                const tasksInCategory = categorizedTasks[category];
-                
-                if (tasksInCategory.length > 0) {
-                    // Adicionar título da categoria
-                    const categoryTitle = document.createElement('div');
-                    categoryTitle.style.margin = '15px 0 10px 0';
-                    categoryTitle.style.fontWeight = '600';
-                    categoryTitle.style.color = '#4fc3f7';
-                    categoryTitle.style.fontSize = '16px';
-                    categoryTitle.innerHTML = `<i class="fas fa-folder"></i> ${getCategoryName(category)} (${tasksInCategory.length})`;
-                    tasksList.appendChild(categoryTitle);
-                    
-                    // Adicionar tarefas da categoria
-                    tasksInCategory.forEach(task => {
-                        const taskItem = document.createElement('div');
-                        
-                        // Determinar classe CSS baseada no status
-                        let taskClass = 'task-item';
-                        let statusIcon = '';
-                        let statusText = '';
-                        
-                        if (task.completed) {
-                            taskClass += ' completed';
-                            statusIcon = '<i class="fas fa-check-circle completed-icon"></i>';
-                            statusText = 'Concluída';
-                        } else if (hasRequiredInvestmentForTask(task)) {
-                            taskClass += ' unlocked';
-                            statusIcon = '<i class="fas fa-lock-open unlocked-icon"></i>';
-                            statusText = 'Disponível';
-                        } else {
-                            taskClass += ' locked';
-                            statusIcon = '<i class="fas fa-lock locked-icon"></i>';
-                            statusText = 'Bloqueada';
-                        }
-                        
-                        taskItem.className = taskClass;
-                        
-                        taskItem.innerHTML = `
-                            <div class="task-info">
-                                <h4>
-                                    <span class="task-category ${task.category}">${getCategoryName(task.category)}</span>
-                                    ${task.name}
-                                </h4>
-                                <p>${task.description}</p>
-                                <div style="display: flex; justify-content: space-between; margin-top: 5px;">
-                                    <div class="task-requirements">
-                                        ${statusIcon}
-                                        <span>${statusText}</span>
-                                        <span style="margin-left: 10px;">
-                                            <i class="fas fa-coins" style="color: #ffeb3b;"></i> R$ ${task.reward.toFixed(2)}
-                                        </span>
-                                        ${task.duration ? `<span style="margin-left: 10px;"><i class="fas fa-clock"></i> ${task.duration}</span>` : ''}
-                                    </div>
-                                    ${task.requiredInvestment > 0 ? `
-                                        <div class="task-requirements">
-                                            <i class="fas fa-coins" style="color: #4caf50;"></i>
-                                            <span>Investimento mínimo: R$ ${task.requiredInvestment.toFixed(2)}</span>
-                                        </div>
-                                    ` : ''}
-                                </div>
-                            </div>
-                            <div class="task-actions">
-                                <button class="complete-task-btn" data-id="${task.id}" 
-                                        ${task.completed ? 'disabled' : !hasRequiredInvestmentForTask(task) ? 'disabled' : ''}>
-                                    ${task.completed ? '<i class="fas fa-check"></i> Concluída' : 
-                                      !hasRequiredInvestmentForTask(task) ? '<i class="fas fa-lock"></i> Bloqueada' : 
-                                      '<i class="fas fa-play"></i> Realizar'}
-                                </button>
-                            </div>
-                        `;
-                        
-                        tasksList.appendChild(taskItem);
-                        
-                        // Adicionar evento de clique no botão de concluir tarefa
-                        if (!task.completed && hasRequiredInvestmentForTask(task)) {
-                            const completeBtn = taskItem.querySelector('.complete-task-btn');
-                            completeBtn.addEventListener('click', () => {
-                                completeTask(task.id);
-                            });
-                        }
-                    });
-                }
-            });
-        }
-
-        // Completar tarefa
-        function completeTask(taskId) {
-            const taskIndex = userTasks.findIndex(task => task.id === taskId);
-            
-            if (taskIndex !== -1 && !userTasks[taskIndex].completed) {
-                // Marcar tarefa como concluída
-                userTasks[taskIndex].completed = true;
-                userTasks[taskIndex].lastCompleted = new Date().toISOString();
-                
-                // Adicionar recompensa à carteira de tarefas
-                taskWallet += userTasks[taskIndex].reward;
-                
-                // Adicionar ao histórico
-                addHistoryEntry('task', userTasks[taskIndex].reward, `Tarefa: ${userTasks[taskIndex].name}`, 'completed', {
-                    taskId: userTasks[taskIndex].id,
-                    category: userTasks[taskIndex].category
-                });
-                
-                // Atualizar interface e dados
-                updateUserData();
-                updateTaskWalletBalance();
-                renderTasks();
-                
-                alert(`✅ Tarefa "${userTasks[taskIndex].name}" concluída! Você ganhou R$ ${userTasks[taskIndex].reward.toFixed(2)} na carteira de tarefas.`);
-                
-                // Se for tarefa diária, programar reset para o próximo dia
-                if (userTasks[taskIndex].daily) {
-                    setTimeout(() => {
-                        if (currentUser) {
-                            const today = new Date().toDateString();
-                            const taskDate = userTasks[taskIndex].lastCompleted ? new Date(userTasks[taskIndex].lastCompleted).toDateString() : null;
-                            
-                            if (taskDate !== today) {
-                                userTasks[taskIndex].completed = false;
-                                updateUserData();
-                                renderTasks();
-                            }
-                        }
-                    }, 24 * 60 * 60 * 1000); // 24 horas
-                }
-            }
-        }
-
-        // Transferir da carteira de tarefas para a conta principal
-        transferBtn.addEventListener('click', () => {
-            if (taskWallet <= 0) {
-                alert('Você não tem saldo na carteira de tarefas para transferir.');
-                return;
-            }
-            
-            if (confirm(`Deseja transferir R$ ${taskWallet.toFixed(2)} da carteira de tarefas para a conta principal?`)) {
-                // Transferir saldo
-                userBalance += taskWallet;
-                const transferredAmount = taskWallet;
-                
-                // Adicionar ao histórico
-                addHistoryEntry('transfer', transferredAmount, 'Transferência da carteira de tarefas', 'completed', {
-                    from: 'task_wallet',
-                    to: 'main_balance'
-                });
-                
-                taskWallet = 0;
-                
-                // Atualizar interface e dados
-                updateUserData();
-                updateBalance();
-                updateTaskWalletBalance();
-                renderTasks();
-                
-                alert(`✅ Transferência de R$ ${transferredAmount.toFixed(2)} realizada com sucesso!`);
-            }
-        });
 
         // Abrir modal de depósito
         depositBtn.addEventListener('click', () => {
@@ -2269,7 +1701,6 @@
                 loadUserData();
                 showDashboard();
                 startInvestmentTimers();
-                updateDailyTasks();
             } else {
                 showLogin();
             }
