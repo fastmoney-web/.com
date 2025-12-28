@@ -14,10 +14,25 @@
         }
 
         body {
-            background: linear-gradient(135deg, #1a2a6c, #2a3c7f);
+            background: linear-gradient(135deg, #0f1b3a, #1a2a6c);
             color: #fff;
             min-height: 100vh;
             position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(79, 195, 247, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(156, 39, 176, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(33, 150, 243, 0.05) 0%, transparent 50%);
+            z-index: -1;
         }
 
         .container {
@@ -33,48 +48,89 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px;
+            animation: fadeIn 0.8s ease-out;
         }
 
         .auth-box {
-            background-color: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
+            background-color: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
             padding: 40px;
             width: 100%;
             max-width: 450px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform: translateY(0);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .auth-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
         }
 
         .auth-box h1 {
             text-align: center;
             margin-bottom: 30px;
-            font-size: 28px;
+            font-size: 32px;
             color: #4fc3f7;
+            text-shadow: 0 2px 10px rgba(79, 195, 247, 0.3);
+            background: linear-gradient(45deg, #4fc3f7, #29b6f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .auth-tabs {
             display: flex;
             margin-bottom: 25px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
         }
 
         .auth-tab {
             flex: 1;
-            padding: 12px;
+            padding: 15px;
             text-align: center;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.05);
             border-bottom: 3px solid transparent;
+            position: relative;
         }
 
         .auth-tab.active {
+            background: rgba(79, 195, 247, 0.1);
             border-bottom: 3px solid #4fc3f7;
             color: #4fc3f7;
+            text-shadow: 0 0 10px rgba(79, 195, 247, 0.3);
+        }
+
+        .auth-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(79, 195, 247, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .auth-tab:hover::before {
+            opacity: 1;
         }
 
         .auth-form {
             display: none;
+            animation: slideIn 0.5s ease-out;
         }
 
         .auth-form.active {
@@ -82,33 +138,40 @@
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            position: relative;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-weight: 500;
+            color: #e0e0e0;
+            font-size: 14px;
+            letter-spacing: 0.5px;
         }
 
         .form-group input, .form-group select {
             width: 100%;
-            padding: 12px 15px;
-            border-radius: 8px;
+            padding: 15px;
+            border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.07);
             color: #fff;
             font-size: 16px;
-            transition: border 0.3s;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
         }
 
         .form-group input:focus, .form-group select:focus {
             outline: none;
             border-color: #4fc3f7;
+            box-shadow: 0 0 0 3px rgba(79, 195, 247, 0.2);
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
         .form-group input::placeholder, .form-group select::placeholder {
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(255, 255, 255, 0.4);
         }
 
         .form-group select option {
@@ -118,126 +181,344 @@
 
         .btn {
             width: 100%;
-            padding: 14px;
-            background-color: #4fc3f7;
+            padding: 16px;
+            background: linear-gradient(135deg, #4fc3f7, #29b6f6);
             color: #0d1b2a;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn:hover {
-            background-color: #29b6f6;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(79, 195, 247, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
         }
 
         .btn i {
-            margin-right: 8px;
+            margin-right: 10px;
+            font-size: 18px;
         }
 
         /* Dashboard */
         .dashboard {
             display: none;
+            animation: fadeIn 0.8s ease-out;
         }
 
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
+            padding: 25px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             margin-bottom: 30px;
         }
 
         .logo {
-            font-size: 28px;
-            font-weight: 700;
+            font-size: 32px;
+            font-weight: 800;
             color: #4fc3f7;
+            text-shadow: 0 2px 10px rgba(79, 195, 247, 0.3);
+            background: linear-gradient(45deg, #4fc3f7, #29b6f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: #4fc3f7;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 10px #4fc3f7;
         }
 
         .user-info {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .user-info span {
-            font-weight: 500;
+            font-weight: 600;
+            color: #e0e0e0;
+            font-size: 15px;
         }
 
         .logout-btn {
-            background-color: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.1);
             color: #fff;
             border: none;
-            padding: 8px 15px;
-            border-radius: 6px;
+            padding: 10px 20px;
+            border-radius: 25px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(10px);
         }
 
         .logout-btn:hover {
-            background-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .balance-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
         }
 
         .balance-card {
-            background: linear-gradient(135deg, #2196f3, #1976d2);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, rgba(33, 150, 243, 0.9), rgba(21, 101, 192, 0.9));
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
         }
 
-        .balance-card h2 {
+        .balance-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #4fc3f7, #29b6f6);
+        }
+
+        .investment-wallet-card {
+            background: linear-gradient(135deg, rgba(156, 39, 176, 0.9), rgba(123, 31, 162, 0.9));
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            animation: glow 3s infinite alternate;
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 20px rgba(156, 39, 176, 0.3); }
+            100% { box-shadow: 0 0 30px rgba(156, 39, 176, 0.5); }
+        }
+
+        .investment-wallet-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #9c27b0, #7b1fa2);
+        }
+
+        .balance-card h2, .investment-wallet-card h2 {
             font-size: 18px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             opacity: 0.9;
+            color: rgba(255, 255, 255, 0.9);
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .balance-amount {
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 15px;
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #fff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1px;
         }
 
-        .balance-actions {
+        .wallet-amount {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #fff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1px;
+        }
+
+        .wallet-transfer {
             display: flex;
+            flex-direction: column;
             gap: 15px;
         }
 
-        .balance-actions button {
-            flex: 1;
-            padding: 12px;
-            border-radius: 8px;
+        .transfer-btn {
+            padding: 14px;
+            background: linear-gradient(135deg, #4fc3f7, #29b6f6);
+            color: white;
             border: none;
-            font-weight: 600;
+            border-radius: 12px;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
             display: flex;
             justify-content: center;
             align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .transfer-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .transfer-btn:hover::before {
+            left: 100%;
+        }
+
+        .transfer-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(79, 195, 247, 0.3);
+        }
+
+        .transfer-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .transfer-btn:disabled:hover::before {
+            left: -100%;
+        }
+
+        .transfer-info {
+            font-size: 12px;
+            opacity: 0.7;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .balance-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .balance-actions button {
+            flex: 1;
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .balance-actions button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .balance-actions button:hover::before {
+            left: 100%;
         }
 
         .deposit-btn {
-            background-color: #4caf50;
+            background: linear-gradient(135deg, #4caf50, #2e7d32);
             color: white;
         }
 
         .withdraw-btn {
-            background-color: #ff9800;
+            background: linear-gradient(135deg, #ff9800, #f57c00);
             color: white;
         }
 
         .deposit-btn:hover {
-            background-color: #388e3c;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3);
         }
 
         .withdraw-btn:hover {
-            background-color: #f57c00;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 152, 0, 0.3);
         }
 
         .main-content {
@@ -247,123 +528,234 @@
         }
 
         .investments-section, .history-section, .active-investments-section {
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 25px;
-            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.07);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
 
         .section-title {
-            font-size: 22px;
-            margin-bottom: 20px;
+            font-size: 24px;
+            margin-bottom: 25px;
             color: #4fc3f7;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            font-weight: 700;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            letter-spacing: 0.5px;
         }
 
         .investments-grid, .active-investments-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
         }
 
         .investment-card {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 20px;
-            transition: transform 0.3s, background-color 0.3s;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border-radius: 18px;
+            padding: 25px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .investment-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(79, 195, 247, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
         }
 
         .investment-card:hover {
-            transform: translateY(-5px);
-            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-8px);
+            border-color: rgba(79, 195, 247, 0.3);
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.3),
+                0 0 30px rgba(79, 195, 247, 0.1);
+        }
+
+        .investment-card:hover::before {
+            opacity: 1;
         }
 
         .investment-card h3 {
-            font-size: 20px;
-            margin-bottom: 10px;
+            font-size: 22px;
+            margin-bottom: 15px;
             color: #4fc3f7;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .investment-details {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .investment-details div {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .investment-details span:first-child {
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .investment-details span:last-child {
+            color: #fff;
+            font-weight: 600;
+            font-size: 15px;
         }
 
         .investment-progress {
-            margin: 15px 0;
+            margin: 20px 0;
         }
 
         .progress-bar {
-            height: 8px;
+            height: 10px;
             background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
+            border-radius: 5px;
             overflow: hidden;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            position: relative;
         }
 
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, #4fc3f7, #29b6f6);
-            border-radius: 4px;
-            transition: width 0.5s ease;
+            border-radius: 5px;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shimmer 2s infinite;
         }
 
         .progress-info {
             display: flex;
             justify-content: space-between;
-            font-size: 14px;
+            font-size: 13px;
             opacity: 0.8;
+            font-weight: 500;
         }
 
         .investment-btn {
             width: 100%;
-            padding: 12px;
-            border-radius: 8px;
+            padding: 15px;
+            border-radius: 12px;
             border: none;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .investment-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .investment-btn:hover::before {
+            left: 100%;
         }
 
         .invest-btn {
-            background-color: #4fc3f7;
+            background: linear-gradient(135deg, #4fc3f7, #29b6f6);
             color: #0d1b2a;
         }
 
         .invest-btn:hover {
-            background-color: #29b6f6;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(79, 195, 247, 0.3);
         }
 
         .invested-btn {
-            background-color: #4caf50;
+            background: linear-gradient(135deg, #4caf50, #2e7d32);
             color: white;
             cursor: default;
         }
 
         .completing-btn {
-            background-color: #ff9800;
+            background: linear-gradient(135deg, #ff9800, #f57c00);
             color: white;
             cursor: default;
         }
 
         .history-list, .active-investments-list {
-            max-height: 400px;
+            max-height: 500px;
             overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .history-list::-webkit-scrollbar,
+        .active-investments-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .history-list::-webkit-scrollbar-track,
+        .active-investments-list::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+        }
+
+        .history-list::-webkit-scrollbar-thumb,
+        .active-investments-list::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #4fc3f7, #29b6f6);
+            border-radius: 3px;
         }
 
         .history-item, .active-investment-item {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
             margin-bottom: 15px;
             border-left: 4px solid #4fc3f7;
+            transition: transform 0.3s, background-color 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .history-item:hover, .active-investment-item:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.08);
         }
 
         .history-item.deposit, .active-investment-item.active {
@@ -379,57 +771,71 @@
         }
 
         .history-item.investment_return {
-            border-left-color: #4caf50;
+            border-left-color: #4fc3f7;
         }
 
         .history-header, .active-investment-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            align-items: center;
         }
 
         .history-type, .active-investment-type {
-            font-weight: 600;
+            font-weight: 700;
             color: #4fc3f7;
+            font-size: 15px;
         }
 
         .history-date, .active-investment-date {
-            font-size: 14px;
-            opacity: 0.8;
+            font-size: 13px;
+            opacity: 0.7;
+            font-weight: 500;
         }
 
         .history-details, .active-investment-details {
             font-size: 14px;
             opacity: 0.9;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            line-height: 1.5;
         }
 
         .history-amount, .active-investment-amount {
-            font-weight: 700;
+            font-weight: 800;
             text-align: right;
+            font-size: 18px;
+            letter-spacing: 0.5px;
         }
 
         .history-amount.positive {
             color: #4caf50;
+            text-shadow: 0 2px 5px rgba(76, 175, 80, 0.3);
         }
 
         .history-amount.negative {
             color: #ff5252;
+            text-shadow: 0 2px 5px rgba(255, 82, 82, 0.3);
         }
 
         .active-investment-amount {
             color: #4fc3f7;
+            text-shadow: 0 2px 5px rgba(79, 195, 247, 0.3);
         }
 
         .countdown-timer {
-            font-size: 18px;
-            font-weight: 700;
+            font-size: 20px;
+            font-weight: 800;
             text-align: center;
-            padding: 10px;
-            background-color: rgba(79, 195, 247, 0.1);
-            border-radius: 8px;
-            margin: 10px 0;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(79, 195, 247, 0.15), rgba(41, 182, 246, 0.15));
+            border-radius: 12px;
+            margin: 15px 0;
             color: #4fc3f7;
+            border: 1px solid rgba(79, 195, 247, 0.3);
+            text-shadow: 0 2px 10px rgba(79, 195, 247, 0.5);
+            letter-spacing: 2px;
+            font-family: 'Courier New', monospace;
+            animation: pulseTimer 1s infinite alternate;
         }
 
         /* Modal */
@@ -440,127 +846,237 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
             z-index: 1000;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            animation: fadeIn 0.3s ease-out;
         }
 
         .modal-content {
-            background-color: #1a2a6c;
-            border-radius: 15px;
+            background: linear-gradient(135deg, rgba(26, 42, 108, 0.95), rgba(15, 27, 58, 0.95));
+            border-radius: 25px;
             width: 100%;
-            max-width: 500px;
-            padding: 30px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            max-width: 550px;
+            padding: 35px;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             max-height: 90vh;
             overflow-y: auto;
+            backdrop-filter: blur(20px);
+            animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .modal-header h2 {
             color: #4fc3f7;
+            font-size: 26px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-shadow: 0 2px 10px rgba(79, 195, 247, 0.3);
         }
 
         .close-modal {
-            background: none;
+            background: rgba(255, 255, 255, 0.1);
             border: none;
             color: #fff;
-            font-size: 24px;
+            font-size: 28px;
             cursor: pointer;
-            transition: color 0.3s;
+            transition: all 0.3s;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
         }
 
         .close-modal:hover {
+            background: rgba(255, 255, 255, 0.15);
             color: #4fc3f7;
+            transform: rotate(90deg);
         }
 
         .payment-info {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 15px;
-            margin: 15px 0;
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
             font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .payment-info p {
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .payment-info strong {
             color: #4fc3f7;
+            font-weight: 600;
         }
 
         /* Sidebar Button */
         .sidebar-btn {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #4fc3f7;
+            top: 25px;
+            right: 25px;
+            background: linear-gradient(135deg, #4fc3f7, #29b6f6);
             color: #0d1b2a;
             border: none;
-            width: 60px;
-            height: 60px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
-            font-size: 24px;
+            font-size: 26px;
             cursor: pointer;
             z-index: 100;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s, background-color 0.3s;
+            box-shadow: 
+                0 10px 30px rgba(79, 195, 247, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             justify-content: center;
             align-items: center;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
         }
 
         .sidebar-btn:hover {
-            transform: scale(1.1);
-            background-color: #29b6f6;
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 
+                0 15px 40px rgba(79, 195, 247, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
         }
 
-        /* WhatsApp Button */
+        /* WhatsApp Button - POSIÇÃO ALTERADA */
         .whatsapp-btn {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: #25d366;
+            bottom: 25px; /* Alterado: estava 35px, agora 25px */
+            right: 25px;  /* Alterado: estava 35px, agora 25px */
+            background: linear-gradient(135deg, #25d366, #128c7e);
             color: white;
             border: none;
-            width: 60px;
-            height: 60px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
-            font-size: 28px;
+            font-size: 30px;
             cursor: pointer;
             z-index: 100;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s;
+            box-shadow: 
+                0 10px 30px rgba(37, 211, 102, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             justify-content: center;
             align-items: center;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            animation: floatWhatsApp 3s ease-in-out infinite;
+        }
+
+        @keyframes floatWhatsApp {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(-5deg); }
         }
 
         .whatsapp-btn:hover {
             transform: scale(1.1);
+            box-shadow: 
+                0 15px 40px rgba(37, 211, 102, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes modalSlideIn {
+            from { 
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes pulseTimer {
+            0% { text-shadow: 0 2px 10px rgba(79, 195, 247, 0.5); }
+            100% { text-shadow: 0 2px 20px rgba(79, 195, 247, 0.8); }
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         /* Responsividade */
-        @media (max-width: 992px) {
+        @media (max-width: 1200px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .balance-container {
+                grid-template-columns: 1fr;
+            }
+            
             .main-content {
                 grid-template-columns: 1fr;
+                gap: 20px;
             }
         }
 
         @media (max-width: 768px) {
             .auth-box {
                 padding: 30px 20px;
+            }
+            
+            .auth-box h1 {
+                font-size: 28px;
             }
             
             .balance-actions {
@@ -573,8 +1089,74 @@
             
             .header {
                 flex-direction: column;
-                gap: 15px;
+                gap: 20px;
                 text-align: center;
+                padding: 20px 0;
+            }
+            
+            .user-info {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .balance-amount {
+                font-size: 36px;
+            }
+            
+            .wallet-amount {
+                font-size: 28px;
+            }
+            
+            .sidebar-btn {
+                width: 55px;
+                height: 55px;
+                font-size: 22px;
+                top: 15px;
+                right: 15px;
+            }
+            
+            /* WhatsApp ajustado para mobile também */
+            .whatsapp-btn {
+                width: 55px;
+                height: 55px;
+                font-size: 24px;
+                bottom: 15px;
+                right: 15px;
+            }
+            
+            .investment-card h3 {
+                font-size: 20px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .countdown-timer {
+                font-size: 16px;
+                padding: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .auth-box {
+                padding: 25px 15px;
+            }
+            
+            .auth-tab {
+                padding: 12px;
+                font-size: 14px;
+            }
+            
+            .section-title {
+                font-size: 20px;
+            }
+            
+            .balance-card, .investment-wallet-card {
+                padding: 25px 20px;
+            }
+            
+            .modal-content {
+                padding: 25px 20px;
             }
             
             .sidebar-btn, .whatsapp-btn {
@@ -587,29 +1169,67 @@
         /* Tab Navigation */
         .tab-navigation {
             display: flex;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            margin-bottom: 30px;
             flex-wrap: wrap;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px 15px 0 0;
+            padding: 5px;
+            backdrop-filter: blur(10px);
         }
 
         .tab-btn {
-            padding: 12px 20px;
+            padding: 15px 25px;
             background: none;
             border: none;
             color: rgba(255, 255, 255, 0.7);
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
-            border-bottom: 3px solid transparent;
+            border-radius: 12px;
+            font-size: 15px;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+            flex: 1;
+            min-width: 140px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tab-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(79, 195, 247, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
         .tab-btn.active {
+            background: linear-gradient(135deg, rgba(79, 195, 247, 0.2), rgba(41, 182, 246, 0.2));
             color: #4fc3f7;
-            border-bottom: 3px solid #4fc3f7;
+            text-shadow: 0 2px 5px rgba(79, 195, 247, 0.3);
+            box-shadow: 0 5px 15px rgba(79, 195, 247, 0.2);
+        }
+
+        .tab-btn.active::before {
+            opacity: 1;
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
         }
 
         .tab-content {
             display: none;
+            animation: slideIn 0.5s ease-out;
         }
 
         .tab-content.active {
@@ -618,37 +1238,99 @@
 
         .investment-status {
             display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-left: 10px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .status-active {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.3), rgba(46, 125, 50, 0.3));
+            color: #4caf50;
+            border: 1px solid rgba(76, 175, 80, 0.5);
+        }
+
+        .status-completed {
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.3), rgba(245, 124, 0, 0.3));
+            color: #ff9800;
+            border: 1px solid rgba(255, 152, 0, 0.5);
+        }
+
+        .status-pending {
+            background: linear-gradient(135deg, rgba(33, 150, 243, 0.3), rgba(21, 101, 192, 0.3));
+            color: #2196f3;
+            border: 1px solid rgba(33, 150, 243, 0.5);
+        }
+
+        .profit-badge {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, #4caf50, #2e7d32);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-left: 8px;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+            color: white;
             padding: 4px 10px;
             border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            margin-left: 5px;
+            animation: pulse 1.5s infinite;
+            box-shadow: 0 2px 8px rgba(244, 67, 54, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .real-time-counter {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
             font-size: 12px;
+            color: #4fc3f7;
             font-weight: 600;
             margin-left: 10px;
         }
 
-        .status-active {
-            background-color: rgba(76, 175, 80, 0.2);
-            color: #4caf50;
+        .real-time-counter .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: #4fc3f7;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+            box-shadow: 0 0 10px #4fc3f7;
         }
 
-        .status-completed {
-            background-color: rgba(255, 152, 0, 0.2);
-            color: #ff9800;
-        }
-
-        .status-pending {
-            background-color: rgba(33, 150, 243, 0.2);
-            color: #2196f3;
-        }
-
-        .profit-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #4caf50, #2e7d32);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 12px;
+        .wallet-accumulating {
+            font-size: 13px;
+            color: #4fc3f7;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             font-weight: 600;
-            margin-left: 8px;
+        }
+
+        .wallet-accumulating .pulse-dot {
+            width: 6px;
+            height: 6px;
+            background: #4fc3f7;
+            border-radius: 50%;
+            animation: pulse 1s infinite;
+            box-shadow: 0 0 8px #4fc3f7;
         }
     </style>
 </head>
@@ -665,34 +1347,34 @@
             
             <form id="login-form" class="auth-form active">
                 <div class="form-group">
-                    <label for="login-phone">Número de Telefone</label>
-                    <input type="tel" id="login-phone" placeholder="" required>
+                    <label for="login-phone"><i class="fas fa-phone"></i> Número de Telefone</label>
+                    <input type="tel" id="login-phone" placeholder="Numero" required>
                 </div>
                 <div class="form-group">
-                    <label for="login-password">Senha</label>
+                    <label for="login-password"><i class="fas fa-lock"></i> Senha</label>
                     <input type="password" id="login-password" placeholder="Digite sua senha" required>
                 </div>
-                <button type="submit" class="btn"><i class="fas fa-sign-in-alt"></i> Entrar</button>
+                <button type="submit" class="btn"><i class="fas fa-sign-in-alt"></i> Entrar na Plataforma</button>
             </form>
             
             <form id="register-form" class="auth-form">
                 <div class="form-group">
-                    <label for="register-name">Nome Completo</label>
+                    <label for="register-name"><i class="fas fa-user"></i> Nome Completo</label>
                     <input type="text" id="register-name" placeholder="Digite seu nome completo" required>
                 </div>
                 <div class="form-group">
-                    <label for="register-phone">Número de Telefone</label>
-                    <input type="tel" id="register-phone" placeholder="" required>
+                    <label for="register-phone"><i class="fas fa-phone"></i> Número de Telefone</label>
+                    <input type="tel" id="register-phone" placeholder="Numero" required>
                 </div>
                 <div class="form-group">
-                    <label for="register-password">Senha</label>
-                    <input type="password" id="register-password" placeholder="Crie uma senha" required>
+                    <label for="register-password"><i class="fas fa-lock"></i> Senha</label>
+                    <input type="password" id="register-password" placeholder="Crie uma senha forte" required>
                 </div>
                 <div class="form-group">
-                    <label for="register-confirm-password">Confirmar Senha</label>
+                    <label for="register-confirm-password"><i class="fas fa-lock"></i> Confirmar Senha</label>
                     <input type="password" id="register-confirm-password" placeholder="Confirme sua senha" required>
                 </div>
-                <button type="submit" class="btn"><i class="fas fa-user-plus"></i> Criar Conta</button>
+                <button type="submit" class="btn"><i class="fas fa-user-plus"></i> Criar Conta Premium</button>
             </form>
         </div>
     </div>
@@ -700,32 +1382,69 @@
     <!-- Dashboard -->
     <div class="dashboard container" id="dashboard">
         <div class="header">
-            <div class="logo">FastMoney</div>
+            <div class="logo">
+                <i class="fas fa-chart-line"></i> FastMoney
+            </div>
             <div class="user-info">
                 <span id="user-name">Usuário</span>
-                <button class="logout-btn" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Sair</button>
+                <button class="logout-btn" id="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </button>
             </div>
         </div>
         
-        <div class="balance-card">
-            <h2>Saldo Disponível</h2>
-            <div class="balance-amount" id="balance">R$ 0,00</div>
-            <div class="balance-actions">
-                <button class="deposit-btn" id="deposit-btn"><i class="fas fa-arrow-down"></i> Depósito</button>
-                <button class="withdraw-btn" id="withdraw-btn"><i class="fas fa-arrow-up"></i> Levantamento</button>
+        <div class="balance-container">
+            <div class="balance-card">
+                <h2><i class="fas fa-wallet"></i> Saldo Disponível</h2>
+                <div class="balance-amount" id="balance">R$ 0,00</div>
+                <div class="balance-actions">
+                    <button class="deposit-btn" id="deposit-btn">
+                        <i class="fas fa-arrow-down"></i> Depósito
+                    </button>
+                    <button class="withdraw-btn" id="withdraw-btn">
+                        <i class="fas fa-arrow-up"></i> Levantamento
+                    </button>
+                </div>
+            </div>
+            
+            <div class="investment-wallet-card">
+                <h2><i class="fas fa-piggy-bank"></i> Carteira de Investimentos</h2>
+                <div class="wallet-amount" id="investment-wallet">R$ 0,00</div>
+                <div class="wallet-accumulating">
+                    <span class="pulse-dot"></span>
+                    <span id="wallet-info">Acumulando retornos em tempo real</span>
+                </div>
+                <div class="wallet-transfer">
+                    <button class="transfer-btn" id="transfer-btn">
+                        <i class="fas fa-exchange-alt"></i> Transferir para Conta Principal
+                    </button>
+                    <div class="transfer-info">
+                        Transfira seu lucro para a conta principal
+                    </div>
+                </div>
             </div>
         </div>
         
         <div class="tab-navigation">
-            <button class="tab-btn active" data-tab="investments">Investir</button>
-            <button class="tab-btn" data-tab="active">Investimentos Ativos</button>
-            <button class="tab-btn" data-tab="history">Histórico</button>
+            <button class="tab-btn active" data-tab="investments">
+                <i class="fas fa-coins"></i> Investir
+            </button>
+            <button class="tab-btn" data-tab="active">
+                <i class="fas fa-chart-line"></i> Investimentos Ativos
+                <span class="live-badge" id="active-count">0</span>
+            </button>
+            <button class="tab-btn" data-tab="history">
+                <i class="fas fa-history"></i> Histórico
+            </button>
         </div>
         
         <div class="tab-content active" id="investments-tab">
             <div class="investments-section">
-                <h2 class="section-title"><i class="fas fa-coins"></i> Investimentos Disponíveis</h2>
-                <p style="margin-bottom: 20px; opacity: 0.8;">Escolha um plano de investimento para começar a ganhar retornos.</p>
+                <h2 class="section-title"><i class="fas fa-gem"></i> Planos de Investimento Premium</h2>
+                <p style="margin-bottom: 25px; opacity: 0.8; line-height: 1.6; font-size: 15px;">
+                    Escolha um dos nossos planos premium para começar a investir. Todos os investimentos 
+                    geram retornos automáticos que são depositados na sua <strong>Carteira de Investimentos</strong>.
+                </p>
                 <div class="investments-grid" id="investments-grid">
                     <!-- Os investimentos serão inseridos via JavaScript -->
                 </div>
@@ -734,7 +1453,7 @@
         
         <div class="tab-content" id="active-tab">
             <div class="active-investments-section">
-                <h2 class="section-title"><i class="fas fa-chart-line"></i> Investimentos Ativos</h2>
+                <h2 class="section-title"><i class="fas fa-bolt"></i> Investimentos Ativos em Tempo Real</h2>
                 <div class="active-investments-list" id="active-investments-list">
                     <!-- Os investimentos ativos serão inseridos via JavaScript -->
                 </div>
@@ -743,7 +1462,7 @@
         
         <div class="tab-content" id="history-tab">
             <div class="history-section">
-                <h2 class="section-title"><i class="fas fa-history"></i> Histórico de Transações</h2>
+                <h2 class="section-title"><i class="fas fa-file-invoice-dollar"></i> Histórico de Transações</h2>
                 <div class="history-list" id="history-list">
                     <!-- O histórico será inserido via JavaScript -->
                 </div>
@@ -756,7 +1475,7 @@
         <i class="fas fa-money-bill-wave"></i>
     </button>
     
-    <!-- Botão WhatsApp -->
+    <!-- Botão WhatsApp - POSIÇÃO AJUSTADA -->
     <button class="whatsapp-btn" id="whatsapp-btn">
         <i class="fab fa-whatsapp"></i>
     </button>
@@ -770,44 +1489,45 @@
             </div>
             <form id="deposit-form">
                 <div class="form-group">
-                    <label for="deposit-method">Método de Pagamento</label>
+                    <label for="deposit-method"><i class="fas fa-credit-card"></i> Método de Pagamento</label>
                     <select id="deposit-method" required>
                         <option value="">Selecione o método</option>
-                        <option value="Vodacom">Mpesa</option>
-                        <option value="Banco">Millennium bim</option>
-                        <option value="Banco">BCI</option>
-                        <option value="Movitel">eMola</option>
+                        <option value="Vodacom">Mpesa (Vodacom)</option>
+                        <option value="Millennium">Millennium bim</option>
+                        <option value="BCI">BCI</option>
+                        <option value="Movitel">eMola (Movitel)</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="deposit-amount">Valor (R$)</label>
-                    <input type="number" id="deposit-amount" placeholder="Digite o valor" min="10" required>
+                    <label for="deposit-amount"><i class="fas fa-money-bill-wave"></i> Valor (R$)</label>
+                    <input type="number" id="deposit-amount" placeholder="Digite o valor (mínimo: R$ 10)" min="10" required>
                 </div>
                 <div class="form-group">
-                    <label for="payment-number">Número de Pagamento</label>
+                    <label for="payment-number"><i class="fas fa-mobile-alt"></i> Número de Pagamento</label>
                     <input type="text" id="payment-number" placeholder="Digite o número de pagamento" required>
                 </div>
                 <div class="form-group">
-                    <label for="commercial-code">Código de autorização</label>
+                    <label for="commercial-code"><i class="fas fa-key"></i> Código de Autorização</label>
                     <input type="text" id="commercial-code" placeholder="Digite o código de autorização" required>
                 </div>
                 <div class="form-group">
-                    <label for="transaction-id">ID da Transação</label>
+                    <label for="transaction-id"><i class="fas fa-id-card"></i> ID da Transação</label>
                     <input type="text" id="transaction-id" placeholder="Digite o ID da transação" required>
                 </div>
                 <div class="form-group">
-                    <label for="transaction-message">Mensagem da Transação</label>
+                    <label for="transaction-message"><i class="fas fa-comment-alt"></i> Mensagem da Transação</label>
                     <input type="text" id="transaction-message" placeholder="Digite a mensagem da transação" required>
                 </div>
                 
                 <div class="payment-info" id="payment-instructions">
-                    <p><strong>Instruções:</strong></p>
-                    <p>1. Preencha todos os campos obrigatórios</p>
+                    <p><strong>Instruções de Depósito:</strong></p>
+                    <p>1. Preencha todos os campos obrigatórios acima</p>
                     <p>2. O código comercial será fornecido pelo seu consultor</p>
                     <p>3. O ID da transação deve ser obtido no comprovante</p>
+                    <p>4. Depósitos são processados em até 30 minutos</p>
                 </div>
                 
-                <button type="submit" class="btn"><i class="fas fa-check"></i> Confirmar Depósito</button>
+                <button type="submit" class="btn"><i class="fas fa-check-circle"></i> Confirmar Depósito</button>
             </form>
         </div>
     </div>
@@ -821,27 +1541,27 @@
             </div>
             <form id="withdraw-form">
                 <div class="form-group">
-                    <label for="withdraw-amount">Valor (R$)</label>
-                    <input type="number" id="withdraw-amount" placeholder="Digite o valor" min="10" required>
+                    <label for="withdraw-amount"><i class="fas fa-money-bill-wave"></i> Valor (R$)</label>
+                    <input type="number" id="withdraw-amount" placeholder="Digite o valor (mínimo: R$ 10)" min="10" required>
                 </div>
                 <div class="form-group">
-                    <label for="withdraw-method">Método de Recebimento</label>
+                    <label for="withdraw-method"><i class="fas fa-university"></i> Método de Recebimento</label>
                     <select id="withdraw-method" required>
                         <option value="">Selecione o método</option>
                         <option value="mbway">Mpesa</option>
-                        <option value="iban">NIB/Transferência</option>
+                        <option value="iban">NIB/Transferência Bancária</option>
                         <option value="paypal">PayPal</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="withdraw-phone">Número de Telefone ou NIB</label>
+                    <label for="withdraw-phone"><i class="fas fa-phone"></i> Número de Telefone ou NIB</label>
                     <input type="text" id="withdraw-phone" placeholder="Digite o número ou NIB para recebimento" required>
                 </div>
                 <div class="form-group">
-                    <label for="withdraw-name">Nome do Titular</label>
-                    <input type="text" id="withdraw-name" placeholder="Digite o nome do titular" required>
+                    <label for="withdraw-name"><i class="fas fa-user"></i> Nome do Titular</label>
+                    <input type="text" id="withdraw-name" placeholder="Digite o nome do titular da conta" required>
                 </div>
-                <button type="submit" class="btn"><i class="fas fa-check"></i> Confirmar Levantamento</button>
+                <button type="submit" class="btn"><i class="fas fa-check-circle"></i> Confirmar Levantamento</button>
             </form>
         </div>
     </div>
@@ -850,58 +1570,64 @@
     <div class="modal" id="whatsapp-modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2><i class="fab fa-whatsapp"></i> Atendimento ao Cliente</h2>
+                <h2><i class="fab fa-whatsapp"></i> Atendimento Premium</h2>
                 <button class="close-modal" id="close-whatsapp-modal">&times;</button>
             </div>
-            <p>Entre em contato com nosso suporte via WhatsApp para qualquer dúvida ou problema.</p>
-            <p><strong>Horário de atendimento:</strong> Segunda a Sexta, 9h às 18h</p>
-            <p><strong>Número de suporte:</strong> +258878332095</p>
-            <br>
+            <p style="margin-bottom: 15px; line-height: 1.6;">
+                Entre em contato com nosso suporte via WhatsApp para qualquer dúvida ou problema. 
+                Nossa equipe está disponível para ajudá-lo com questões sobre investimentos, depósitos e levantamentos.
+            </p>
+            <p style="margin-bottom: 10px;"><strong><i class="fas fa-clock"></i> Horário de atendimento:</strong> Segunda a Sexta, 9h às 18h</p>
+            <p style="margin-bottom: 20px;"><strong><i class="fas fa-phone"></i> Número de suporte:</strong> +258 87 833 2095</p>
+            
             <div class="form-group">
-                <label for="whatsapp-message">Sua mensagem (opcional)</label>
-                <textarea id="whatsapp-message" placeholder="Descreva sua dúvida ou problema" rows="3" style="width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.2); background-color: rgba(255, 255, 255, 0.1); color: #fff; font-size: 16px; resize: vertical;"></textarea>
+                <label for="whatsapp-message"><i class="fas fa-comment-dots"></i> Sua mensagem (opcional)</label>
+                <textarea id="whatsapp-message" placeholder="Descreva sua dúvida ou problema..." rows="4" style="width: 100%; padding: 15px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.2); background-color: rgba(255, 255, 255, 0.07); color: #fff; font-size: 15px; resize: vertical;"></textarea>
             </div>
             <button class="btn" id="open-whatsapp-btn">
-                <i class="fab fa-whatsapp"></i> Abrir WhatsApp
+                <i class="fab fa-whatsapp"></i> Abrir WhatsApp Agora
             </button>
         </div>
     </div>
 
     <script>
-        // Dados de investimentos (SOMENTE INVESTIMENTOS)
+        // Dados de investimentos atualizados
         const investments = [
             {
                 id: 1,
-                name: "Investimento Básico",
+                name: "Investimento Bronze",
                 amount: 20,
                 return: 40,
                 hourlyProfit: 2,
                 durationHours: 20,
                 description: "Retorno de 100% em 20 horas",
                 profitPercentage: 100,
-                category: "basic"
+                category: "basic",
+                color: "#CD7F32"
             },
             {
                 id: 2,
-                name: "Investimento Intermediário",
+                name: "Investimento Prata",
                 amount: 70,
                 return: 140,
                 hourlyProfit: 5,
                 durationHours: 28,
                 description: "Retorno de 100% em 28 horas",
                 profitPercentage: 100,
-                category: "intermediate"
+                category: "intermediate",
+                color: "#C0C0C0"
             },
             {
                 id: 3,
-                name: "Investimento Avançado",
+                name: "Investimento Ouro",
                 amount: 160,
                 return: 320,
                 hourlyProfit: 13.34,
                 durationHours: 24,
                 description: "Retorno de 100% em 24 horas",
                 profitPercentage: 100,
-                category: "advanced"
+                category: "advanced",
+                color: "#FFD700"
             }
         ];
 
@@ -911,7 +1637,10 @@
         let userActiveInvestments = [];
         let userHistory = [];
         let userBalance = 0;
+        let investmentWallet = 0; // NOVA: Carteira de investimentos
         let investmentTimers = {};
+        let walletUpdateInterval = null;
+        let realTimeUpdateInterval = null;
 
         // Elementos do DOM
         const authContainer = document.getElementById('auth-container');
@@ -922,8 +1651,11 @@
         const logoutBtn = document.getElementById('logout-btn');
         const userNameElement = document.getElementById('user-name');
         const balanceElement = document.getElementById('balance');
+        const investmentWalletElement = document.getElementById('investment-wallet');
+        const walletInfoElement = document.getElementById('wallet-info');
         const investmentsGrid = document.getElementById('investments-grid');
         const activeInvestmentsList = document.getElementById('active-investments-list');
+        const transferBtn = document.getElementById('transfer-btn');
         const depositBtn = document.getElementById('deposit-btn');
         const withdrawBtn = document.getElementById('withdraw-btn');
         const sidebarDepositBtn = document.getElementById('sidebar-deposit-btn');
@@ -931,6 +1663,7 @@
         const historyList = document.getElementById('history-list');
         const tabBtns = document.querySelectorAll('.tab-btn');
         const tabContents = document.querySelectorAll('.tab-content');
+        const activeCountBadge = document.getElementById('active-count');
         
         // Modais
         const depositModal = document.getElementById('deposit-modal');
@@ -1005,9 +1738,10 @@
                 loadUserData();
                 showDashboard();
                 startInvestmentTimers();
-                alert('Login realizado com sucesso!');
+                startRealTimeUpdates();
+                alert('✅ Login realizado com sucesso! Bem-vindo de volta!');
             } else {
-                alert('Telefone ou senha incorretos. Tente novamente.');
+                alert('❌ Telefone ou senha incorretos. Tente novamente.');
             }
         });
 
@@ -1021,17 +1755,17 @@
             
             // Validações
             if (!name || !phone || !password || !confirmPassword) {
-                alert('Por favor, preencha todos os campos.');
+                alert('❌ Por favor, preencha todos os campos.');
                 return;
             }
             
             if (password !== confirmPassword) {
-                alert('As senhas não coincidem.');
+                alert('❌ As senhas não coincidem.');
                 return;
             }
             
             if (phone.length < 9) {
-                alert('Por favor, insira um número de telefone válido.');
+                alert('❌ Por favor, insira um número de telefone válido.');
                 return;
             }
             
@@ -1040,17 +1774,18 @@
             const userExists = users.find(u => u.phone === phone);
             
             if (userExists) {
-                alert('Este número de telefone já está registrado. Faça login.');
+                alert('ℹ️ Este número de telefone já está registrado. Faça login.');
                 return;
             }
             
-            // Criar novo usuário SEM bônus e SEM tarefas
+            // Criar novo usuário SEM bônus
             const newUser = {
                 id: Date.now(),
                 name,
                 phone,
                 password,
-                balance: 0, // Começa com saldo zero
+                balance: 0,
+                investmentWallet: 0, // NOVA: Carteira de investimentos
                 investments: [],
                 activeInvestments: [],
                 history: [],
@@ -1064,11 +1799,13 @@
             currentUser = newUser;
             loadUserData();
             showDashboard();
+            startRealTimeUpdates();
             
-            alert('Conta criada com sucesso! Faça um depósito para começar a investir.');
+            alert(' Conta criada com sucesso! Faça um depósito para começar a investir.');
             
             // Atualizar interface
             updateBalance();
+            updateInvestmentWallet();
             renderHistory();
         });
 
@@ -1076,10 +1813,40 @@
         logoutBtn.addEventListener('click', () => {
             // Parar todos os timers
             stopAllInvestmentTimers();
+            stopRealTimeUpdates();
             
             currentUser = null;
             localStorage.removeItem('currentUser');
             showLogin();
+        });
+
+        // Transferir da carteira de investimentos para conta principal
+        transferBtn.addEventListener('click', () => {
+            if (investmentWallet <= 0) {
+                alert('❌ Você não tem saldo na carteira de investimentos para transferir.');
+                return;
+            }
+            
+            if (confirm(` Deseja transferir R$ ${investmentWallet.toFixed(2)} da carteira de investimentos para a conta principal?`)) {
+                // Transferir saldo
+                const transferAmount = investmentWallet;
+                userBalance += transferAmount;
+                investmentWallet = 0;
+                
+                // Adicionar ao histórico
+                addHistoryEntry('transfer', transferAmount, 'Transferência da carteira de investimentos', 'completed', {
+                    from: 'investment_wallet',
+                    to: 'main_balance',
+                    amount: transferAmount
+                });
+                
+                // Atualizar interface e dados
+                updateUserData();
+                updateBalance();
+                updateInvestmentWallet();
+                
+                alert(`✅ Transferência de R$ ${transferAmount.toFixed(2)} realizada com sucesso!`);
+            }
         });
 
         // Mostrar dashboard
@@ -1090,6 +1857,8 @@
             // Atualizar informações do usuário
             userNameElement.textContent = currentUser.name;
             updateBalance();
+            updateInvestmentWallet();
+            updateActiveCount();
             renderInvestments();
             renderActiveInvestments();
             renderHistory();
@@ -1122,6 +1891,7 @@
             if (savedUser) {
                 currentUser = savedUser;
                 userBalance = currentUser.balance || 0;
+                investmentWallet = currentUser.investmentWallet || 0; // NOVA: Carregar carteira
                 userInvestments = currentUser.investments || [];
                 userActiveInvestments = currentUser.activeInvestments || [];
                 userHistory = currentUser.history || [];
@@ -1139,6 +1909,7 @@
             if (userIndex !== -1) {
                 // Atualizar dados do usuário
                 currentUser.balance = userBalance;
+                currentUser.investmentWallet = investmentWallet; // NOVA: Salvar carteira
                 currentUser.investments = userInvestments;
                 currentUser.activeInvestments = userActiveInvestments;
                 currentUser.history = userHistory;
@@ -1153,6 +1924,35 @@
         // Atualizar saldo na interface
         function updateBalance() {
             balanceElement.textContent = `R$ ${userBalance.toFixed(2)}`;
+            // Atualizar botão de transferência
+            transferBtn.disabled = investmentWallet <= 0;
+        }
+
+        // NOVA: Atualizar carteira de investimentos
+        function updateInvestmentWallet() {
+            investmentWalletElement.textContent = `R$ ${investmentWallet.toFixed(2)}`;
+            transferBtn.disabled = investmentWallet <= 0;
+            
+            // Atualizar mensagem informativa
+            if (investmentWallet > 0) {
+                walletInfoElement.textContent = `Acumulando: +R$ ${calculateHourlyEarnings().toFixed(2)}/hora`;
+            } else {
+                walletInfoElement.textContent = "Faça um investimento para começar a acumular";
+            }
+        }
+
+        // NOVA: Calcular ganhos por hora totais
+        function calculateHourlyEarnings() {
+            let totalHourlyEarnings = 0;
+            userActiveInvestments.forEach(investment => {
+                totalHourlyEarnings += investment.hourlyProfit;
+            });
+            return totalHourlyEarnings;
+        }
+
+        // NOVA: Atualizar contagem de investimentos ativos
+        function updateActiveCount() {
+            activeCountBadge.textContent = userActiveInvestments.length;
         }
 
         // Gerar ID de transação
@@ -1182,7 +1982,7 @@
             historyList.innerHTML = '';
             
             if (userHistory.length === 0) {
-                historyList.innerHTML = '<p style="text-align: center; opacity: 0.7;">Nenhuma transação realizada ainda.</p>';
+                historyList.innerHTML = '<p style="text-align: center; opacity: 0.7; padding: 40px 20px; font-size: 15px;">Nenhuma transação realizada ainda. Faça seu primeiro investimento!</p>';
                 return;
             }
             
@@ -1195,17 +1995,28 @@
                 const formattedDate = date.toLocaleDateString('pt-PT') + ' ' + date.toLocaleTimeString('pt-PT', {hour: '2-digit', minute: '2-digit'});
                 
                 // Determinar sinal do valor
-                const isPositive = ['deposit', 'investment_return'].includes(entry.type);
+                const isPositive = ['deposit', 'investment_return', 'transfer'].includes(entry.type);
                 const amountClass = isPositive ? 'positive' : 'negative';
                 const amountSign = isPositive ? '+' : '-';
                 
+                // Ícone baseado no tipo
+                let icon = 'fa-exchange-alt';
+                if (entry.type === 'deposit') icon = 'fa-arrow-down';
+                if (entry.type === 'withdrawal') icon = 'fa-arrow-up';
+                if (entry.type === 'investment') icon = 'fa-coins';
+                if (entry.type === 'investment_return') icon = 'fa-chart-line';
+                if (entry.type === 'transfer') icon = 'fa-exchange-alt';
+                
                 historyItem.innerHTML = `
                     <div class="history-header">
-                        <span class="history-type">${getHistoryTypeName(entry.type)}</span>
+                        <span class="history-type">
+                            <i class="fas ${icon}"></i> ${getHistoryTypeName(entry.type)}
+                            ${entry.status === 'pending' ? '<span class="status-pending" style="margin-left: 8px;">Pendente</span>' : ''}
+                        </span>
                         <span class="history-date">${formattedDate}</span>
                     </div>
                     <div class="history-details">${entry.description}</div>
-                    ${entry.details.transactionId ? `<div class="history-details">ID: ${entry.details.transactionId}</div>` : ''}
+                    ${entry.details.transactionId ? `<div class="history-details" style="font-size: 12px; opacity: 0.7;">ID: ${entry.details.transactionId}</div>` : ''}
                     <div class="history-amount ${amountClass}">${amountSign} R$ ${Math.abs(entry.amount).toFixed(2)}</div>
                 `;
                 
@@ -1219,7 +2030,8 @@
                 'deposit': 'Depósito',
                 'withdrawal': 'Levantamento',
                 'investment': 'Investimento',
-                'investment_return': 'Retorno de Investimento'
+                'investment_return': 'Retorno de Investimento',
+                'transfer': 'Transferência'
             };
             
             return typeNames[type] || type;
@@ -1241,16 +2053,24 @@
                 const activeInvestment = userActiveInvestments.find(inv => inv.id === investment.id);
                 const hasActive = !!activeInvestment;
                 
+                // Cor do badge baseada na categoria
+                const badgeColor = investment.color || '#4caf50';
+                
                 investmentCard.innerHTML = `
-                    <h3>${investment.name} <span class="profit-badge">+${investment.profitPercentage}%</span></h3>
+                    <h3>
+                        ${investment.name}
+                        <span class="profit-badge" style="background: linear-gradient(135deg, ${badgeColor}, ${darkenColor(badgeColor, 20)});">
+                            <i class="fas fa-chart-line"></i> +${investment.profitPercentage}%
+                        </span>
+                    </h3>
                     <div class="investment-details">
                         <div>
                             <span>Valor do Investimento:</span>
-                            <span>R$ ${investment.amount.toFixed(2)}</span>
+                            <span style="color: #4fc3f7; font-weight: 700;">R$ ${investment.amount.toFixed(2)}</span>
                         </div>
                         <div>
                             <span>Retorno Total:</span>
-                            <span>R$ ${investment.return.toFixed(2)}</span>
+                            <span style="color: #4caf50; font-weight: 700;">R$ ${investment.return.toFixed(2)}</span>
                         </div>
                         <div>
                             <span>Duração:</span>
@@ -1258,16 +2078,22 @@
                         </div>
                         <div>
                             <span>Ganho por hora:</span>
-                            <span>R$ ${investment.hourlyProfit.toFixed(2)}</span>
+                            <span style="color: #ff9800; font-weight: 700;">R$ ${investment.hourlyProfit.toFixed(2)}</span>
+                        </div>
+                        <div>
+                            <span>Retorno para carteira:</span>
+                            <span style="color: #9c27b0; font-weight: 700;">Automático</span>
                         </div>
                         <div>
                             <span>Status:</span>
-                            <span>${invested ? (hasActive ? 'Ativo' : 'Concluído') : 'Disponível'}</span>
+                            <span class="${invested ? (hasActive ? 'status-active' : 'status-completed') : 'status-pending'}">
+                                ${invested ? (hasActive ? 'Ativo' : 'Concluído') : 'Disponível'}
+                            </span>
                         </div>
                     </div>
                     <button class="investment-btn ${invested ? (hasActive ? 'completing-btn' : 'invested-btn') : 'invest-btn'}" 
                             data-id="${investment.id}" ${invested ? 'disabled' : ''}>
-                        ${invested ? (hasActive ? '<i class="fas fa-clock"></i> Em Andamento' : '<i class="fas fa-check"></i> Concluído') : '<i class="fas fa-coins"></i> Investir'}
+                        ${invested ? (hasActive ? '<i class="fas fa-clock"></i> Em Andamento' : '<i class="fas fa-check-circle"></i> Concluído') : '<i class="fas fa-play-circle"></i> Começar a Investir'}
                     </button>
                 `;
                 
@@ -1283,12 +2109,33 @@
             });
         }
 
+        // Função para escurecer cor (usada no badge)
+        function darkenColor(color, percent) {
+            let r = parseInt(color.substring(1,3), 16);
+            let g = parseInt(color.substring(3,5), 16);
+            let b = parseInt(color.substring(5,7), 16);
+            
+            r = Math.floor(r * (100 - percent) / 100);
+            g = Math.floor(g * (100 - percent) / 100);
+            b = Math.floor(b * (100 - percent) / 100);
+            
+            return `#${r.toString(16).padStart(2,'0')}${g.toString(16).padStart(2,'0')}${b.toString(16).padStart(2,'0')}`;
+        }
+
         // Renderizar investimentos ativos
         function renderActiveInvestments() {
             activeInvestmentsList.innerHTML = '';
             
             if (userActiveInvestments.length === 0) {
-                activeInvestmentsList.innerHTML = '<p style="text-align: center; opacity: 0.7;">Nenhum investimento ativo no momento.</p>';
+                activeInvestmentsList.innerHTML = `
+                    <div style="text-align: center; padding: 50px 20px;">
+                        <i class="fas fa-chart-line" style="font-size: 48px; color: rgba(79, 195, 247, 0.3); margin-bottom: 20px;"></i>
+                        <p style="opacity: 0.7; font-size: 16px; line-height: 1.6;">
+                            Nenhum investimento ativo no momento.<br>
+                            Escolha um plano na aba "Investir" para começar!
+                        </p>
+                    </div>
+                `;
                 return;
             }
             
@@ -1317,28 +2164,42 @@
                 const accumulatedReturn = hoursElapsed * investment.hourlyProfit;
                 const totalProfit = investment.return - investment.amount;
                 
+                // Cor baseada na categoria
+                const badgeColor = investment.color || '#4caf50';
+                
                 activeItem.innerHTML = `
                     <div class="active-investment-header">
-                        <span class="active-investment-type">${investment.name} <span class="profit-badge">+${investment.profitPercentage}%</span></span>
-                        <span class="active-investment-date">Iniciado: ${investedAt.toLocaleDateString('pt-PT')}</span>
+                        <span class="active-investment-type">
+                            ${investment.name}
+                            <span class="profit-badge" style="background: linear-gradient(135deg, ${badgeColor}, ${darkenColor(badgeColor, 20)});">
+                                +${investment.profitPercentage}%
+                            </span>
+                            <span class="real-time-counter">
+                                <span class="pulse-dot"></span>
+                                AO VIVO
+                            </span>
+                        </span>
+                        <span class="active-investment-date">
+                            <i class="far fa-calendar"></i> ${investedAt.toLocaleDateString('pt-PT')}
+                        </span>
                     </div>
                     <div class="active-investment-details">
-                        <div style="margin-bottom: 10px;">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                                <span>Investido:</span>
-                                <span>R$ ${investment.amount.toFixed(2)}</span>
+                        <div style="margin-bottom: 15px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span><i class="fas fa-coins" style="color: #4fc3f7;"></i> Investido:</span>
+                                <span style="color: #4fc3f7; font-weight: 700;">R$ ${investment.amount.toFixed(2)}</span>
                             </div>
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                                <span>Retorno total:</span>
-                                <span>R$ ${investment.return.toFixed(2)}</span>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span><i class="fas fa-chart-line" style="color: #4caf50;"></i> Retorno total:</span>
+                                <span style="color: #4caf50; font-weight: 700;">R$ ${investment.return.toFixed(2)}</span>
                             </div>
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                                <span>Lucro total:</span>
-                                <span style="color: #4caf50;">+ R$ ${totalProfit.toFixed(2)}</span>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span><i class="fas fa-money-bill-wave" style="color: #ff9800;"></i> Lucro total:</span>
+                                <span style="color: #ff9800; font-weight: 700;">+ R$ ${totalProfit.toFixed(2)}</span>
                             </div>
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                                <span>Retorno acumulado:</span>
-                                <span style="color: #4fc3f7;">R$ ${accumulatedReturn.toFixed(2)}</span>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span><i class="fas fa-piggy-bank" style="color: #9c27b0;"></i> Acumulado na carteira:</span>
+                                <span style="color: #9c27b0; font-weight: 700;">R$ ${accumulatedReturn.toFixed(2)}</span>
                             </div>
                         </div>
                         
@@ -1348,15 +2209,17 @@
                             </div>
                             <div class="progress-info">
                                 <span>${progressPercent.toFixed(1)}% concluído</span>
-                                <span>Tempo restante: ${hoursRemaining}h ${minutesRemaining}m ${secondsRemaining}s</span>
+                                <span><i class="far fa-clock"></i> ${hoursRemaining}h ${minutesRemaining}m ${secondsRemaining}s</span>
                             </div>
                         </div>
                         
                         <div class="countdown-timer">
-                            <i class="fas fa-clock"></i> ${hoursRemaining.toString().padStart(2, '0')}:${minutesRemaining.toString().padStart(2, '0')}:${secondsRemaining.toString().padStart(2, '0')}
+                            <i class="fas fa-clock"></i> 
+                            ${hoursRemaining.toString().padStart(2, '0')}:${minutesRemaining.toString().padStart(2, '0')}:${secondsRemaining.toString().padStart(2, '0')}
                         </div>
                     </div>
                     <div class="active-investment-amount">
+                        <i class="fas fa-bolt" style="color: #ffeb3b;"></i> 
                         Ganho por hora: R$ ${investment.hourlyProfit.toFixed(2)}
                     </div>
                 `;
@@ -1373,6 +2236,9 @@
             userActiveInvestments.forEach(investment => {
                 startInvestmentTimer(investment);
             });
+            
+            // Iniciar atualização em tempo real da carteira
+            startWalletUpdates();
         }
 
         // Iniciar timer para um investimento específico
@@ -1401,6 +2267,53 @@
             }, 1000);
         }
 
+        // NOVA: Iniciar atualizações em tempo real da carteira
+        function startWalletUpdates() {
+            if (walletUpdateInterval) {
+                clearInterval(walletUpdateInterval);
+            }
+            
+            // Atualizar a carteira a cada segundo (para simular tempo real)
+            walletUpdateInterval = setInterval(() => {
+                let hourlyEarnings = calculateHourlyEarnings();
+                if (hourlyEarnings > 0) {
+                    // Adicionar uma pequena fração dos ganhos por hora a cada segundo
+                    const secondsInHour = 3600;
+                    const earningsPerSecond = hourlyEarnings / secondsInHour;
+                    investmentWallet += earningsPerSecond;
+                    
+                    // Atualizar interface
+                    updateInvestmentWallet();
+                    updateUserData();
+                }
+            }, 1000);
+        }
+
+        // NOVA: Iniciar atualizações em tempo real gerais
+        function startRealTimeUpdates() {
+            if (realTimeUpdateInterval) {
+                clearInterval(realTimeUpdateInterval);
+            }
+            
+            // Atualizar contagem e informações a cada 5 segundos
+            realTimeUpdateInterval = setInterval(() => {
+                updateActiveCount();
+                updateInvestmentWallet();
+            }, 5000);
+        }
+
+        // NOVA: Parar atualizações em tempo real
+        function stopRealTimeUpdates() {
+            if (walletUpdateInterval) {
+                clearInterval(walletUpdateInterval);
+                walletUpdateInterval = null;
+            }
+            if (realTimeUpdateInterval) {
+                clearInterval(realTimeUpdateInterval);
+                realTimeUpdateInterval = null;
+            }
+        }
+
         // Parar todos os timers
         function stopAllInvestmentTimers() {
             Object.values(investmentTimers).forEach(timer => {
@@ -1408,6 +2321,7 @@
                 clearInterval(timer);
             });
             investmentTimers = {};
+            stopRealTimeUpdates();
         }
 
         // Completar investimento (quando o tempo acaba)
@@ -1418,17 +2332,20 @@
                 userActiveInvestments.splice(investmentIndex, 1);
             }
             
-            // Adicionar retorno ao saldo
-            userBalance += investment.return;
+            // Adicionar retorno TOTAL à carteira de investimentos
+            investmentWallet += investment.return;
             
             // Adicionar ao histórico
             addHistoryEntry('investment_return', investment.return, `Retorno do investimento: ${investment.name}`, 'completed', {
-                investmentId: investment.id
+                investmentId: investment.id,
+                investmentName: investment.name
             });
             
             // Atualizar interface e dados
             updateUserData();
             updateBalance();
+            updateInvestmentWallet();
+            updateActiveCount();
             renderInvestments();
             
             // Parar timers deste investimento
@@ -1443,7 +2360,7 @@
             
             // Notificar usuário
             if (document.visibilityState === 'visible') {
-                alert(` Parabéns! Seu investimento "${investment.name}" foi concluído! Você recebeu R$ ${investment.return.toFixed(2)} de retorno.`);
+                alert(` Parabéns! Seu investimento "${investment.name}" foi concluído! R$ ${investment.return.toFixed(2)} foram adicionados à sua carteira de investimentos.`);
             }
             
             // Se estiver na aba de investimentos ativos, atualizar a lista
@@ -1455,11 +2372,11 @@
         // Realizar investimento
         function makeInvestment(investment) {
             if (userBalance < investment.amount) {
-                alert(`Saldo insuficiente. Você precisa de R$ ${investment.amount.toFixed(2)} para este investimento.`);
+                alert(`❌ Saldo insuficiente. Você precisa de R$ ${investment.amount.toFixed(2)} para este investimento.`);
                 return;
             }
             
-            if (confirm(`Deseja investir R$ ${investment.amount.toFixed(2)} no plano ${investment.name} por ${investment.durationHours} horas?`)) {
+            if (confirm(` Deseja investir R$ ${investment.amount.toFixed(2)} no plano ${investment.name} por ${investment.durationHours} horas?\n\n Retorno total: R$ ${investment.return.toFixed(2)} (+${investment.profitPercentage}%)\n⏰ Duração: ${investment.durationHours} horas\n Ganho por hora: R$ ${investment.hourlyProfit.toFixed(2)}`)) {
                 // Deduzir valor do saldo
                 userBalance -= investment.amount;
                 
@@ -1479,7 +2396,8 @@
                 
                 // Adicionar ao histórico
                 addHistoryEntry('investment', -investment.amount, `Investimento: ${investment.name} (${investment.durationHours} horas)`, 'completed', {
-                    investmentId: investment.id
+                    investmentId: investment.id,
+                    investmentName: investment.name
                 });
                 
                 // Iniciar timer para este investimento
@@ -1488,10 +2406,12 @@
                 // Atualizar interface e dados
                 updateUserData();
                 updateBalance();
+                updateInvestmentWallet();
+                updateActiveCount();
                 renderInvestments();
                 renderActiveInvestments();
                 
-                alert(`Investimento realizado com sucesso! Seu retorno de R$ ${investment.return.toFixed(2)} será creditado em ${investment.durationHours} horas.`);
+                alert(`✅ Investimento realizado com sucesso!\n\n ${investment.name} ativado por ${investment.durationHours} horas.\n Seu retorno de R$ ${investment.return.toFixed(2)} será acumulado na sua carteira de investimentos.`);
             }
         }
 
@@ -1529,32 +2449,32 @@
             const transactionMessage = document.getElementById('transaction-message').value;
             
             if (!amount || amount < 10) {
-                alert('O valor mínimo para depósito é R$ 10,00.');
+                alert('❌ O valor mínimo para depósito é R$ 10,00.');
                 return;
             }
             
             if (!method) {
-                alert('Por favor, selecione o método de pagamento.');
+                alert('❌ Por favor, selecione o método de pagamento.');
                 return;
             }
             
             if (!paymentNumber) {
-                alert('Por favor, insira o número de pagamento.');
+                alert('❌ Por favor, insira o número de pagamento.');
                 return;
             }
             
             if (!commercialCode) {
-                alert('Por favor, insira o código comercial.');
+                alert('❌ Por favor, insira o código comercial.');
                 return;
             }
             
             if (!transactionId) {
-                alert('Por favor, insira o ID da transação.');
+                alert('❌ Por favor, insira o ID da transação.');
                 return;
             }
             
             if (!transactionMessage) {
-                alert('Por favor, insira a mensagem da transação.');
+                alert('❌ Por favor, insira a mensagem da transação.');
                 return;
             }
             
@@ -1607,27 +2527,27 @@
             const name = document.getElementById('withdraw-name').value;
             
             if (!amount || amount < 10) {
-                alert('O valor mínimo para levantamento é R$ 10,00.');
+                alert('❌ O valor mínimo para levantamento é R$ 10,00.');
                 return;
             }
             
             if (amount > userBalance) {
-                alert('Saldo insuficiente para este levantamento.');
+                alert('❌ Saldo insuficiente para este levantamento.');
                 return;
             }
             
             if (!method) {
-                alert('Por favor, selecione o método de recebimento.');
+                alert('❌ Por favor, selecione o método de recebimento.');
                 return;
             }
             
             if (!phone) {
-                alert('Por favor, insira o número/IBAN para recebimento.');
+                alert('❌ Por favor, insira o número/IBAN para recebimento.');
                 return;
             }
             
             if (!name) {
-                alert('Por favor, insira o nome do titular.');
+                alert('❌ Por favor, insira o nome do titular.');
                 return;
             }
             
@@ -1672,7 +2592,7 @@
         // Abrir WhatsApp
         document.getElementById('open-whatsapp-btn').addEventListener('click', () => {
             const phoneNumber = "+258878332095";
-            const userMessage = document.getElementById('whatsapp-message').value || "Olá, preciso de ajuda com a plataforma InvestSmart.";
+            const userMessage = document.getElementById('whatsapp-message').value || "Olá, preciso de ajuda com a plataforma FastMoney Pro.";
             const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(userMessage)}`;
             window.open(whatsappURL, '_blank');
             whatsappModal.style.display = 'none';
@@ -1701,6 +2621,7 @@
                 loadUserData();
                 showDashboard();
                 startInvestmentTimers();
+                startRealTimeUpdates();
             } else {
                 showLogin();
             }
